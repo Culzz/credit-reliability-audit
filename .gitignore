@@ -1,0 +1,34 @@
+# Environment
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+python-version
+
+# Data (never commit data or credentials)
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+*.csv.gz
+*.parquet
+
+# Credentials
+.kaggle/
+kaggle.json
+.env
+.env.*
+
+# Experiments / artefacts
+mlruns/
+mlartifacts/
+*.pkl
+*.joblib
+*.model
+
+# Generated interim output (summary tables and manuscript figures ARE committed)
+reports/interim_results/*
+
+# OS/editor noise
+Thumbs.db
+.DS_Store

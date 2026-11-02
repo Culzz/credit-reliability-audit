@@ -1,0 +1,14 @@
+# experiments/experiment_registry.yaml
+# Every experiment: id, RQ, config, data version, model version, status, output
+# location, reproduction command (blueprint §15.3). Filled from Phase 6 onward.
+
+registry_version: 0.1.0
+experiments: []
+#  - id: <family>-<config_id>-s<seed>-<train_end>
+#    research_question: RQ1|RQ2|RQ3|RQ4|sensitivity
+#    config_hash: sha256:<canonical yaml>
+#    data_version: <raw sha-256, see data/README.md>
+#    git_sha: <commit>
+#    status: PLANNED|RUNNING|DONE|INVALID
+#    outputs: []
+#    reproduce: <command>
