@@ -1,0 +1,17 @@
+statistics:
+  bootstrap:
+    B: 1000                 # default per metric per cell
+    B_headline: 2000        # headline CIs
+    method: percentile
+    paired_where_comparing: true
+  rq4:
+    unit_of_analysis: "configuration (family, config_id, seed)"
+    primary_estimate: "within-cohort Spearman rho averaged over cohorts"
+    cluster_bootstrap_by: configuration
+    B: 2000
+    equivalence_region_spearman: {low: -0.3, high: 0.3}   # CI inside = negligible, outside = meaningful, else inconclusive
+    mixed_model: "reliability ~ AUC_centred + family + cohort + (1|config), if sample supports it"
+    reasonable_config_definition: TO_FIX_AT_GATE_5
+  multiplicity: Holm
+  confirmatory_family: ["H1a", "H1c", "H2c", "H3a", "rq4:flex.auc_vs_ece", "rq4:flex.auc_vs_slope_dev", "rq4:flex.auc_vs_expl_instability", "rq4:flex.auc_vs_flip_rate"]
+  degradation_reference: validation

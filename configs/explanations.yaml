@@ -1,0 +1,19 @@
+explanations:
+  shap_scale: log-odds
+  background:
+    size: 1000                                   # PROPOSED
+    stratify_by: vintage
+    fixed_seed: 0
+    same_background_in_primary_comparisons: true # population differences must not conflate with reference change
+  explain_sample:
+    broad: 3000    # all configs
+    deep: 20000    # deep subset
+    fixed_seed: 0
+  stability_top_k: [5, 10, 15]
+  primary_top_k: 10
+  stability_bootstrap_resamples: 30
+  feature_groups:
+    method: "domain groups + clusters at absolute Spearman >= 0.8"
+    finalise_deadline: "Gate 5, before any explanation results are seen"
+    config_file: configs/feature_groups.yaml   # written by T5.4
+  noise_floor_rule: "difference counts as beyond noise only below the 2.5th percentile of the noise-floor distribution"

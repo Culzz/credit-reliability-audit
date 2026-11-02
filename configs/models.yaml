@@ -1,0 +1,12 @@
+models:
+  families: [logistic_regression, random_forest, xgboost, lightgbm]   # no others in main run
+  broad_sweep:
+    configs_per_family: 30        # includes deliberately weak and over-fitted
+    seeds_per_config: 1
+  deep_subset:
+    configs_per_family: 5         # at quantiles of validation AUC (min, 25th, 50th, 75th, max)
+    seeds_per_config: 20
+  headline_selection_metric: validation_log_loss   # never test data
+  class_weights: none            # main run; class-weight arm allowed only as sensitivity S7
+  resampling: none               # no SMOTE / rebalancing in the main run
+  stochastic_search_spaces: true # subsample and colsample_* < 1 so seeds give different models

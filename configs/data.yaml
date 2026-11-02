@@ -1,0 +1,16 @@
+data:
+  source: wordsforthewise/lending-club          # PI verifies at download
+  filename: accepted_2007_to_2018Q4.csv.gz
+  term_months: 36                               # main sample only
+  vintage_frequency: Q
+  snapshot_date: "2018-12-31"                   # PROPOSED; verify against data
+  max_unresolved_share: 0.01                    # PROPOSED; sensitivity S3 uses 0.02
+  min_populated_share: 0.90                     # PROPOSED schema-drift rule; per feature per vintage
+  target:
+    definition: "y = 1 if loan_status in default_statuses; y = 0 if in paid_statuses"
+    default_statuses: ["Charged Off", "Default"]   # exact strings verified in T3.1
+    paid_statuses: ["Fully Paid"]
+    excluded_unresolved: ["Current", "In Grace Period", "Late (16-30 days)", "Late (31-120 days)"]
+    legacy_policy: TO_DECIDE                    # "Does not meet the credit policy" handling; PI decides (T3.1)
+  identifiers_to_drop: ["id", "member_id", "url", "desc", "title", "zip_code"]
+  emp_title_addr_state: TO_DECIDE              # explicit documented decision required

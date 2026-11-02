@@ -1,0 +1,7 @@
+# Configs carry every PROPOSED parameter. No code may hard-code these values
+# (CONTEXT.md §4 rule 4, §6). Values are confirmed at Gate 4 and frozen at Gate 5.
+project:
+  name: credit-reliability-audit
+  protocol_version: pre-v1
+  parameter_status: PROPOSED   # until protocol/PROTOCOL_FROZEN exists
+  owner: Chima (GitHub: Culzz)

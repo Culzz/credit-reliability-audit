@@ -1,0 +1,17 @@
+calibration:
+  arms: [none, intercept, platt, isotonic]
+  label_delay_convention:            # PROPOSED (CONTEXT.md §6)
+    window_months: 12                # W: loans issued in the 12 months ending at S - a
+    age_lags_months: [0, 6, 12, 18, 24, 36]
+    lag_semantics:
+      "0": "oracle reference, not deployable"
+      "optimistic": "0 < a < 36; uses outcomes not fully observable in real time"
+      "realistic": "a >= 36; first fully observable lag for a 36-month loan"
+    static_arm: validation_window
+  infeasible_cell: "labelled INFEASIBLE and skipped, never weakened"
+  min_events:  {intercept: 200, platt: 200, isotonic: 500}    # PROPOSED
+  min_nonevents: {intercept: 200, platt: 200, isotonic: 500}
+  ece_bins: 15                     # adaptive equal-mass; sensitivity S5 uses 10/20/30, always beside slope and intercept
+  ece_bins_sensitivity: [10, 20, 30]
+  clip_epsilon: 1.0e-6             # clip p to [1e-6, 1-1e-6] before any logit
+  degradation_reference: validation

@@ -1,0 +1,12 @@
+decisions:
+  codes: {approve: 0, refer: 1, decline: 2}
+  policy: "approve if p < t_low; refer if t_low <= p < t_high; decline otherwise"
+  breakeven:
+    formula: "p_star = g / (g + L)"
+    loss_gain_ratios: [3, 5, 9]
+    primary: 5            # p* ~= 0.167
+  refer_band_half_width: 0.02          # t_low = p* - h, t_high = p* + h; PROPOSED
+  sensitivity_half_widths: [0.01, 0.04]
+  second_policy: "fixed approval rate, rate set from validation under the fixed-threshold policy"
+  null_draws: 1000                     # matched null for flip utility (CONTEXT.md §7)
+  utility_note: "stylised scenario quantities on funded loans only, not observed LendingClub profits; refer moves excluded from primary utility and reported separately"
