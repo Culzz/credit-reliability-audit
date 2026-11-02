@@ -1,7 +1,9 @@
 # notes/STATUS.md — working status (update at the end of every work session)
 
 ## Current phase
-Phase 0 (infrastructure, working toward Gate 0). Next: Phase 1 literature review; Phase 2 data acquisition once the Kaggle download completes.
+Phase 0 closing (Gate 0 awaits the Zotero collection only). Phase 1 literature
+review started (matrix seeds + 2 competitor notes). Phase 2 data acquisition
+complete through T2.4 (raw gz → Parquet → profile tables).
 
 ## Responsibilities on this project
 - Implementation and testing: dataset access, features, models, metrics, explanations, decision code, run scripts (Builder duties).
@@ -15,20 +17,59 @@ Every substantive change is reviewed by the other collaborator before it counts 
 - Eight PROPOSED configuration files from the parameter table (`configs/*.yaml`); nothing hard-coded in code.
 - Dataset access guard `src/data/guard.py` + split loader `src/data/loader.py`; **18/18 tests passing**, ruff clean.
 - Python 3.11.9 environment locked with uv: 209 packages in `uv.lock` (pandas, sklearn, xgboost, lightgbm, shap, statsmodels, duckdb, pyarrow, mlflow, ...).
-- `agents/` directory renamed to `notes/` (three logging templates re-worded; obligations unchanged).
+- Logging directory renamed to `notes/` (three logging templates re-worded; obligations unchanged).
 - Kaggle dataset verified with API file listing (`accepted_2007_to_2018Q4.csv.gz`, 392,582,231 bytes — matches the blueprint reference); accepted-loans file downloaded.
 
-## Gate 0 evidence so far
-Repo pushed · environment locks · tests pass · access-guard test proven. Still missing for sign-off: MLflow experiments registered (T0.4), Zotero collection + `lit/matrix.csv` (T0.8), `RESEARCH_RISKS.md` completed with owners and triggers (T0.7), then my own sign-off here.
+## Gate 0 evidence
+Repo pushed · environment locked · 18/18 tests pass · access-guard test proven ·
+ten MLflow experiment families registered locally (ids 1–10; table identical to
+the plan's list — file store `mlflow.db`, gitignored) · risks register completed
+with owners and triggers. Still missing for my sign-off: the Zotero collection
+(T0.8, desktop app work), then Gate 0 can close.
+
+## Session 2, 2 Nov 2026 (afternoon)
+- T0.4 done — ten experiment families in MLflow: data-feasibility,
+  baseline-models, temporal-evaluation, calibration, label-delay,
+  explanation-stability, explanation-fidelity, decision-stability,
+  auc-reliability, sensitivity-analysis.
+- T0.7 done — `protocol/RESEARCH_RISKS.md` filled: 12 risks, owner + trigger each.
+- T0.8 partially — `lit/matrix.csv` (22 columns, 15 seed rows: 2 competitors +
+  13 anchors), `lit/search_plan.md` with the 11 query strings and priority queue.
+  Zotero pending (desktop app). All pre-Gate-1 entries `read_status=UNKNOWN`
+  or `abstract`; expands to 40–60 verified papers before Gate 1.
+- T1.1 started — both closest competitors verified on their arXiv pages:
+  John 2025 (2511.03807, submitted 5 Nov 2025, CC BY 4.0) and Nayak 2026
+  (2603.06733, submitted 6 Mar 2026, CC BY-NC-ND). Reading notes written at
+  abstract level; **full-text reads are REQUIRED before Gate 1**.
+- T2.2/T2.3/T2.4 done — dataset downloaded (checksum in `data/README.md`),
+  converted to `data/interim/accepted_raw.parquet`, profiled into the five
+  `reports/tables/*.csv` summary tables.
+
+## Dataset facts from the profile (2 Nov 2026)
+- 2,260,701 CSV rows read; 33 summary/footer text rows removed; **2,260,668
+  loans × 151 columns**, 0 duplicate ids.
+- `issue_d` range: **Apr-2008 … Sep-2018, 139 distinct months.** Observation to
+  verify against the Kaggle description: no 2007 loans appear in the accepted
+  file — the vintage grid (E-12) and cohort feasibility for 2007Q1 need this
+  checked before cohort design (T3.4).
+- `loan_status`: Fully Paid 1,076,751 · Current 878,317 · Charged Off 268,559 ·
+  Late(31-120) 21,467 · In Grace 8,436 · Late(16-30) 4,349 · legacy-policy
+  Fully Paid 1,988 · legacy-policy Charged Off 761 · Default 40. The legacy
+  "Does not meet the credit policy" variants exist → T3.1 decision is live.
+- `term`: 36 months 1,609,754 · 60 months 650,914 (main sample = 36 m only).
+- Fully-null column: `member_id` (100%). ~99.5% null: all hardship columns and
+  `orig_projected_additional_accrued_interest` → keep out of the feature audit
+  unless a risk subsystem needs hardship flags.
 
 ## Next
-- T0.4 register the ten MLflow experiments.
-- T0.7 finish the research-risks register.
-- T1.1 literature search plan (`docs/blueprint.md` §B-1); first reading notes on the two closest competitor papers; `lit/matrix.csv` with the 22 columns (§B-2).
-- T2.1–T2.3 provenance record (SHA-256, licence notes in `data/README.md`), Parquet conversion, dataset profile.
+- T3.1: legacy `loan_status` decision (needs my call, table above gives counts).
+- T3.2–T3.4: column audit against the data dictionary, 36-month maturity
+  analysis, vintage grid with the Apr-2008 finding.
+- T1.2–T1.5: full-text reads of the two competitors + anchors; expand matrix.
+- Zotero collection (T0.8 remainder, desktop app).
 
 ## Blockers
-- Kaggle API token expires per Kaggle settings; used only in-process for the download, never stored in the repository.
-- Legacy `loan_status` handling ("Does not meet the credit policy" variants) — decide at T3.1.
+- Zotero: needs me to install/import on the desktop before the collection exists.
+- Legacy `loan_status` handling — decide at T3.1 (counts now known).
 - `emp_title` / `addr_state` treatment — decide with the column audit.
 - Everything in `configs/*.yaml` stays PROPOSED until Gates 4–5.
