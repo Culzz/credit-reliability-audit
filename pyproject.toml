@@ -1,0 +1,37 @@
+[project]
+name = "credit-reliability-audit"
+version = "0.1.0"
+description = "Reproducible empirical research on calibration, explanation reliability and decision stability of credit-risk ML models under temporal distribution shift"
+readme = "README.md"
+authors = [{ name = "Chima (Culzz)" }]
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "xgboost",
+    "lightgbm",
+    "shap",
+    "statsmodels",
+    "duckdb",
+    "pyarrow",
+    "matplotlib",
+    "seaborn",
+    "pyyaml",
+    "tqdm",
+    "joblib",
+    "mlflow",
+    "kaggle",
+]
+
+[dependency-groups]
+dev = ["pytest", "ruff", "jupyter", "ipykernel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
