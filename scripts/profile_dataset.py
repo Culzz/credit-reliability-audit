@@ -36,8 +36,8 @@ def main() -> None:
         f"""
         SELECT count(*) AS n_rows,
                (SELECT count(*) FROM (SELECT id FROM {t} GROUP BY id HAVING count(*) > 1)) AS dup_ids,
-               (SELECT count(DISTINCT issue_d) FROM {t}) AS n_issue_months,
-               min(issue_d) AS earliest, max(issue_d) AS latest
+               (SELECT count(DISTINCT strptime(issue_d, '%b-%Y')) FROM {t}) AS n_issue_months,
+               min(strptime(issue_d, '%b-%Y')) AS earliest, max(strptime(issue_d, '%b-%Y')) AS latest
         FROM {t}
         """
     ).fetchone()

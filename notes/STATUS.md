@@ -44,14 +44,22 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
 - T2.2/T2.3/T2.4 done — dataset downloaded (checksum in `data/README.md`),
   converted to `data/interim/accepted_raw.parquet`, profiled into the five
   `reports/tables/*.csv` summary tables.
+- T3.1 inventory done (counts table); T3.2/T3.3 modules implemented and tested
+  (`src/data/prepare.py`, 26 tests); T3.4 maturity table built
+  (`reports/tables/vintage_maturity.csv`, logged to MLflow data-feasibility):
+  36-month loans 1,609,754; resolved 1,023,206; **mature window with
+  U_q < 1%: 2007Q2 – 2015Q4 (34 quarters)**, all quarterly issues through
+  2015Q4 complete inside the 2018-12-31 snapshot. Legacy prefix exists only
+  through 2010 vintages (as expected); proposal D-3 open for PI confirmation.
 
 ## Dataset facts from the profile (2 Nov 2026)
 - 2,260,701 CSV rows read; 33 summary/footer text rows removed; **2,260,668
   loans × 151 columns**, 0 duplicate ids.
-- `issue_d` range: **Apr-2008 … Sep-2018, 139 distinct months.** Observation to
-  verify against the Kaggle description: no 2007 loans appear in the accepted
-  file — the vintage grid (E-12) and cohort feasibility for 2007Q1 need this
-  checked before cohort design (T3.4).
+- `issue_d` range: **Jun-2007 … Dec-2018, 139 distinct months.** An earlier
+  profile printout said "Apr-2008": that was string `min()/max()` on
+  'Mmm-YYYY' text, not dates; fixed by parsing in the profile script (flagged
+  by the June-2007 vintages in the T3.4 maturity run). Distinct-month count
+  unchanged.
 - `loan_status`: Fully Paid 1,076,751 · Current 878,317 · Charged Off 268,559 ·
   Late(31-120) 21,467 · In Grace 8,436 · Late(16-30) 4,349 · legacy-policy
   Fully Paid 1,988 · legacy-policy Charged Off 761 · Default 40. The legacy
@@ -62,9 +70,11 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   unless a risk subsystem needs hardship flags.
 
 ## Next
-- T3.1: legacy `loan_status` decision (needs my call, table above gives counts).
-- T3.2–T3.4: column audit against the data dictionary, 36-month maturity
-  analysis, vintage grid with the Apr-2008 finding.
+- T3.5: column audit (`data/column_audit.csv`) — per-column missing share,
+  per-vintage missing range, availability evidence against the data
+  dictionary; needs my dictionary cross-check for availability fields.
+- T3.6–T3.7: feature engineering pipeline + schema-drift drop rule.
+- D-3 PI decision: legacy-status merge (recommendation ready, needs confirm).
 - T1.2–T1.5: full-text reads of the two competitors + anchors; expand matrix.
 - Zotero collection (T0.8 remainder, desktop app).
 

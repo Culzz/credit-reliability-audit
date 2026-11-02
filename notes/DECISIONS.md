@@ -11,3 +11,30 @@ Context: the plan's collaboration-logging directory needed a neutral name and wo
 Options: keep the original logging-directory name vs rename to `notes/` and rewrite the three templates.
 Decision: renamed to `notes/` (`STATUS.md`, `DECISIONS.md`, `REVIEWS.md`); same review obligations, same templates, no changes to the obligations themselves.
 Consequence: file paths in `CONTEXT.md` §8 and `PLAN.md` updated to match; future references use `notes/`.
+
+### D-3 2026-11-02 Legacy `loan_status` variants (T3.1) — collaborator-proposed, PI to confirm
+
+Context: the inventory (`reports/tables/loan_status_counts.csv`) shows nine exact
+strings; two are legacy policy-exception texts recorded identically by value
+except for the prefix: `Does not meet the credit policy. Status:Fully Paid`
+(1,988) and `Does not meet the credit policy. Status:Charged Off` (761); 2,749
+of 2,260,668 loans (0.12%) in total. There is no `Issued` status in the file.
+
+Options:
+1. Merge legacy variants into their underlying status (Fully Paid / Charged
+   Off) and include.
+2. Drop all 2,749 legacy loans.
+3. Keep as separate classes (do nothing).
+
+Decision (proposed by the Builder, awaiting PI confirmation): Option 1 —
+treat legacy variants as their underlying status for the target; the prefix
+is a 2007–2009 credit-policy artefact, not an outcome difference, and 0.12%
+is too small to justify losing rows this early in the panel. Optionally run a
+sensitivity check S-legacy: exclude the 2,749 rows and re-check the RQ1
+headline deltas move by less than noise.
+
+Consequence (if confirmed): `build_target()` default `legacy="merge"`;
+`splits`/cohort feasibility tables unchanged; the five non-legacy unresolved
+statuses (`Current`, `In Grace Period`, `Late (16-30 days)`,
+`Late (31-120 days)`) remain excluded from the target, `Default` (40 loans,
+legacy-era only) counts as default per `configs/data.yaml`.
