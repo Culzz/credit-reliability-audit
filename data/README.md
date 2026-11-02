@@ -11,30 +11,31 @@
 | Platform | Kaggle |
 | Dataset | `wordsforthewise/lending-club` |
 | File | `accepted_2007_to_2018Q4.csv.gz` |
-| Dataset version at download | TO_RECORD |
-| Date accessed | TO_RECORD |
-| Source URL | TO_RECORD |
-| Dataset owner | Nathan George (`wordsforthewise`) — VERIFY on the page |
+| Dataset version at download | file creation date 2019-12-17 (see Kaggle file listing) |
+| Date accessed | 2026-11-02 |
+| Source URL | https://www.kaggle.com/datasets/wordsforthewise/lending-club |
+| Dataset owner | Nathan George (`wordsforthewise`) — verified via dataset file listing; confirm description page wording |
 
 ## Integrity
 
 | Field | Value |
 |---|---|
-| File size (bytes) | TO_RECORD |
-| SHA-256 | TO_RECORD (`Get-FileHash ... -Algorithm SHA256`) |
-| Rows after load (raw → parquet) | TO_RECORD |
-| Columns | TO_RECORD (≈151 expected; record any difference) |
+| File size (bytes) | 392,582,231 |
+| SHA-256 | `55C16F75120F897683F02E7AABCF080D0E4A20C4832FEB1D592CFA941BD62A2D` |
+| Rows after load (raw → parquet) | TO_RECORD (profile stage) |
+| Columns | TO_RECORD (151 expected; record any difference) |
 
 ## Licence & terms
 
 | Field | Value |
 |---|---|
-| Kaggle licence metadata shown at download | TO_RECORD (community listing may show CC0) |
-| Underlying LendingClub terms reviewed | TO_RECORD |
-| Redistributable derived data? | TO_DECIDE — if unclear, do NOT publish derived data |
+| Kaggle licence metadata shown at download | `License(s): CC0-1.0` (as returned by the Kaggle API at download, 2026-11-02) |
+| Underlying LendingClub terms reviewed | PENDING — inspect the dataset description page before publishing anything derived |
+| Redistributable derived data? | PENDING — if unclear at release, do NOT publish derived data; publish code + summary statistics only |
 
 Reference counts (2.26 M rows × 151 cols, ~1.68 GB uncompressed, ~393 MB
-gzipped) are community-reported expectations to check against, not guarantees.
+gzipped) were used as expectations to check against at the profiling step;
+they are not guarantees.
 
 ## Transformations
 
