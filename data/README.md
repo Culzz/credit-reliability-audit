@@ -22,8 +22,10 @@
 |---|---|
 | File size (bytes) | 392,582,231 |
 | SHA-256 | `55C16F75120F897683F02E7AABCF080D0E4A20C4832FEB1D592CFA941BD62A2D` |
-| Rows after load (raw → parquet) | TO_RECORD (profile stage) |
-| Columns | TO_RECORD (151 expected; record any difference) |
+| Rows read from CSV | 2,260,701 |
+| Non-loan footer rows removed (non-numeric `id`) | 33 |
+| Parquet rows written | 2,260,668 |
+| Columns | 151 |
 
 ## Licence & terms
 
@@ -40,5 +42,6 @@ they are not guarantees.
 ## Transformations
 
 1. Parquet conversion via DuckDB with footer-row removal by numeric-`id` check
-   (T2.3) — rows removed: TO_RECORD.
+   (T2.3) — output `data/interim/accepted_raw.parquet` (ZSTD compression),
+   33 of 2,260,701 rows removed.
 2. Everything downstream is recorded in `notes/DECISIONS.md` and scripts.
