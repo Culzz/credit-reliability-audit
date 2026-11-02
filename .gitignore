@@ -32,3 +32,5 @@ reports/interim_results/*
 # OS/editor noise
 Thumbs.db
 .DS_Store
+mlflow.db
+mlartifacts/
