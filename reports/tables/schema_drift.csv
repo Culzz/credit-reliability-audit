@@ -1,0 +1,25 @@
+feature,min_populated_share,max_populated_share,n_failing_vintages,failing_vintages,decision,reason
+acc_now_delinq,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+annual_inc,0.958333,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+application_type,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+delinq_2yrs,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+delinq_amnt,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+dti,0.999977,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+earliest_cr_line,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+emp_length,0.927193,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+fico_range_high,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+fico_range_low,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+home_ownership,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+initial_list_status,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+inq_last_6mths,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+loan_amnt,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+mths_since_last_delinq,0.125,1.0,33,2007Q2;2008Q1;2008Q2;2008Q3;2008Q4;2009Q1;2009Q2;2009Q3;2009Q4;2010Q1;2010Q2;2010Q3;2010Q4;2011Q1;2011Q2;2011Q3;2011Q4;2012Q1;2012Q2;2012Q3;2012Q4;2013Q1;2013Q2;2013Q3;2013Q4;2014Q1;2014Q2;2014Q3;2014Q4;2015Q1;2015Q2;2015Q3;2015Q4,DROP,populated below 0.9 in 33 vintage(s) of the maturity window
+mths_since_last_major_derog,0.0,0.303918,35,2007Q2;2007Q3;2007Q4;2008Q1;2008Q2;2008Q3;2008Q4;2009Q1;2009Q2;2009Q3;2009Q4;2010Q1;2010Q2;2010Q3;2010Q4;2011Q1;2011Q2;2011Q3;2011Q4;2012Q1;2012Q2;2012Q3;2012Q4;2013Q1;2013Q2;2013Q3;2013Q4;2014Q1;2014Q2;2014Q3;2014Q4;2015Q1;2015Q2;2015Q3;2015Q4,DROP,populated below 0.9 in 35 vintage(s) of the maturity window
+mths_since_last_record,0.024373,0.997429,34,2007Q2;2007Q3;2008Q1;2008Q2;2008Q3;2008Q4;2009Q1;2009Q2;2009Q3;2009Q4;2010Q1;2010Q2;2010Q3;2010Q4;2011Q1;2011Q2;2011Q3;2011Q4;2012Q1;2012Q2;2012Q3;2012Q4;2013Q1;2013Q2;2013Q3;2013Q4;2014Q1;2014Q2;2014Q3;2014Q4;2015Q1;2015Q2;2015Q3;2015Q4,DROP,populated below 0.9 in 34 vintage(s) of the maturity window
+open_acc,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+pub_rec,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+purpose,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+revol_bal,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window
+revol_util,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+total_acc,0.125,1.0,1,2007Q2,DROP,populated below 0.9 in 1 vintage(s) of the maturity window
+verification_status,1.0,1.0,0,,KEEP,populated >= 0.9 in every vintage of the window

@@ -6,6 +6,11 @@ data:
   snapshot_date: "2018-12-31"                   # PROPOSED; verify against data
   max_unresolved_share: 0.01                    # PROPOSED; sensitivity S3 uses 0.02
   min_populated_share: 0.90                     # PROPOSED schema-drift rule; per feature per vintage
+  maturity_window: [2007Q2, 2015Q4]             # PROPOSED; computed in T3.4 (U_q < threshold)
+  plumbing_sample:
+    vintage_years: [2012, 2013]                 # pre-Gate-5 pipeline development only (T3.9)
+    share: 0.03                                 # stratified by vintage quarter
+    seed: 20180101                              # PROPOSED arbitrary constant; fixed before any run
   target:
     definition: "y = 1 if loan_status in default_statuses; y = 0 if in paid_statuses"
     default_statuses: ["Charged Off", "Default"]   # exact strings verified in T3.1

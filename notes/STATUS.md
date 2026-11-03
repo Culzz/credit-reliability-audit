@@ -48,7 +48,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   (`src/data/prepare.py`, 26 tests); T3.4 maturity table built
   (`reports/tables/vintage_maturity.csv`, logged to MLflow data-feasibility):
   36-month loans 1,609,754; resolved 1,023,206; **mature window with
-  U_q < 1%: 2007Q2 – 2015Q4 (34 quarters)**, all quarterly issues through
+  U_q < 1%: 2007Q2 – 2015Q4 (35 quarters)**, all quarterly issues through
   2015Q4 complete inside the 2018-12-31 snapshot. Legacy prefix exists only
   through 2010 vintages (as expected); proposal D-3 open for PI confirmation.
 
@@ -90,19 +90,30 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   `funded_amnt*` parked as SENSITIVITY_ONLY with uncertain evidence — the
   PI reviews at protocol freeze (D-4 candidate).
 
+- T3.6–T3.10 done in one session — `src/features/build.py` (audited-source
+  guard, credit age, ordinal/cleaning, one-hot, missingness flags; synthetic
+  tests), `scripts/check_schema_drift.py` → `reports/tables/schema_drift.csv`
+  (12 of 24 KEEP features dropped by the ≥0.90 rule; 9 fail only in the
+  2007Q2 micro-vintage; 3 months-since-event fields fail ~everywhere — D-5
+  proposal for the PI), `tests/test_leakage.py` (41 tests total green),
+  `scripts/build_plumbing_sample.py` (3% of 2012–2013 by vintage, fixed
+  seed; 143,892 → 4,317 rows, smoke-transformed to 52 engineered features),
+  `protocol/GATE3.md` drafted (PROPOSED). Decisions D-4/D-5 logged for PI.
+
 ## Next
-- T3.6–T3.7: feature engineering pipeline (credit age from earliest_cr_line −
-  issue_d, utilisation numeric, emp_length encoding, missingness indicators;
-  no issue_d as feature) + schema-drift drop rule at the ≥0.90 populated
-  threshold, with synthetic tests.
-- T3.9 plumbing sample (3% of 2012–2013, fixed seed); T3.10 GATE3.md draft.
+- T4.1+: Phase 4 baseline pipeline — load the plumbing sample through
+  `src/data/loader.py`, train the baseline logistic/GBM stack, run the
+  calibration and stability audit machinery on it (all development only on
+  the plumbing sample before Gate 5).
 - T1.2–T1.5: full-text reads of John 2025 + Nayak 2026 (arXiv HTML); verify
-  the two UNKNOWN URLs; expand matrix toward 40–60 papers.
-- D-3 PI decision: legacy-status merge (recommendation in DECISIONS.md).
+  the two UNKNOWN URLs (Lundberg & Lee 2017; D'Amour 2022); expand matrix
+  toward 40–60 papers.
+- D-3/D-5 PI decisions: legacy-status merge; 2008Q1 cohort start;
+  months-since-event field handling.
 - Zotero collection (T0.8 remainder, desktop app).
 
 ## Blockers
 - Zotero: needs the desktop install/import before the collection exists.
-- D-3 legacy-status merge and the SENSITIVITY_ONLY review (emp_title,
-  addr_state, disbursement_method, funded_amnt*) need PI sign-off.
+- D-3 legacy-status merge, D-4 sensitivity-parking review, D-5 drift-rule
+  outcomes need PI sign-off.
 - Everything in `configs/*.yaml` stays PROPOSED until Gates 4–5.
