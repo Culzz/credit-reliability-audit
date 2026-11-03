@@ -158,3 +158,39 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   Edelman & Thomas validation review, and further credit-scoring temporal
   work from `lit/search_plan.md`).
 
+## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
+
+- **T4.1** `scripts/cohort_feasibility.py` -> `reports/tables/cohort_feasibility.csv`
+  + 2 figures: per-vintage volume, resolution, default rate (Wilson CIs).
+  All mature cohorts 2009Q4-2015Q4 pass the 200/200 rule; 2016+ partially
+  unresolved; micro-vintages 2008Q2-2009Q3 fail the events rule.
+- **T4.2** `src/statistics/shift.py` (PSI/KS/SMD/JS/Wilson, pure functions)
+  + `tests/test_shift_stats.py` (18 synthetic tests, green) +
+  `scripts/build_mature_features.py` (audited-source 1.6M x 55 cache) +
+  `scripts/shift_measures.py` -> per-feature PSI/KS/SMD/missingness tables
+  (2013Q3-2018Q4 vs the training window), categorical JS, default-rate
+  shift with intervals, PSI heatmap figure. Findings: excluding the three
+  event-absence fields, candidate-window PSI stays <= 0.17; the strong
+  drifters are `pub_rec`, `revol_util_pct`, `initial_list_status`
+  (listing-channel switch, JS to 0.489).
+- **T4.3** `scripts/adversarial_validation.py`: features-only adversarial
+  AUC vs the training window rises 0.61 (2013Q3) -> 0.88 (2015Q4) and 0.95
+  by 2018Q4 (late-adopted bureau fields; schema-confounded) -> table + ROC
+  figure.
+- **T4.4** `scripts/concept_drift_strata.py`: within-stratum resolved
+  default-rate spreads up to 0.56 across vintages -> conditional rates move
+  beyond covariate shift; table + heatmap.
+- **T4.5** `scripts/label_delay_feasibility.py`: 49 cells (8 cohorts x lags
+  {0,6,12,18,24,36} + static arm) all FEASIBLE under 200/200; arms tagged
+  oracle/optimistic/realistic per CONTEXT Section 6.
+- **T4.6** `scripts/compute_pilot.py`: one config per family on the plumbing
+  sample; SHAP TreeExplainer ~= 12.9 s per 10k rows (500-row background),
+  bootstrap B=200 in 1.6 s (B=2000 ~= 16 s), recalibrators <= 0.4 s ->
+  `reports/tables/compute_pilot.csv`; caps written into GATE4 BEFORE freeze.
+- **T4.7** `protocol/GATE4.md` drafted (PROPOSED): test cohorts 2014Q1-2015Q4
+  proposed for freeze; windows chosen from descriptive evidence only; D-3,
+  D-4, D-5 and the compute caps presented for PI ratification.
+- Test suite 59 green incl. the new shift-statistics module; lint being
+  swept at commit time.
+
+

@@ -1,0 +1,9 @@
+task,detail,n_rows,seconds,peak_mb
+model_fit,logistic_regression,2538,0.103,301.4
+model_fit,random_forest,2538,2.494,306.4
+model_fit,xgboost,2538,2.415,316.4
+model_fit,lightgbm,2538,1.359,324.1
+shap_treeexplainer,"XGBoost, 500-row background, 500 rows explained",500,0.643,443.3
+bootstrap_auc,"LR validation predictions, B=200",355800,1.581,443.3
+platt_recalibration,"LR validation split, 50% calibration slice",889,0.367,443.3
+isotonic_recalibration,"LR validation split, 50% calibration slice",889,0.028,443.4
