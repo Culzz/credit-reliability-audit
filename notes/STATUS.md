@@ -142,8 +142,10 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   mortgage "cost of steering" paper). The Bracke et al. 2019 default-risk
   explainability paper was located and verified via Crossref instead (SSRN
   preprint, DOI 10.2139/ssrn.3435104; authors Bracke, Datta, Jung, Sen).
-- Eight verified rows appended to `lit/matrix.csv` - now **23 rows x 22
-  columns**, schema validated:
+- Eight verified rows appended to `lit/matrix.csv`, then two more verified
+  in the same session (Lessmann et al. 2015, EJOR 247:124-136;
+  Crook, Edelman & Thomas 2007, EJOR 183:1447-1465) - matrix stands at
+  **25 rows x 22 columns**, schema validated:
   Rudin 2019 (Nature Machine Intelligence), Goldstein et al. 2015 (JCGS,
   ICE), Sundararajan et al. 2017 (ICML, Integrated Gradients), Ribeiro et
   al. 2016 (KDD, LIME), Brown & Mues 2012 (ESWA, imbalanced credit
