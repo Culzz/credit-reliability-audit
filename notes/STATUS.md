@@ -175,6 +175,16 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   the Journal of Finance version is paywalled, no author-hosted PDF found
   via search. Needs PI-side access (library/alternate copy); matrix row
   stays at metadata level until then.
+- Phase 5 measurement machinery staged ahead of the freeze:
+  `src/calibration/audit.py` (Murphy 1973 Brier decomposition, ECE-capable
+  binning incl. quantile bins, logistic CITL/slope refit on the logit,
+  decision-flip counts with direction sub-counts, within-cohort Spearman
+  aggregator) + `tests/test_calibration_audit.py` (17 synthetic tests,
+  no data files). Methodological note fixed during testing: the partition
+  identity BS = uncertainty - resolution + reliability is exact for the
+  BINNED forecast; a raw continuous score carries within-bin spread, so
+  the module reports both binned and raw Brier and the identity is checked
+  against the binned one. Test suite now 76 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
