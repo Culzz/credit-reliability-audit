@@ -69,17 +69,40 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   `orig_projected_additional_accrued_interest` → keep out of the feature audit
   unless a risk subsystem needs hardship flags.
 
+## Session 3, 3 Nov 2026
+- T1.2 continued — anchor bibliographic records verified against publisher
+  pages and committed (`lit/matrix.csv` rows re-pointed to Crossref DOIs,
+  PMLR / NeurIPS proceedings pages); TableShift corrected to **15 binary
+  tasks** (arXiv 2312.07577; my previous 17 was wrong); Ovadia proceedings
+  hash + arXiv 1906.02530 recorded. Still UNKNOWN: Lundberg & Lee 2017
+  NeurIPS URL, D'Amour 2022 JMLR URL — verify at the next reading pass.
+- T3.5 done (two passes) — `data/column_audit.csv`, **151 columns**: first
+  pass computed missing_share + per-vintage min/max missingness for every
+  column (`scripts/build_column_audit.py`); second pass filled the judgment
+  fields (`scripts/curate_column_audit.py`): **24 KEEP · 47 DROP · 79
+  SENSITIVITY_ONLY · 1 TARGET**, every column classified (no leftovers).
+  Schema-drift classes found: (a) mid-window fields populated only for a
+  contiguous vintage sub-window (open_acc_6m… all_util ≈ 38% missing,
+  min 0.0 / max 1.0); (b) late-adopted bureau attributes ≈ 2016-onwards
+  (num_*, mo_sin_*, tot_*, bc_*, mort_acc, …); (c) joint-application-only
+  fields (~95% missing). Post-origination payment/recovery/hardship/settlement
+  block dropped as leakage. `emp_title`/`addr_state`/`disbursement_method`/
+  `funded_amnt*` parked as SENSITIVITY_ONLY with uncertain evidence — the
+  PI reviews at protocol freeze (D-4 candidate).
+
 ## Next
-- T3.5: column audit (`data/column_audit.csv`) — per-column missing share,
-  per-vintage missing range, availability evidence against the data
-  dictionary; needs my dictionary cross-check for availability fields.
-- T3.6–T3.7: feature engineering pipeline + schema-drift drop rule.
-- D-3 PI decision: legacy-status merge (recommendation ready, needs confirm).
-- T1.2–T1.5: full-text reads of the two competitors + anchors; expand matrix.
+- T3.6–T3.7: feature engineering pipeline (credit age from earliest_cr_line −
+  issue_d, utilisation numeric, emp_length encoding, missingness indicators;
+  no issue_d as feature) + schema-drift drop rule at the ≥0.90 populated
+  threshold, with synthetic tests.
+- T3.9 plumbing sample (3% of 2012–2013, fixed seed); T3.10 GATE3.md draft.
+- T1.2–T1.5: full-text reads of John 2025 + Nayak 2026 (arXiv HTML); verify
+  the two UNKNOWN URLs; expand matrix toward 40–60 papers.
+- D-3 PI decision: legacy-status merge (recommendation in DECISIONS.md).
 - Zotero collection (T0.8 remainder, desktop app).
 
 ## Blockers
-- Zotero: needs me to install/import on the desktop before the collection exists.
-- Legacy `loan_status` handling — decide at T3.1 (counts now known).
-- `emp_title` / `addr_state` treatment — decide with the column audit.
+- Zotero: needs the desktop install/import before the collection exists.
+- D-3 legacy-status merge and the SENSITIVITY_ONLY review (emp_title,
+  addr_state, disbursement_method, funded_amnt*) need PI sign-off.
 - Everything in `configs/*.yaml` stays PROPOSED until Gates 4–5.
