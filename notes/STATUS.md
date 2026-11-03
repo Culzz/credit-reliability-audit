@@ -153,10 +153,17 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   et al. 2023 (ACM Computing Surveys, XAI evaluation, DOI 10.1145/3583558),
   Bracke et al. 2019 (SSRN, Shapley/QII on mortgage default). New rows carry
   `read_status = metadata` until read.
-- Expansion toward the 40-60 target continues next session under the same
-  verify-first rule (queue: Lessmann et al. 2015 EJOR comparison, Crook,
-  Edelman & Thomas validation review, and further credit-scoring temporal
-  work from `lit/search_plan.md`).
+- Expansion continues under the same verify-first rule. Second batch of the
+  day verified and appended nine more: Baesens et al. 2003 (JORS 54:627-635),
+  Hand & Henley 1997 (JRSS-A 160:523-541), Thomas 2000 (Int J Forecasting
+  16:149-172), Bellotti & Crook 2013 (Int J Forecasting 29:563-574), Hand
+  2006 (Statistical Science 21:1-14), Brier 1950 (Mon Wea Rev 78:1-3),
+  Zadrozny & Elkan 2002 (KDD '02:694-699), Crone & Finlay 2012 (Int J
+  Forecasting 28:224-238), Hand 2005 (JORS 56:1109-1117) - then Murphy 1973
+  (J Applied Meteorology 12:595-600, Bs reliability/resolution decomposition)
+  and Thomas, Crook & Edelman 2017 (SIAM monograph). **Matrix stands at 40
+  rows x 22 columns - inside the protocol's 40-60 target band.** Further
+  reads (full-text depth on Ovadia 2019, Fuster 2022) queued next session.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
