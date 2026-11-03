@@ -119,3 +119,40 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
 - D-3 legacy-status merge, D-4 sensitivity-parking review, D-5 drift-rule
   outcomes need PI sign-off.
 - Everything in `configs/*.yaml` stays PROPOSED until Gates 4–5.
+
+## Session 4, 3 Nov 2026 (Analyst)
+
+- T1.2 closed: John 2025 and Nayak 2026 read in FULL TEXT
+  (`lit/reading_notes/john-2025.md`, `lit/reading_notes/nayak-2026.md`).
+  Material corrections to the matrix rows:
+  - **John 2025 uses a simulated multi-year lending panel** (2015-2024,
+    race and gender present as features, simulated recessions, default rate
+    drifting 15% to 23%) - not a real lending corpus. AUC 0.63-0.66, F1
+    below 0.07; no Brier/ECE audit anywhere; "recalibration" is
+    fairness-side group threshold adjustment, not probability calibration.
+  - **Nayak 2026 evaluates the Home Credit "Credit Risk Model Stability"
+    Kaggle benchmark, not LendingClub.** Brier 0.087 / ECE 0.015 with
+    temperature scaling fitted on validation weeks; single SHAP figure
+    without stability measurement; no loan-level decision-flip analysis;
+    online recalibration left as future work.
+- T1.6 (matrix expansion), verification discipline: every candidate is
+  fetched and verified first (arXiv abs/API, Crossref, or publisher page);
+  two wrong identifiers were caught before use this session (the paper
+  fetched under arXiv 2202.09785 is a shellcode paper; BIS WP 835 is the
+  mortgage "cost of steering" paper). The Bracke et al. 2019 default-risk
+  explainability paper was located and verified via Crossref instead (SSRN
+  preprint, DOI 10.2139/ssrn.3435104; authors Bracke, Datta, Jung, Sen).
+- Eight verified rows appended to `lit/matrix.csv` - now **23 rows x 22
+  columns**, schema validated:
+  Rudin 2019 (Nature Machine Intelligence), Goldstein et al. 2015 (JCGS,
+  ICE), Sundararajan et al. 2017 (ICML, Integrated Gradients), Ribeiro et
+  al. 2016 (KDD, LIME), Brown & Mues 2012 (ESWA, imbalanced credit
+  classifiers), Lakshminarayanan et al. 2017 (NIPS, deep ensembles), Nauta
+  et al. 2023 (ACM Computing Surveys, XAI evaluation, DOI 10.1145/3583558),
+  Bracke et al. 2019 (SSRN, Shapley/QII on mortgage default). New rows carry
+  `read_status = metadata` until read.
+- Expansion toward the 40-60 target continues next session under the same
+  verify-first rule (queue: Lessmann et al. 2015 EJOR comparison, Crook,
+  Edelman & Thomas validation review, and further credit-scoring temporal
+  work from `lit/search_plan.md`).
+
