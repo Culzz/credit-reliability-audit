@@ -164,6 +164,13 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   and Thomas, Crook & Edelman 2017 (SIAM monograph). **Matrix stands at 40
   rows x 22 columns - inside the protocol's 40-60 target band.** Further
   reads (full-text depth on Ovadia 2019, Fuster 2022) queued next session.
+- Full-text read completed for **Ovadia et al. 2019**
+  (`lit/reading_notes/ovadia-2019.md`; matrix row updated). Key facts for
+  RQ1: i.i.d. validation calibration does not carry to shifted data;
+  temperature scaling is the most fragile recalibrator (worse than vanilla
+  at high Criteo shift); deep ensembles dominate; no explanation audit, no
+  decision-flip analysis, no label-delay axis, no AUC-vs-reliability test
+  anywhere - our joint-audit claim stays narrowed as pre-agreed.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
