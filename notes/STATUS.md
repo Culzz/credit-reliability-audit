@@ -171,6 +171,10 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   at high Criteo shift); deep ensembles dominate; no explanation audit, no
   decision-flip analysis, no label-delay axis, no AUC-vs-reliability test
   anywhere - our joint-audit claim stays narrowed as pre-agreed.
+- Fuster et al. 2022 full-text read BLOCKED: SSRN returns 403 (anti-bot),
+  the Journal of Finance version is paywalled, no author-hosted PDF found
+  via search. Needs PI-side access (library/alternate copy); matrix row
+  stays at metadata level until then.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
