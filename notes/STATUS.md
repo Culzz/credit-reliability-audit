@@ -74,8 +74,11 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   pages and committed (`lit/matrix.csv` rows re-pointed to Crossref DOIs,
   PMLR / NeurIPS proceedings pages); TableShift corrected to **15 binary
   tasks** (arXiv 2312.07577; my previous 17 was wrong); Ovadia proceedings
-  hash + arXiv 1906.02530 recorded. Still UNKNOWN: Lundberg & Lee 2017
-  NeurIPS URL, D'Amour 2022 JMLR URL — verify at the next reading pass.
+  hash + arXiv 1906.02530 recorded. The last two UNKNOWN URL cells resolved:
+  Lundberg & Lee 2017 verified in the official NeurIPS proceedings index
+  (title+authors); D'Amour 2022 verified in the JMLR volume-23 index
+  (paper 226:1-61, canonical title corrected). No UNKNOWN doi_or_url cells
+  remain in `lit/matrix.csv`.
 - T3.5 done (two passes) — `data/column_audit.csv`, **151 columns**: first
   pass computed missing_share + per-vintage min/max missingness for every
   column (`scripts/build_column_audit.py`); second pass filled the judgment
@@ -105,9 +108,8 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   `src/data/loader.py`, train the baseline logistic/GBM stack, run the
   calibration and stability audit machinery on it (all development only on
   the plumbing sample before Gate 5).
-- T1.2–T1.5: full-text reads of John 2025 + Nayak 2026 (arXiv HTML); verify
-  the two UNKNOWN URLs (Lundberg & Lee 2017; D'Amour 2022); expand matrix
-  toward 40–60 papers.
+- T1.2–T1.5: full-text reads of John 2025 + Nayak 2026 (arXiv HTML); expand
+  matrix toward 40–60 papers.
 - D-3/D-5 PI decisions: legacy-status merge; 2008Q1 cohort start;
   months-since-event field handling.
 - Zotero collection (T0.8 remainder, desktop app).
