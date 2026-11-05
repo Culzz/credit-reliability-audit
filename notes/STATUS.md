@@ -284,6 +284,14 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   default-rate-by-flip-direction analysis (T9.4b) is what separates
   informative from cosmetic flips in the real run. Suite now 150
   passed; ruff clean.
+- T6.7 reproducibility checks landed: `tests/test_reproducibility.py` —
+  one small config per family re-run through the full path
+  (preproc.fit -> train -> predict -> evaluate with bootstrap) with
+  identical outputs required within 1e-9 (the tolerance line the plan
+  asks for; parallel tree predict is openMP non-bit-stable, the synthetic
+  suite pins that deliberately), plus seedless-pipeline checks:
+  preprocessor re-fit determinism and bootstrap-design independence from
+  the global RNG stream. Suite now 156 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
