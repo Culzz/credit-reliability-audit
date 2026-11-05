@@ -218,6 +218,19 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   cannot fix a pure slope problem by construction, and the oracle
   Brier gain over the stretched scores on that simulator is ~6.5%,
   not ~25%. Test suite now 99 passed; ruff clean.
+- Phase 8 decision-policy machinery landed: `src/decisions/policy.py` —
+  three-band threshold policy (approve if p < t_low, refer in the band,
+  decline above; band edges are REFER by the policy wording), the
+  break-even formula p* = g/(g+L) over the configured ratios (3/5/9),
+  the fixed-approval-rate second policy (bottom-share approval, ties
+  belong to NOT-approved, threshold returned for the records), and the
+  stylised portfolio utility (funded good earns g, funded default costs
+  L, refer/decline contribute zero; scenario quantities only, never
+  observed profits). One module bug caught by tests and fixed: the
+  fixed-rate threshold had its quantile side inverted (would have
+  approved the RISKIEST rate-share rather than the least risky). All
+  PROPOSED values passed in as arguments from configs at call sites;
+  no literals here. Suite now 111 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
