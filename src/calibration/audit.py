@@ -144,7 +144,9 @@ def citl_and_slope(targets: np.ndarray, probabilities: np.ndarray) -> CitlResult
     if len(set(np.unique(y))) != 2:
         raise ValueError("CITL needs both outcome classes present")
     logit = np.log(p / (1.0 - p)).reshape(-1, 1)
-    fit = LogisticRegression(penalty=None, solver="lbfgs", max_iter=5000).fit(logit, y)
+    # C=np.inf keeps the refit unregularised (sklearn 1.8 deprecates
+    # penalty=None, whose fallback silently penalises the slope).
+    fit = LogisticRegression(C=np.inf, solver="lbfgs", max_iter=10000).fit(logit, y)
     return CitlResult(
         citl=float(fit.intercept_[0]),
         slope=float(fit.coef_[0][0]),

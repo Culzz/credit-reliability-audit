@@ -200,6 +200,24 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   were set without PROTOCOL_FROZEN it hard-fails. Dry-run wrote
   `reports/tables/baseline_dryrun_metrics.csv` (36 rows: family x
   metric x point/CI). Suite now 89 passed; ruff clean.
+- T7.3 recalibration arms landed: `src/calibration/recalibration.py` —
+  four sanctioned arms (none / intercept-only calibration-in-the-large
+  via a bounded scalar deviance fit with slope pinned to 1 / Platt on the
+  logit / isotonic, clipped and monotone), each fitted ONLY on the
+  explicit calibration argument (eligible historical labels; callers own
+  the eligibility assertion, the API carries the calibrated n/events for
+  provenance). Two issues caught by the synthetic tests and fixed:
+  (1) an unknown arm kind silently fell through to the isotonic branch -
+  now rejected up front; (2) sklearn 1.8 deprecates penalty=None for the
+  unregularised calibration refits and its fallback silently penalises
+  the Platt/CITL slope - replaced with C=np.inf in both
+  recalibration.py and audit.py. Expectation fixes during testing, for
+  the record: on a symmetric logit stretch (forecast 1.5x too extreme)
+  the fitted Platt slope SHRINKS to 1/1.5 (slope < 1 signals
+  overconfidence, consistent with audit.py), the intercept-only arm
+  cannot fix a pure slope problem by construction, and the oracle
+  Brier gain over the stretched scores on that simulator is ~6.5%,
+  not ~25%. Test suite now 99 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
