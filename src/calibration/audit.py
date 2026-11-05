@@ -122,6 +122,42 @@ def brier_decomposition(
     )
 
 
+def ece(
+    targets: np.ndarray,
+    probabilities: np.ndarray,
+    *,
+    edges: np.ndarray | None = None,
+    quantile_edges: bool = False,
+    n_bins: int = 15,
+) -> float:
+    """Expected calibration error: bin-share weighted mean |p_bar - y_bar|.
+
+    Non-proper and binning-sensitive by construction (reported alongside
+    the Brier family for lineage with Niculescu-Mizil & Caruana 2005 and
+    the plan's B = 15 plus 10/20/30 sensitivity row set). Same binning
+    machinery as the Brier decomposition. With quantile_edges=True the
+    edges are derived from the score distribution itself.
+    """
+    y = np.asarray(targets, dtype=float)
+    p = np.asarray(probabilities, dtype=float)
+    if y.ndim != 1 or p.ndim != 1 or len(y) != len(p) or len(y) == 0:
+        raise ValueError("targets and probabilities must be equal-length 1-D arrays")
+    if not np.all(np.isin(y, [0.0, 1.0])):
+        raise ValueError("targets must be binary")
+    if not np.all((p >= 0.0) & (p <= 1.0)):
+        raise ValueError("probabilities must lie in [0,1]")
+    if edges is None:
+        edges = np.linspace(0.0, 1.0, n_bins + 1)
+    masks = _bin_masks(np.asarray(p, dtype=float), np.asarray(edges, dtype=float), quantile_edges=quantile_edges)
+    total = 0.0
+    for m in masks:
+        nb = int(m.sum())
+        if nb == 0:
+            continue
+        total += (nb / len(y)) * abs(float(p[m].mean()) - float(y[m].mean()))
+    return float(total)
+
+
 @dataclass(frozen=True)
 class CitlResult:
     citl: float          # required intercept on the logit scale (want 0)

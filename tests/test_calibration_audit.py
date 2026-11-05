@@ -9,6 +9,7 @@ from src.calibration.audit import (
     brier_decomposition,
     citl_and_slope,
     decision_flips,
+    ece,
     mean_within_cohort_spearman,
 )
 
@@ -93,6 +94,40 @@ class TestBrierDecomposition:
             brier_decomposition(np.array([0.5, 2.0]), np.array([0.5, 0.5]))
         with pytest.raises(ValueError):
             brier_decomposition(np.array([0.5, 0.5]), np.array([0.5, 1.2]))
+
+
+# --------------------------------------------------------------------------
+# ECE
+# --------------------------------------------------------------------------
+class TestEce:
+    def test_perfectly_calibrated_simulator_near_zero(self):
+        n = 200_000
+        p = RNG.uniform(0.0, 1.0, size=n)
+        y = (RNG.uniform(size=n) < p).astype(float)
+        assert ece(y, p, n_bins=15) < 0.005
+
+    def test_constant_score_matching_base_rate_near_zero(self):
+        n = 40_000
+        y = (RNG.uniform(size=n) < 0.3).astype(float)
+        assert ece(y, np.full(n, 0.3), n_bins=15) < 0.005
+
+    def test_constant_score_off_base_rate_equals_gap(self):
+        n = 40_000
+        y = (RNG.uniform(size=n) < 0.3).astype(float)
+        assert ece(y, np.full(n, 0.7), n_bins=15) == pytest.approx(0.7 - y.mean(), abs=1e-9)
+
+    def test_bin_count_sensitivity_is_bounded_and_reportable(self):
+        n = 100_000
+        p = RNG.uniform(size=n)
+        y = (RNG.uniform(size=n) < p).astype(float)
+        e10, e15, e20, e30 = (ece(y, p, n_bins=b) for b in (10, 15, 20, 30))
+        assert max(abs(e10), abs(e15), abs(e20), abs(e30)) < 0.01
+
+    def test_validation(self):
+        with pytest.raises(ValueError):
+            ece(np.array([0.5]), np.array([0.5, 0.5]))
+        with pytest.raises(ValueError):
+            ece(np.array([0.5, 1.5]), np.array([0.5, 0.5]))
 
 
 # --------------------------------------------------------------------------

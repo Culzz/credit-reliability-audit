@@ -256,6 +256,20 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   (~0.69 in the pinned fixture) while the distribution metric separates
   the shifted pair from a clean re-draw by an order of magnitude.
   Suite now 145 passed; ruff clean.
+- ECE landed in `src/calibration/audit.py` (share-weighted mean |p_bar -
+  y_bar| over the same bins as the decomposition; B configurable, plan's
+  B=15 plus the 10/20/30 row set) + 5 synthetic tests. `scripts/run_calibration.py`
+  dry-runs the full T7.2/T7.3 audit chain on the plumbing sample per
+  family anchor: all four arms fitted on the TRAINING window only, iron
+  rule asserted in code (calibration vs evaluation cohorts disjoint),
+  per-arm binned/raw Brier + reliability + ECE + CITL/slope + flip rate
+  vs the none arm + ROC-AUC, written to
+  `reports/tables/calibration_audit_dryrun.csv` (128 rows = 4 families x
+  4 arms x 8 metrics). Plumbing-scale findings consistent with RQ1
+  expectations: arms fitted on the previous window leave validation CITL
+  ~-0.74 essentially unchanged, Platt ~stationary, isotonic collapses
+  the logit slope 0.67 -> 0.07 and flips 1.7% of decisions - the
+  known fragility H1d targets. Suite now 150 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
