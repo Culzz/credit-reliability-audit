@@ -270,6 +270,20 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   ~-0.74 essentially unchanged, Platt ~stationary, isotonic collapses
   the logit slope 0.67 -> 0.07 and flips 1.7% of decisions - the
   known fragility H1d targets. Suite now 150 passed; ruff clean.
+- Decision-layer dry-run landed: `scripts/run_decisions.py` wires the
+  T9.1/T9.2/T9.5 chain on the plumbing sample — three-band policy read
+  from configs/decisions.yaml (p* = g/(g+L), all 9 ratio x half-width
+  sensitivity cells), per-arm comparisons vs the none arm on identical
+  loans (flip rates, directional flows, total delta-utility), matched
+  null on the primary policy cell (1000 draws from config). Dry-run
+  writes `reports/tables/decision_flip_dryrun.csv` (480 rows). Plumbing
+  findings consistent with RQ3 framing: isotonic flips ~10% of
+  decisions yet net delta-utility ~ +1 (flips mostly outcome-neutral
+  re-assignments), every observed total sits far above its null mean
+  (~ -208) - decision changes are not chance; the
+  default-rate-by-flip-direction analysis (T9.4b) is what separates
+  informative from cosmetic flips in the real run. Suite now 150
+  passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
