@@ -231,6 +231,19 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   approved the RISKIEST rate-share rather than the least risky). All
   PROPOSED values passed in as arguments from configs at call sites;
   no literals here. Suite now 111 passed; ruff clean.
+- T9.3/T9.4 flip machinery landed: `src/decisions/flips.py` — 3x3
+  transition matrices, off-diagonal flip rate, toward-decline vs
+  toward-approve flow counts with asymmetry, signed probability changes
+  for flipped pairs only, threshold-adjacency distances (fragility
+  flags), per-loan and total stylised delta-utility, and the
+  matched-null distribution of total delta-utility (draws seeded;
+  after-scores permuted so decision margins hold while loan pairing
+  breaks). Design insight recorded: because the null strips the
+  score-outcome information but keeps every marginal decision rate, an
+  informative no-op arm sits at or above the ENTIRE null distribution
+  and a comparison pair inside the null is indistinguishable from
+  chance - the RQ3 interpretation sentence is pre-written from this.
+  Suite now 128 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
