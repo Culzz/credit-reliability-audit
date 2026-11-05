@@ -244,6 +244,18 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   and a comparison pair inside the null is indistinguishable from
   chance - the RQ3 interpretation sentence is pre-written from this.
   Suite now 128 passed; ruff clean.
+- T8.3/T8.7 explanation-stability machinery landed:
+  `src/explain/stability.py` — pure comparators over attribution
+  matrices with a caller-fixed feature order: mean |shap| global
+  importance, importance rank vectors, Jaccard@k on top-k sets, Spearman
+  + Kendall rank agreement, cosine on importance vectors, and the mean
+  per-feature Wasserstein-1 attribution-distribution distance (a
+  population-shift signature ranks cannot see). Synthetic tests pin the
+  under-detection property that motivates running BOTH views: a shift
+  in how many features carry signal leaves Spearman at moderate-to-high
+  (~0.69 in the pinned fixture) while the distribution metric separates
+  the shifted pair from a clean re-draw by an order of magnitude.
+  Suite now 145 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
