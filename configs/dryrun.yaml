@@ -1,0 +1,29 @@
+# Dry-run anchor configurations for `scripts/run_baselines.py` on the
+# plumbing sample (PLAN.md T5.6). These mirror the T4.6 compute-pilot
+# anchors; they are plumbing values only, NEVER the PROPOSED main-run
+# hyperparameter spaces (T5.5 writes those into the protocol at freeze).
+# Every value here is provisional and results produced with them carry
+# no weight in any hypothesis decision.
+dryrun:
+  seed: 20180101
+  bootstrap_B: 500          # dry-run CIs only; headline B stays in statistics.yaml
+  families:
+    logistic_regression:
+      C: 1.0
+      max_iter: 2000
+    random_forest:
+      n_estimators: 200
+      min_samples_leaf: 50
+    xgboost:
+      n_estimators: 300
+      max_depth: 5
+      learning_rate: 0.1
+      subsample: 0.9
+      colsample_bytree: 0.9
+    lightgbm:
+      n_estimators: 300
+      learning_rate: 0.1
+      num_leaves: 31
+      subsample: 0.9
+      colsample_bytree: 0.9
+      subsample_freq: 1

@@ -185,6 +185,21 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   BINNED forecast; a raw continuous score carries within-bin spread, so
   the module reports both binned and raw Brier and the identity is checked
   against the binned one. Test suite now 76 passed; ruff clean.
+- T5.6 groundwork landed pre-freeze: `src/models/harness.py`
+  (T6.1/T6.2) — preprocessing fitted on the training window only (median
+  imputation + standardisation), one estimator constructor per sanctioned
+  family (logistic regression, random forest, XGBoost, LightGBM; class
+  weights none, resampling none, seeds injected from config), and an
+  evaluation front end with the nine sanctioned point metrics plus
+  percentile bootstrap CIs computed on one shared seeded resample design
+  (B read from configs). `configs/dryrun.yaml` holds the T4.6 pilot anchor
+  hyperparameters, marked plumbing-only. `scripts/run_baselines.py`
+  dry-runs end to end on the plumbing sample (2538 train / 1779
+  validation rows mirrored from configs/splits.yaml) and refuses test
+  cohorts: with test windows unset it says they are locked, and if they
+  were set without PROTOCOL_FROZEN it hard-fails. Dry-run wrote
+  `reports/tables/baseline_dryrun_metrics.csv` (36 rows: family x
+  metric x point/CI). Suite now 89 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
