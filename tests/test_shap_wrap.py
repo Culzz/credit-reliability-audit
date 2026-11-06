@@ -88,8 +88,16 @@ class TestTreeExplainer:
         model = LinearRegression().fit(x, x[:, 0])
         with pytest.raises(ValueError, match="unknown family"):
             make_explainer(model, x, family="gradboost")
-        with pytest.raises(ValueError, match="degenerate"):
+        with pytest.raises(ValueError, match="fully degenerate"):
             make_explainer(model, np.zeros((5, 4)), family="logistic_regression")
+        # a SINGLE constant column among varied rows is attribute-zero, not
+        # forbidden (plumbing windows regularly contain never-firing
+        # one-hot columns)
+        Xc = np.column_stack([x[:300], np.zeros(300)])
+        lin_model = LogisticRegression(C=1.0, max_iter=2000).fit(Xc, y[:300])
+        exp_c = make_explainer(lin_model, Xc, family="logistic_regression")
+        vals_c = explain_matrix(exp_c, Xc[:100])
+        assert np.all(vals_c[:, -1] == 0.0)
         tree = RandomForestClassifier(n_estimators=5, min_samples_leaf=10, random_state=5).fit(x, y)
         good = make_explainer(tree, x[:50], family="random_forest")
         with pytest.raises(ValueError):

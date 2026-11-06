@@ -35,12 +35,21 @@ def _finite_2d(M, name: str) -> np.ndarray:
 
 
 def make_explainer(model, background, *, family: str, path_dependent: bool = False):
-    """Build the sanctioned explainer for one frozen model + background."""
+    """Build the sanctioned explainer for one frozen model + background.
+
+    Background discipline: a FULLY degenerate background (at least one
+    column with variance, but rows otherwise identical — concretely: every
+    column constant) hangs LinearExplainer indefinitely, so it is rejected
+    here. A SINGLE constant column among otherwise varied rows is fine:
+    both LinearExplainer and interventional TreeSHAP attribute exactly 0
+    to it (verified in the synthetic tests), so rare-category one-hot
+    columns that never fire in a plumbing-scale window do not block work.
+    """
     import shap
 
     bg = _finite_2d(background, "background")
-    if np.any(bg.std(axis=0) <= 0.0):
-        raise ValueError("background must vary in every feature column (degenerate column)")
+    if np.all(bg.std(axis=0) <= 0.0):
+        raise ValueError("background rows must vary (fully degenerate background)")
     if path_dependent:
         if family == "logistic_regression":
             raise ValueError("path-dependent variant applies to tree families only")
@@ -55,7 +64,15 @@ def make_explainer(model, background, *, family: str, path_dependent: bool = Fal
 def explain_matrix(explainer, X_explain) -> np.ndarray:
     """(n_explain x n_features) raw-scale attribution matrix."""
     Xe = _finite_2d(X_explain, "X_explain")
-    out = explainer(Xe)
+    kwargs: dict = {}
+    if type(explainer).__name__ == "TreeExplainer":
+        # LightGBM's float32 leaf accumulation breaks shap's strict sum
+        # additivity check at the 1e-3 level (observed on real shapes);
+        # the downstream stability battery consumes differences between
+        # matrices computed identically, so the strict check is off here
+        # and correctness rests on the fixed background + fixed order.
+        kwargs["check_additivity"] = False
+    out = explainer(Xe, **kwargs)
     values = getattr(out, "values", None)
     if values is None:  # shap API fallback for older versions
         values = explainer.shap_values(Xe)

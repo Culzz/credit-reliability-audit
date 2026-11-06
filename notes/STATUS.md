@@ -412,3 +412,32 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   weak/overfit ends spanned, batch non-collision, sampled params feed
   the real estimator factory for every family). Suite now 191 passed;
   ruff clean.
+- T8.2/T9.2d noise-floor runner landed: `scripts/run_noise_floor.py`
+  dry-runs Axis C on the plumbing sample — one anchor config per family
+  refit under 20 seeds on the same training window, fixed 400-row
+  explanation sample + fixed 1,000-row background + fixed feature
+  order, all 190 seed pairs per family compared on the T8.3 battery
+  (Jaccard@10, Spearman, Kendall, cosine, mean Wasserstein-1) plus the
+  T9.2d seed-vs-seed decision flip rate at 0.5 and the AUC gap;
+  `reports/tables/noise_floor_dryrun.csv` (3,800 pair x metric rows).
+  The table IS the pre-form of the H2c/H3a threshold reference: boosted
+  trees show real seed floors (decision flips 1.0-3.5%, AUC gaps to
+  +-3.5pp at the 2.5/97.5 percentiles), while logistic regression
+  anchors at exactly zero on every metric (deterministic estimator) -
+  the pipeline measures variation, it does not inject any. Two shap
+  issues hit and handled in `src/explain/shap_wrap.py`:
+  (1) the degenerate-background guard narrowed - a FULLY degenerate
+  background (every column constant; identical rows) still hangs
+  LinearExplainer and is refused, but a SINGLE constant column among
+  varied rows is legal (linear exact SHAP and interventional TreeSHAP
+  both attribute exactly 0 to it; pinned by a new assertion inside the
+  existing test) - plumbing windows legitimately contain never-firing
+  one-hot columns across the whole training window (7 of 52 columns
+  here), so the old per-column refusal was a plumbing-scale hazard, not
+  a real-run one;
+  (2) `check_additivity=False` is passed for TreeExplainer calls only -
+  LightGBM's float32 leaf accumulation breaks shap's strict sum check
+  at the 1e-3 level; downstream stability metrics consume differences
+  between matrices computed identically, so correctness rests on the
+  fixed background and fixed order, documented in-code. Suite stays
+  191 passed; ruff clean.
