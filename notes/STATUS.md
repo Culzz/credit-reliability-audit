@@ -441,3 +441,17 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   between matrices computed identically, so correctness rests on the
   fixed background and fixed order, documented in-code. Suite stays
   191 passed; ruff clean.
+- T7.5 sample-size runner landed (H1d machinery): `scripts/run_sample_size.py`
+  dry-runs the calibration-set-size experiment on the plumbing sample —
+  20 draws per size on the PROPOSED grid (200 = the 200/200 feasibility
+  floor, 500, 1k, 2k, full), all four arms fitted on the SAME draw
+  (matched design: arms comparable per draw), applied to validation,
+  per-draw arm Brier/ECE rows plus matched arm-delta summaries
+  (isotonic-platt / isotonic-intercept / platt-intercept mean and 2.5/
+  97.5 percentiles across draws; draws seeded by [family_slot, r, n] so
+  repeats are deterministic). Dry-run writes
+  `reports/tables/sample_size_dryrun.csv` (3,200 rows). The plumbing
+  table already shows the H1d signature: isotonic's Brier disadvantage
+  vs Platt shrinks monotonically with calibration size (0.0099 at n=200
+  -> 0.0042 at full for the RF anchor), the small-n fragility direction
+  H1d pre-registered. Suite stays 191 passed; ruff clean.
