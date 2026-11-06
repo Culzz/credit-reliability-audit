@@ -292,6 +292,18 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   suite pins that deliberately), plus seedless-pipeline checks:
   preprocessor re-fit determinism and bootstrap-design independence from
   the global RNG stream. Suite now 156 passed; ruff clean.
+- T8.5 grouped-importance machinery landed: `src/explain/groups.py` —
+  group |shap| (mean over rows of |sum of attributions| per named
+  group) and grouped permutation importance (joint row-permutation of
+  every feature in the block, R>1 seeded repeats, caller-supplied
+  predict + metric, sign normalised so positive = informative for both
+  loss and gain metrics). The group partition discipline is enforced:
+  full coverage, no overlap, no silent gaps (T5.4 writes
+  configs/feature_groups.yaml at freeze; this module takes the groups
+  as an argument). Synthetic tests verify signal groups outweigh inert
+  blocks by >50x on the attribution axis, the loss-vs-AUC sign
+  conventions agree, and the same seed reproduces identical numbers.
+  Suite now 163 passed; ruff clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
