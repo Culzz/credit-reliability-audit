@@ -312,6 +312,27 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   replicate, sign normalised positive = A worse than B for both loss
   and gain metrics, determinism pinned). Suite now 172 passed; ruff
   clean.
+- T8.1 SHAP wrapper landed: `src/explain/shap_wrap.py` — sanctioned
+  explainer builders (linear exact SHAP for logistic regression;
+  interventional TreeSHAP against the caller-fixed background for
+  xgboost/lightgbm/random_forest; path-dependent variant only behind
+  an explicit flag) on the raw/log-odds scale, fixed feature order
+  (never re-sorted), plain-ndarray attribution matrices decoupled from
+  shap's containers, and a degenerate-background guard. Practical
+  catch recorded: shap's LinearExplainer HANGS indefinitely on a
+  zero-variance background (observed as a 120s timeout), so the guard
+  refuses such backgrounds up front. Synthetic tests verify the exact
+  log-odds additivity of linear SHAP (margin = sum(shap) + expected),
+  informative-column dominance, determinism, and shape validation.
+  Suite now 179 passed; ruff clean.
+- Confirmatory inference helpers landed: `src/statistics/inference.py`
+  (T7.7 paired method comparisons + the statistics.yaml multiplicity
+  rule) — Holm step-down adjusted p-values (order-preserving, monotone
+  envelope, worked-example tests) and the paired bootstrap delta CI
+  (two score systems evaluated on the SAME seeded resample design per
+  replicate, sign normalised positive = A worse than B for both loss
+  and gain metrics, determinism pinned). Suite now 172 passed; ruff
+  clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
