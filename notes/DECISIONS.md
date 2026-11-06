@@ -64,3 +64,27 @@ Measured on 36-month loans across the PROPOSED maturity window 2007Q2–2015Q4 w
 Decision needed: (a) cohort start 2008Q1, and (b) keep the mechanical drop for the
 frozen protocol.
 
+### D-6 2026-11-06 Hyperparameter search spaces (T5.5) — PI review item
+
+Context: PLAN T5.5 requires the four families' search spaces written into the
+protocol BEFORE any Phase 5+ results exist. Drafted PROPOSED in
+`configs/search_spaces.yaml` with a deterministic sampler
+(`src/models/spaces.py`, 12 synthetic tests): every (family, config index,
+base seed) triple yields a fixed parameter dict from the distribution spec —
+no data access anywhere in the draw.
+
+Key design choices in the draft:
+(a) stochastic row/column parameters (`subsample`, `colsample_bytree`) are
+    drawn in [0.5, 0.95) so the deep subset's 20 seeds strictly change
+    predictions;
+(b) ranges span deliberately weak (C = 1e-3, `min_samples_leaf` up to 100,
+    tight depth) to over-fitted (near-unpenalised C = 1e3, unbounded depth,
+    single-row leaves) configurations — RQ4.x needs configs that DIFFER in
+    calibration behaviour; 30 near-clones would kill the association study;
+(c) boosting n_estimators fixed at 400 for all draws (learning-rate range
+    carries the complexity variation instead), keeping the sweep inside
+    the T4.6 compute caps.
+Decision needed: confirm the ranges and the two sampler rules before freeze;
+later range changes are logged deviations.
+
+

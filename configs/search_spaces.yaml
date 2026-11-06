@@ -1,0 +1,66 @@
+# configs/search_spaces.yaml — hyperparameter search spaces (T5.5)
+#
+# Status: PROPOSED. Written BEFORE any Phase 5+ results exist; nothing in
+# here was tuned against any outcome data. The PI confirms or edits at
+# freeze; later changes to a range are logged deviations
+# (protocol/DEVIATIONS.md).
+#
+# Design rules (PLAN.md T5.5, models.yaml `stochastic_search_spaces`):
+# - stochastic row/col parameters (subsample, colsample_*) are drawn in
+#   [0.5, 0.95) so that seeds strictly change predictions (deep subset's
+#   20 seeds are then informative, not decorative);
+# - ranges deliberately span weak (heavy regularisation / small leaves)
+#   to over-fitted (large depth / tiny leaves) configurations, per the
+#   `broad_sweep` note in models.yaml — that breadth is the point of the
+#   AUC-vs-reliability association study (RQ4.x needs configs that DIFFER
+#   in calibration behaviour, not 30 near-clones);
+# - every number is sampled from a fixed distribution form by
+#   src/models/spaces.py keyed on (family, config index, base seed);
+#   drawing is deterministic and data-free.
+#
+# Distribution forms (sampled per config): log_uniform, uniform, randint
+# (inclusive), log_uniform_int (inclusive), choice.
+
+search_spaces:
+  logistic_regression:
+    fixed:
+      max_iter: 5000
+      solver: lbfgs
+    sample:
+      # weak end = strong L2 (tiny C), over-fitted end = near-unpenalised
+      C: {dist: log_uniform, low: 0.001, high: 1000.0}
+
+  random_forest:
+    fixed:
+      n_estimators: 400
+    sample:
+      max_depth: {dist: choice, options: [4, 6, 8, 10, 12, null]}   # null = unbounded (over-fitted end)
+      min_samples_leaf: {dist: log_uniform_int, low: 1, high: 100}  # 100 = weak end
+      max_features: {dist: uniform, low: 0.3, high: 1.0}
+
+  xgboost:
+    fixed:
+      n_estimators: 400
+      objective: binary:logistic
+      tree_method: hist
+    sample:
+      learning_rate: {dist: log_uniform, low: 0.01, high: 0.3}
+      max_depth: {dist: randint, low: 2, high: 10}
+      min_child_weight: {dist: log_uniform_int, low: 1, high: 50}
+      subsample: {dist: uniform, low: 0.5, high: 0.95}        # strict < 1 by construction
+      colsample_bytree: {dist: uniform, low: 0.5, high: 0.95} # strict < 1 by construction
+      reg_lambda: {dist: log_uniform, low: 0.01, high: 100.0}
+      gamma: {dist: uniform, low: 0.0, high: 5.0}
+
+  lightgbm:
+    fixed:
+      n_estimators: 400
+      objective: binary
+    sample:
+      learning_rate: {dist: log_uniform, low: 0.01, high: 0.3}
+      num_leaves: {dist: randint, low: 8, high: 128}
+      min_child_samples: {dist: log_uniform_int, low: 5, high: 100}
+      subsample: {dist: uniform, low: 0.5, high: 0.95}        # strict < 1 by construction
+      subsample_freq: {dist: fixed, value: 1}
+      colsample_bytree: {dist: uniform, low: 0.5, high: 0.95} # strict < 1 by construction
+      reg_lambda: {dist: log_uniform, low: 0.01, high: 100.0}

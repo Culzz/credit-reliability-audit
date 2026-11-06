@@ -392,3 +392,23 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   citation was verified against the actual file contents before writing
   (statistics.yaml / models.yaml / decisions.yaml keys checked,
   PLAN.md T8.2 wording matched verbatim).
+- T5.5 search spaces landed (PROPOSED, D-6 opened for the PI):
+  configs/search_spaces.yaml (four families, PROPOSED ranges with the
+  T5.5 rules baked in) + src/models/spaces.py (deterministic sampler
+  keyed on [base_seed, family_slot, config_index]; pure draw from the
+  YAML spec, no data access) + protocol/SEARCH_SPACES.md (protocol
+  page: rules 1-3, per-family range table, YAML is authoritative).
+  Design rules enforced in code and tested: stochastic row/col
+  parameters strictly < 1 (subsample/colsample_bytree drawn in
+  [0.5, 0.95); subsample_freq fixed 1) so the deep subset's 20 seeds
+  change predictions; ranges deliberately span weak to over-fitted
+  corners (RQ4.x needs configs that differ in calibration behaviour);
+  boosting n_estimators fixed 400 with learning-rate carrying the
+  variation, checked against the T4.6 compute caps. Two harness
+  collisions caught by the estimator smoke test and fixed at the YAML
+  level (n_jobs on the RF fixed block, verbosity on xgboost/lightgbm
+  were duplicated keys the harness already injects). 12 synthetic
+  tests (determinism, the <1 invariant over 200 draws per booster,
+  weak/overfit ends spanned, batch non-collision, sampled params feed
+  the real estimator factory for every family). Suite now 191 passed;
+  ruff clean.
