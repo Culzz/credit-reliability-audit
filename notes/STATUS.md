@@ -304,6 +304,14 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   blocks by >50x on the attribution axis, the loss-vs-AUC sign
   conventions agree, and the same seed reproduces identical numbers.
   Suite now 163 passed; ruff clean.
+- Confirmatory inference helpers landed: `src/statistics/inference.py`
+  (T7.7 paired method comparisons + the statistics.yaml multiplicity
+  rule) — Holm step-down adjusted p-values (order-preserving, monotone
+  envelope, worked-example tests) and the paired bootstrap delta CI
+  (two score systems evaluated on the SAME seeded resample design per
+  replicate, sign normalised positive = A worse than B for both loss
+  and gain metrics, determinism pinned). Suite now 172 passed; ruff
+  clean.
 
 ## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
 
