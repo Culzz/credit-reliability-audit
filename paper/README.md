@@ -1,0 +1,23 @@
+# paper/ — manuscript, numbers, claim register
+
+Manuscript numbers are NEVER typed by hand (CONTEXT.md 11):
+
+- `manuscript.md` — the source; empirical values appear only as
+  `{{n:key}}` placeholders. Structure follows CONTEXT.md (Abstract, Intro,
+  Related work, Data and protocol, Methods, Results RQ1-RQ3, AUC analysis
+  RQ4, Monitoring recommendations, Discussion, Limitations, Conclusion,
+  Reproducibility statement).
+- `numbers_dryrun.json` — plumbing-scale dry-run export built by
+  `scripts/export_numbers.py` from `reports/tables/*_dryrun.csv`; every key
+  carries the loud pre-freeze warning. NOT research results.
+- `numbers.json` — the real export, produced only after the freeze from the
+  frozen-cohort tables. `scripts/render_paper.py --source main` refuses to
+  run without `protocol/PROTOCOL_FROZEN`.
+- `claims.csv` — the claim register: `claim_id, sentence, evidence_file,
+  number_keys, status(SUPPORTED|PARTIAL|UNSUPPORTED)`. No sentence making
+  an empirical claim may exist in the manuscript without a row here; the
+  stub manuscript contains no empirical sentences, so the register starts
+  empty.
+- `manuscript_rendered.md` — renderer output (never edited directly).
+
+Rendering is strict: a placeholder without a value fails the build.

@@ -456,6 +456,22 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   vs Platt shrinks monotonically with calibration size (0.0099 at n=200
   -> 0.0042 at full for the RF anchor), the small-n fragility direction
   H1d pre-registered. Suite stays 191 passed; ruff clean.
+- I-11 numbers pipeline landed: `scripts/export_numbers.py` ->
+  `paper/numbers_dryrun.json` (9,632 keys, every key explicitly
+  dryrun-namespaced so plumbing numbers can never be confused with real
+  post-freeze results; explicit per-table adapters that refuse a
+  mismatched header instead of silently re-parsing) +
+  `scripts/render_paper.py` (strict {{n:key}} substitution from the
+  export; a placeholder without a value is a hard error listing the
+  missing keys; --source main refuses to run without
+  protocol/PROTOCOL_FROZEN) + paper scaffolding (manuscript.md STUB
+  following the CONTEXT.md structure with no empirical sentences,
+  claims.csv with the fixed 5-column register and zero rows ->
+  consistent by design, README documenting the discipline). Plumbing
+  stub renders end to end (1 placeholder resolved). 9 synthetic tests
+  pin adapters, render substitution/formatting, missing-key liveness,
+  the claims register schema, and a real-export spot anchor
+  (LR dry-run AUC 0.620923). Suite now 200 passed; ruff clean.
 - [Analyst] Platt 1999 verified against a primary record and added as
   the recalibration line's 41st matrix row: Semantic Scholar record
   CorpusId 56563878 (title/author/year 1999; venue field empty in the
