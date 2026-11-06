@@ -442,6 +442,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   fixed background and fixed order, documented in-code. Suite stays
   191 passed; ruff clean.
 - T7.5 sample-size runner landed (H1d machinery): `scripts/run_sample_size.py`
+
   dry-runs the calibration-set-size experiment on the plumbing sample —
   20 draws per size on the PROPOSED grid (200 = the 200/200 feasibility
   floor, 500, 1k, 2k, full), all four arms fitted on the SAME draw
@@ -455,3 +456,14 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   vs Platt shrinks monotonically with calibration size (0.0099 at n=200
   -> 0.0042 at full for the RF anchor), the small-n fragility direction
   H1d pre-registered. Suite stays 191 passed; ruff clean.
+- [Analyst] Platt 1999 verified against a primary record and added as
+  the recalibration line's 41st matrix row: Semantic Scholar record
+  CorpusId 56563878 (title/author/year 1999; venue field empty in the
+  API record) plus independent corroboration of the imprint - Advances
+  in Large Margin Classifiers (MIT Press, Cambridge MA), pp. 61-74 -
+  via the Lin & Lin 2007 Machine Learning note (DOI
+  10.1007/s10994-007-5018-6) and the ACM DL record. Crossref was
+  correctly skipped as unusable for pre-DOI book chapters. Row content
+  marks the Platt arm lineage (parametric sigmoid fitted on a separate
+  calibration set); read_status stays metadata until a full-text read.
+  Matrix now 41 rows x 22 columns (still inside the 40-60 target band).
