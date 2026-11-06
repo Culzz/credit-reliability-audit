@@ -256,6 +256,44 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   (~0.69 in the pinned fixture) while the distribution metric separates
   the shifted pair from a clean re-draw by an order of magnitude.
   Suite now 145 passed; ruff clean.
+
+## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
+
+- **T4.1** `scripts/cohort_feasibility.py` -> `reports/tables/cohort_feasibility.csv`
+  + 2 figures: per-vintage volume, resolution, default rate (Wilson CIs).
+  All mature cohorts 2009Q4-2015Q4 pass the 200/200 rule; 2016+ partially
+  unresolved; micro-vintages 2008Q2-2009Q3 fail the events rule.
+- **T4.2** `src/statistics/shift.py` (PSI/KS/SMD/JS/Wilson, pure functions)
+  + `tests/test_shift_stats.py` (18 synthetic tests, green) +
+  `scripts/build_mature_features.py` (audited-source 1.6M x 55 cache) +
+  `scripts/shift_measures.py` -> per-feature PSI/KS/SMD/missingness tables
+  (2013Q3-2018Q4 vs the training window), categorical JS, default-rate
+  shift with intervals, PSI heatmap figure. Findings: excluding the three
+  event-absence fields, candidate-window PSI stays <= 0.17; the strong
+  drifters are `pub_rec`, `revol_util_pct`, `initial_list_status`
+  (listing-channel switch, JS to 0.489).
+- **T4.3** `scripts/adversarial_validation.py`: features-only adversarial
+  AUC vs the training window rises 0.61 (2013Q3) -> 0.88 (2015Q4) and 0.95
+  by 2018Q4 (late-adopted bureau fields; schema-confounded) -> table + ROC
+  figure.
+- **T4.4** `scripts/concept_drift_strata.py`: within-stratum resolved
+  default-rate spreads up to 0.56 across vintages -> conditional rates move
+  beyond covariate shift; table + heatmap.
+- **T4.5** `scripts/label_delay_feasibility.py`: 49 cells (8 cohorts x lags
+  {0,6,12,18,24,36} + static arm) all FEASIBLE under 200/200; arms tagged
+  oracle/optimistic/realistic per CONTEXT Section 6.
+- **T4.6** `scripts/compute_pilot.py`: one config per family on the plumbing
+  sample; SHAP TreeExplainer ~= 12.9 s per 10k rows (500-row background),
+  bootstrap B=200 in 1.6 s (B=2000 ~= 16 s), recalibrators <= 0.4 s ->
+  `reports/tables/compute_pilot.csv`; caps written into GATE4 BEFORE freeze.
+- **T4.7** `protocol/GATE4.md` drafted (PROPOSED): test cohorts 2014Q1-2015Q4
+  proposed for freeze; windows chosen from descriptive evidence only; D-3,
+  D-4, D-5 and the compute caps presented for PI ratification.
+- Test suite 59 green incl. the new shift-statistics module; lint being
+  swept at commit time.
+
+## Session 5, 5-6 Nov 2026 (Builder + protocol drafting)
+
 - ECE landed in `src/calibration/audit.py` (share-weighted mean |p_bar -
   y_bar| over the same bins as the decomposition; B configurable, plan's
   B=15 plus the 10/20/30 row set) + 5 synthetic tests. `scripts/run_calibration.py`
@@ -335,48 +373,22 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   0.6209/0.6237/0.5793/0.5775), so the refactor is provably
   behaviour-neutral. Ruff `--fix` pass applied to sort the new import
   blocks. Suite state unchanged at 179 passed; ruff clean.
-- Confirmatory inference helpers landed: `src/statistics/inference.py`
-  (T7.7 paired method comparisons + the statistics.yaml multiplicity
-  rule) — Holm step-down adjusted p-values (order-preserving, monotone
-  envelope, worked-example tests) and the paired bootstrap delta CI
-  (two score systems evaluated on the SAME seeded resample design per
-  replicate, sign normalised positive = A worse than B for both loss
-  and gain metrics, determinism pinned). Suite now 172 passed; ruff
-  clean.
-
-## Session 4, 3 Nov 2026 (Builder — Phase 4 closed out)
-
-- **T4.1** `scripts/cohort_feasibility.py` -> `reports/tables/cohort_feasibility.csv`
-  + 2 figures: per-vintage volume, resolution, default rate (Wilson CIs).
-  All mature cohorts 2009Q4-2015Q4 pass the 200/200 rule; 2016+ partially
-  unresolved; micro-vintages 2008Q2-2009Q3 fail the events rule.
-- **T4.2** `src/statistics/shift.py` (PSI/KS/SMD/JS/Wilson, pure functions)
-  + `tests/test_shift_stats.py` (18 synthetic tests, green) +
-  `scripts/build_mature_features.py` (audited-source 1.6M x 55 cache) +
-  `scripts/shift_measures.py` -> per-feature PSI/KS/SMD/missingness tables
-  (2013Q3-2018Q4 vs the training window), categorical JS, default-rate
-  shift with intervals, PSI heatmap figure. Findings: excluding the three
-  event-absence fields, candidate-window PSI stays <= 0.17; the strong
-  drifters are `pub_rec`, `revol_util_pct`, `initial_list_status`
-  (listing-channel switch, JS to 0.489).
-- **T4.3** `scripts/adversarial_validation.py`: features-only adversarial
-  AUC vs the training window rises 0.61 (2013Q3) -> 0.88 (2015Q4) and 0.95
-  by 2018Q4 (late-adopted bureau fields; schema-confounded) -> table + ROC
-  figure.
-- **T4.4** `scripts/concept_drift_strata.py`: within-stratum resolved
-  default-rate spreads up to 0.56 across vintages -> conditional rates move
-  beyond covariate shift; table + heatmap.
-- **T4.5** `scripts/label_delay_feasibility.py`: 49 cells (8 cohorts x lags
-  {0,6,12,18,24,36} + static arm) all FEASIBLE under 200/200; arms tagged
-  oracle/optimistic/realistic per CONTEXT Section 6.
-- **T4.6** `scripts/compute_pilot.py`: one config per family on the plumbing
-  sample; SHAP TreeExplainer ~= 12.9 s per 10k rows (500-row background),
-  bootstrap B=200 in 1.6 s (B=2000 ~= 16 s), recalibrators <= 0.4 s ->
-  `reports/tables/compute_pilot.csv`; caps written into GATE4 BEFORE freeze.
-- **T4.7** `protocol/GATE4.md` drafted (PROPOSED): test cohorts 2014Q1-2015Q4
-  proposed for freeze; windows chosen from descriptive evidence only; D-3,
-  D-4, D-5 and the compute caps presented for PI ratification.
-- Test suite 59 green incl. the new shift-statistics module; lint being
-  swept at commit time.
-
-
+- T5.2 hypotheses register landed (PROPOSED, pre-freeze draft for the PI):
+  `protocol/HYPOTHESES.md` rewritten from the STUB to the full register —
+  every confirmatory row (H1a, H1c, H2c, H3a, RQ4.1-4.4) now carries its
+  test statistic, direction (justified only where literature supports
+  it), threshold, and practical-effect anchor; all thresholds are either
+  pre-set config quantities (alpha 0.05, Holm over the 8 confirmatory
+  tests, headline bootstrap B = 2,000, H4 equivalence region |rho| < 0.3,
+  unit of analysis, matched-null draws = 1,000) or PROPOSED defaults
+  stated with rationale for PI confirmation BEFORE freeze (H1a effect
+  anchor |delta-CITL| >= 0.02 = the refer-band half-width; H1c recovery
+  >= 0.5 as "substantial"; H3a threshold = the seed-noise-floor 95th
+  percentile; H1d isotonic size grid {500, 1k, 2k, 5k, full}).
+  Noise-floor inputs (T8.2: 20 seeds x 30 bootstrap resamples on one
+  fixed cohort, deep subset 5 configs/family) and the freeze ordering
+  (PI edits at Gate 5 only; verbatim into the frozen protocol; Holm
+  applied once, at the end) are part of the register. Every config
+  citation was verified against the actual file contents before writing
+  (statistics.yaml / models.yaml / decisions.yaml keys checked,
+  PLAN.md T8.2 wording matched verbatim).
