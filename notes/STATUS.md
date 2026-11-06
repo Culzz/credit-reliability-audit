@@ -325,6 +325,16 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   log-odds additivity of linear SHAP (margin = sum(shap) + expected),
   informative-column dominance, determinism, and shape validation.
   Suite now 179 passed; ruff clean.
+- Runner consolidation: `scripts/_common.py` now owns the single
+  loading path all run_* scripts share (configs reader with the
+  one-top-level-key sanity check, the test-cohort guard verbatim, and
+  the plumbing split with the disjointness iron rule attached
+  structurally). run_baselines / run_calibration / run_decisions were
+  re-cut onto it and ALL THREE re-ran end to end with numbers matching
+  the pre-refactor tables exactly (LR/RF/XGB/LGBM AUCs unchanged at
+  0.6209/0.6237/0.5793/0.5775), so the refactor is provably
+  behaviour-neutral. Ruff `--fix` pass applied to sort the new import
+  blocks. Suite state unchanged at 179 passed; ruff clean.
 - Confirmatory inference helpers landed: `src/statistics/inference.py`
   (T7.7 paired method comparisons + the statistics.yaml multiplicity
   rule) — Holm step-down adjusted p-values (order-preserving, monotone
