@@ -26,7 +26,7 @@ from sklearn.linear_model import LogisticRegression
 
 KINDS = ("none", "intercept", "platt", "isotonic")
 
-_EPS = 1e-12
+_EPS = 1e-6  # CONTEXT.md 7: clip p to [1e-6, 1-1e-6] before any logit
 
 
 def _as_arrays(targets, scores) -> tuple[np.ndarray, np.ndarray]:
@@ -77,6 +77,29 @@ class Recalibrator:
         return np.clip(self.params["mapping"].predict(p), 0.0, 1.0)
 
 
+def fit_offset_intercept(targets, scores) -> float:
+    """Calibration-in-the-large intercept (CONTEXT.md 7's offset fit).
+
+    Fits `y ~ 1` with `logit(p)` as an OFFSET (slope pinned to 1) by
+    minimising the binomial deviance over a single offset parameter; the
+    same fit backs the "intercept" recalibration arm, so the audit metric
+    and the recalibrator cannot drift apart.
+    """
+    y, p = _as_arrays(targets, scores)
+    if len(np.unique(y)) < 2:
+        raise ValueError("the offset-intercept fit needs both outcome classes")
+    logits = _logit(p)
+
+    def deviance(offset: float) -> float:
+        q = _expit(logits + offset)
+        return -(y * np.log(q + _EPS) + (1 - y) * np.log(1 - q + _EPS)).sum()
+
+    res = minimize_scalar(deviance, bounds=(-10.0, 10.0), method="bounded")
+    if not np.isfinite(res.fun):
+        raise RuntimeError("intercept-only calibration fit failed to converge")
+    return float(res.x)
+
+
 def fit_recalibrator(kind: str, targets, scores) -> Recalibrator:
     """Fit one recalibration arm on eligible historical labels only.
 
@@ -93,16 +116,12 @@ def fit_recalibrator(kind: str, targets, scores) -> Recalibrator:
         raise ValueError(f"arm {kind!r} needs both outcome classes in the calibration set")
 
     if kind == "intercept":
-        logits = _logit(p)
-
-        def deviance(offset: float) -> float:
-            q = _expit(logits + offset)
-            return -(y * np.log(q + _EPS) + (1 - y) * np.log(1 - q + _EPS)).sum()
-
-        res = minimize_scalar(deviance, bounds=(-10.0, 10.0), method="bounded")
-        if not res.success and not np.isfinite(res.fun):
-            raise RuntimeError("intercept-only calibration fit failed to converge")
-        return Recalibrator("intercept", {"offset": float(res.x)}, len(y), int(y.sum()))
+        return Recalibrator(
+            "intercept",
+            {"offset": fit_offset_intercept(targets, scores)},
+            len(y),
+            int(y.sum()),
+        )
 
     if kind == "platt":
         # C=np.inf: the calibration refit must be unregularised (sklearn 1.8

@@ -472,6 +472,28 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   pin adapters, render substitution/formatting, missing-key liveness,
   the claims register schema, and a real-export spot anchor
   (LR dry-run AUC 0.620923). Suite now 200 passed; ruff clean.
+- Cross-review R-7.2 (Builder-review of calibration statistics vs
+  CONTEXT 7, logged in notes/REVIEWS.md) found one genuine DEFINITION
+  ERROR and three conformance gaps, all fixed:
+  (1) citl_and_slope took the intercept from a single FREE binomial fit,
+  but 7 defines CITL via an OFFSET fit (slope pinned to 1) and the
+  slope via a SEPARATE free fit - different parameters whenever the
+  slope is not 1. fit_offset_intercept() now backs both the intercept
+  recalibration arm and the audit metric (single source of truth); a
+  discriminator test pins offset-intercept != free intercept under a
+  skewed symmetric logit stretch (free/Platt intercept ~0 vs offset
+  correction > 0), and citl == fitted arm offset is pinned to 1e-9.
+  (2) clip level 1e-12 -> 1e-6 per 7's "before any logit" rule.
+  (3) the A/E ratio (mean y / mean p, ideal 1) was missing entirely;
+  added ae_ratio() + 4 synthetic tests + an ae_ratio metric column in
+  the runner. Sampling-noise lesson recorded honestly: initial test
+  tolerances rel=1e-6 at n=50k sit below the ~1.4% Bernoulli noise
+  floor and were loosened to 2%.
+  (4) runners' primary ECE switched to equal-mass bins
+  (quantile_edges=True, B=15) per the 7 adaptive-bin definition;
+  run_calibration and run_sample_size re-ran end to end, and
+  numbers_dryrun.json re-exported (9,648 keys).
+  Suite now 206 passed (6 new tests); ruff clean; AI sweep clean.
 - [Analyst] Platt 1999 verified against a primary record and added as
   the recalibration line's 41st matrix row: Semantic Scholar record
   CorpusId 56563878 (title/author/year 1999; venue field empty in the

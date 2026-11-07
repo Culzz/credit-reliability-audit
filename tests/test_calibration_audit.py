@@ -6,6 +6,7 @@ import numpy as np
 import pytest
 
 from src.calibration.audit import (
+    ae_ratio,
     brier_decomposition,
     citl_and_slope,
     decision_flips,
@@ -130,6 +131,30 @@ class TestEce:
             ece(np.array([0.5, 1.5]), np.array([0.5, 0.5]))
 
 
+class TestAeRatio:
+    def test_calibrated_simulator_near_one(self):
+        n = 200_000
+        p = RNG.uniform(0.05, 0.95, size=n)
+        y = (RNG.uniform(size=n) < p).astype(float)
+        assert ae_ratio(y, p) == pytest.approx(1.0, abs=0.01)
+
+    def test_underprediction_above_one(self):
+        # model predicts p = 0.3 but realised rate is 0.3 for scores 0.7:
+        # mean(y) = 0.3/0.7 of mean(p) -> A/E = 0.3/0.7
+        n = 50_000
+        y = (RNG.uniform(size=n) < 0.3).astype(float)
+        assert ae_ratio(y, np.full(n, 0.7)) == pytest.approx(0.3 / 0.7, rel=0.02)
+
+    def test_overprediction_below_one(self):
+        n = 50_000
+        y = (RNG.uniform(size=n) < 0.3).astype(float)
+        assert ae_ratio(y, np.full(n, 0.1)) == pytest.approx(3.0, rel=0.02)
+
+    def test_undefined_mean_prediction(self):
+        with pytest.raises(ValueError, match="non-positive mean"):
+            ae_ratio(np.array([0, 1]), np.array([0.0, 0.0]))
+
+
 # --------------------------------------------------------------------------
 # CITL / slope
 # --------------------------------------------------------------------------
@@ -165,6 +190,37 @@ class TestCitlAndSlope:
         res = citl_and_slope(y, p_hat)
         assert res.slope == pytest.approx(1.0, abs=0.05)
         assert res.citl == pytest.approx(-1.0, abs=0.05)
+
+    def test_offset_intercept_differs_from_free_fit_intercept(self):
+        # CONTEXT 7 defines CITL via an OFFSET model (slope pinned to 1)
+        # and the slope via a separate free fit: the two intercepts differ
+        # whenever the slope is not 1. With a skewed score distribution
+        # under a symmetric logit stretch, the free-fit (Platt) intercept
+        # stays at ~0 (slope ~2/3) while the offset-model CITL must lift
+        # the mean prediction up to the observed base rate.
+        from src.calibration.recalibration import fit_recalibrator
+
+        n = 200_000
+        u = RNG.uniform(-4.0, 2.0, size=n)      # skewed: mean(y) > mean(expit(1.5u))
+        y = (RNG.uniform(size=n) < 1.0 / (1.0 + np.exp(-u))).astype(int)
+        p_hat = 1.0 / (1.0 + np.exp(-(1.5 * u)))
+        res = citl_and_slope(y, p_hat)
+        platt = fit_recalibrator("platt", y, p_hat).params
+        assert abs(platt["intercept"]) < 0.02   # free fit: intercept ~0, slope absorbs
+        assert platt["slope"] == pytest.approx(2 / 3, abs=0.05)
+        assert res.citl > 0.02                  # offset model: positive correction
+        assert (res.citl - abs(platt["intercept"])) > 0.01
+
+    def test_citl_matches_intercept_arm_offset(self):
+        # single source of truth: the audit's CITL must equal the fitted
+        # offset of the "intercept" recalibration arm on the same data
+        from src.calibration.recalibration import fit_offset_intercept
+
+        n = 40_000
+        p = RNG.uniform(0.01, 0.99, size=n)
+        y = (RNG.uniform(size=n) < p ** 1.5).astype(int)
+        res = citl_and_slope(y, p)
+        assert res.citl == pytest.approx(fit_offset_intercept(y, p), abs=1e-9)
 
     def test_single_class_raises(self):
         with pytest.raises(ValueError):

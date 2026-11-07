@@ -25,7 +25,7 @@ from scripts._common import (
     load_configs,
     load_plumbing_split,
 )
-from src.calibration.audit import brier_decomposition, citl_and_slope, decision_flips, ece
+from src.calibration.audit import ae_ratio, brier_decomposition, citl_and_slope, decision_flips, ece
 from src.calibration.recalibration import KINDS, fit_recalibrator
 from src.models.harness import FAMILIES, make_estimator, make_preprocessor
 
@@ -61,7 +61,8 @@ def main() -> None:
                 ("brier_raw", dec.brier),
                 ("brier_binned", dec.binned_brier),
                 ("reliability", dec.reliability),
-                ("ece_b15", ece(split.y_val, p_eval, n_bins=15)),
+                ("ece_b15", ece(split.y_val, p_eval, n_bins=15, quantile_edges=True)),  # §7: adaptive equal-mass
+                ("ae_ratio", ae_ratio(split.y_val, p_eval)),
                 ("citl", citl.citl),
                 ("slope", citl.slope),
                 ("flip_rate_vs_none", flips.flip_rate),
@@ -79,7 +80,7 @@ def main() -> None:
                         "fit_seconds": round(seconds, 2),
                     }
                 )
-        print(f"{family:>20} | arms x 8 metrics | {seconds:.1f}s")
+        print(f"{family:>20} | arms x 9 metrics | {seconds:.1f}s")
 
     TABLES.mkdir(parents=True, exist_ok=True)
     out = TABLES / "calibration_audit_dryrun.csv"

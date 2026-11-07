@@ -158,25 +158,49 @@ def ece(
     return float(total)
 
 
+def ae_ratio(targets: np.ndarray, probabilities: np.ndarray) -> float:
+    """A/E ratio: mean(observed) / mean(predicted) (CONTEXT.md 7). Ideal 1."""
+    y = np.asarray(targets, dtype=float)
+    p = np.asarray(probabilities, dtype=float)
+    if y.ndim != 1 or p.ndim != 1 or len(y) != len(p) or len(y) == 0:
+        raise ValueError("targets and probabilities must be equal-length 1-D arrays")
+    if not np.all(np.isin(y, [0.0, 1.0])):
+        raise ValueError("targets must be binary")
+    if not np.all((p >= 0.0) & (p <= 1.0)):
+        raise ValueError("probabilities must lie in [0,1]")
+    mean_p = float(p.mean())
+    if mean_p <= 0.0:
+        raise ValueError("A/E is undefined for a non-positive mean prediction")
+    return float(y.mean()) / mean_p
+
+
 @dataclass(frozen=True)
 class CitlResult:
-    citl: float          # required intercept on the logit scale (want 0)
-    slope: float         # required slope on the logit scale (want 1)
+    citl: float          # offset-model intercept on the logit scale (want 0)
+    slope: float         # free-fit coefficient on logit(p) (want 1)
     n: int
     n_events: int
 
 
 def citl_and_slope(targets: np.ndarray, probabilities: np.ndarray) -> CitlResult:
-    """Logistic calibration-in-the-large and slope via refit on the logit.
+    """Calibration intercept and slope, exactly per CONTEXT.md 7.
 
-    Fits targets ~ a + b * logit(p); returns (a, b) as the calibration
-    intercept (CITL) and slope deviation signature per the statistical plan.
-    Uses an offset-free logistic fit with a single logit-space covariate.
+    The two quantities come from TWO DIFFERENT fits (§7 wording: "use
+    exactly these"):
+    - CITL: `y ~ 1` with `logit(p)` as an OFFSET in a binomial GLM
+      (slope pinned to 1) — implemented as `fit_offset_intercept`, the
+      same fit backing the intercept recalibration arm;
+    - slope: `y ~ logit(p)` binomial GLM, coefficient on `logit(p)`.
+    They are deliberately NOT taken from one joined free fit: the
+    offset-intercept and the free-fit intercept are different parameters
+    whenever the slope is not 1.
     """
     from sklearn.linear_model import LogisticRegression
 
+    from src.calibration.recalibration import fit_offset_intercept
+
     y = np.asarray(targets, dtype=int)
-    p = np.clip(np.asarray(probabilities, dtype=float), 1e-12, 1.0 - 1e-12)
+    p = np.clip(np.asarray(probabilities, dtype=float), 1e-6, 1.0 - 1e-6)  # §7 clip
     if len(set(np.unique(y))) != 2:
         raise ValueError("CITL needs both outcome classes present")
     logit = np.log(p / (1.0 - p)).reshape(-1, 1)
@@ -184,8 +208,8 @@ def citl_and_slope(targets: np.ndarray, probabilities: np.ndarray) -> CitlResult
     # penalty=None, whose fallback silently penalises the slope).
     fit = LogisticRegression(C=np.inf, solver="lbfgs", max_iter=10000).fit(logit, y)
     return CitlResult(
-        citl=float(fit.intercept_[0]),
-        slope=float(fit.coef_[0][0]),
+        citl=fit_offset_intercept(targets, p),  # §7 offset fit (slope pinned to 1)
+        slope=float(fit.coef_[0][0]),           # §7 free binomial GLM coefficient
         n=len(y),
         n_events=int(y.sum()),
     )

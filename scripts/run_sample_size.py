@@ -91,7 +91,7 @@ def main() -> None:
                             "repeat": r,
                             "arm": arm,
                             "metric": "ece_b15_val",
-                            "value": round(float(ece(split.y_val, p_eval, n_bins=15)), 6),
+                            "value": round(float(ece(split.y_val, p_eval, n_bins=15, quantile_edges=True)), 6),
                         }
                     )
                 # matched computation: eval scores differ across arms fitted on
