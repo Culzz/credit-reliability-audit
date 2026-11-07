@@ -84,7 +84,25 @@ Key design choices in the draft:
 (c) boosting n_estimators fixed at 400 for all draws (learning-rate range
     carries the complexity variation instead), keeping the sweep inside
     the T4.6 compute caps.
-Decision needed: confirm the ranges and the two sampler rules before freeze;
-later range changes are logged deviations.
+Decision needed: confirm the search-space ranges and the two sampler rules
+before freeze; later range changes are logged deviations.
+
+### D-7 2026-11-08 Feature groups (T5.4) — PI review item
+
+Context: PLAN T8.5 / H2c need a strict PARTITION of the design matrix.
+Drafted PROPOSED in `configs/feature_groups.yaml` + `protocol/FEATURE_GROUPS.md`
+with resolver `src/features/groups.py` (hard error on any unassigned design
+column; one-hots inherit via longest source-prefix; engineered columns mapped
+explicitly) and 4 synthetic tests + a config-side assertion that exactly the
+24 audited KEEP features are grouped. Verified live: the resolver partitions
+all 52 plumbing design columns into 6 groups (per-group sizes 30/10/4/4/2/2).
+Decision needed: (a) the six-way semantic partition
+(borrower_capacity / credit_history_tenure / delinquency_public_record /
+credit_score / utilization / application_context);
+(b) event-absence indicators `*_isna` grouped with their adverse-event
+source feature;
+(c) `inq_last_6mths` in application_context rather than in the
+delinquency group.
+
 
 

@@ -1,0 +1,65 @@
+# configs/feature_groups.yaml — feature groups for the grouped
+# importance / grouped-stability machinery (PLAN T8.5, H2c, RQ4.x)
+#
+# Status: PROPOSED. Written before any Phase 5+ result exists; the PI
+# confirms or edits at freeze (logged as D-7). Later changes are logged
+# deviations (protocol/DEVIATIONS.md).
+#
+# Design rules:
+# - groups partition the audited KEEP features by credit-domain semantics;
+#   every audited source feature appears in EXACTLY ONE group (no overlaps,
+#   no leftovers) so grouped permutation importance is a well-defined
+#   partition;
+# - design-matrix columns inherit their source feature's group: one-hot
+#   columns are prefixed with the source name (`prefix=c` in
+#   build_feature_frame), engineered columns are mapped explicitly in
+#   `engineered_inherit`;
+# - metadata columns (id, vintage, loan_status, y, issue_d/issue_date) are
+#   never part of a group;
+# - no group exists whose members are post-origination fields: the column
+#   audit already removed them (KEEP discipline, leakage first).
+
+feature_groups:
+  borrower_capacity:
+    - loan_amnt
+    - annual_inc
+    - dti
+    - emp_length
+  credit_history_tenure:
+    - earliest_cr_line
+    - total_acc
+    - open_acc
+  delinquency_public_record:
+    - acc_now_delinq
+    - delinq_2yrs
+    - delinq_amnt
+    - mths_since_last_delinq
+    - mths_since_last_major_derog
+    - mths_since_last_record
+    - pub_rec
+  credit_score:
+    - fico_range_high
+    - fico_range_low
+  utilization:
+    - revol_bal
+    - revol_util
+  application_context:
+    - purpose
+    - verification_status
+    - home_ownership
+    - initial_list_status
+    - application_type
+    - inq_last_6mths
+
+# engineered design columns are not named like their source; map them here
+engineered_inherit:
+  credit_age_months: earliest_cr_line
+  cr_line_after_issue: earliest_cr_line
+  emp_length_years: emp_length
+  revol_util_pct: revol_util
+  mths_since_last_delinq_isna: mths_since_last_delinq
+  mths_since_last_major_derog_isna: mths_since_last_major_derog
+  mths_since_last_record_isna: mths_since_last_record
+
+# one-hot columns ("<source>_<level>" and "<source>_na") inherit via prefix
+onehot_prefix_inherit: true

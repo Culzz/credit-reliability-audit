@@ -525,3 +525,15 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   behaviour-neutral refactor produced identical numbers. New table
   adapters added to `export_numbers.py` (10,028 keys exported). 3 new
   tests; suite now 210 passed; ruff clean; AI sweep clean.
+- T5.4 feature-group draft landed (PROPOSED, D-7 opened for the PI):
+  `configs/feature_groups.yaml` (6-way semantic partition of the 24
+  audited KEEP features; engineered columns mapped explicitly; one-hots
+  inherit by source prefix; no post-origination field anywhere) +
+  `src/features/groups.py` resolver (hard error on any unassigned design
+  column, so schema changes can never silently break the partition;
+  longest-prefix rule for one-hot levels) + `protocol/FEATURE_GROUPS.md`
+  (rationale, constraints, D-7 questions). Verified live on the real
+  plumbing design matrix: all 52 columns resolve into 6 groups (30/10/4/
+  4/2/2). 4 synthetic tests (config-side partition + KEEP coverage,
+  engineered/one-hot resolution, unassigned-column errors,
+  partition-cover property). Suite now 214 passed; ruff clean.
