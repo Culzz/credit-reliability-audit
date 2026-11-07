@@ -13,8 +13,10 @@ from scripts.export_numbers import (
     import_baseline,
     import_calibration,
     import_decisions,
+    import_deep_subset,
     import_noise_floor,
     import_sample_size,
+    import_sweep,
 )
 from scripts.render_paper import render
 
@@ -53,6 +55,32 @@ class TestAdapters:
         )
         out = import_calibration(df, "calibration_audit_dryrun.csv")
         assert out["random_forest.isotonic.citl"]["value"] == pytest.approx(-1.234568)
+
+    def test_sweep_and_deep_subset(self):
+        sweep = pd.DataFrame(
+            {
+                "family": ["xgboost"],
+                "config_index": [7],
+                "params_json": ['{"learning_rate": 0.05}'],
+                "auc": [0.5793123],
+                "brier": [0.1234567],
+                "log_loss": [0.4498765],
+            }
+        )
+        out = import_sweep(sweep, "sweep_dryrun.csv")
+        assert out["xgboost.c7.auc"]["value"] == pytest.approx(0.579312)
+        assert out["xgboost.c7.log_loss"]["value"] == pytest.approx(0.449877)
+
+        deep = pd.DataFrame(
+            {
+                "family": ["xgboost"],
+                "anchor": ["q50"],
+                "config_index": [12],
+                "auc": [0.5882],
+            }
+        )
+        out = import_deep_subset(deep, "deep_subset_dryrun.csv")
+        assert out["xgboost.q50.config_index"]["value"] == 12
 
     def test_decisions_and_noise_and_size_long(self):
         dec = pd.DataFrame(

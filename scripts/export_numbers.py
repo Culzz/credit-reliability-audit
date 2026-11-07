@@ -129,12 +129,41 @@ def import_sample_size(df: pd.DataFrame, table: str) -> dict[str, dict]:
     return out
 
 
+def import_sweep(df: pd.DataFrame, table: str) -> dict[str, dict]:
+    _need(df, ["family", "config_index", "params_json", "auc", "brier", "log_loss"], table)
+    out = {}
+    for row in df.itertuples(index=False):
+        prefix = f"{row.family}.c{row.config_index}"
+        for metric, value in (("auc", row.auc), ("brier", row.brier), ("log_loss", row.log_loss)):
+            out[f"{prefix}.{metric}"] = {
+                "value": _round6(value),
+                "table": table,
+                "columns": {"family": row.family, "config_index": row.config_index, "metric": metric},
+            }
+    return out
+
+
+def import_deep_subset(df: pd.DataFrame, table: str) -> dict[str, dict]:
+    _need(df, ["family", "anchor", "config_index", "auc"], table)
+    out = {}
+    for row in df.itertuples(index=False):
+        key = f"{row.family}.{row.anchor}.config_index"
+        out[key] = {
+            "value": int(row.config_index),
+            "table": table,
+            "columns": {"family": row.family, "anchor": row.anchor},
+        }
+    return out
+
+
 ADAPTERS = {
     "baseline_dryrun_metrics": import_baseline,
     "calibration_audit_dryrun": import_calibration,
     "decision_flip_dryrun": import_decisions,
     "noise_floor_dryrun": import_noise_floor,
     "sample_size_dryrun": import_sample_size,
+    "sweep_dryrun": import_sweep,
+    "deep_subset_dryrun": import_deep_subset,
 }
 
 

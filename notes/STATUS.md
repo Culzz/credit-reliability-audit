@@ -505,3 +505,23 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   marks the Platt arm lineage (parametric sigmoid fitted on a separate
   calibration set); read_status stays metadata until a full-text read.
   Matrix now 41 rows x 22 columns (still inside the 40-60 target band).
+- Broad-sweep sampling dry-run landed (T5.5 follow-through):
+  `scripts/run_sweep.py` draws the 30 configs/family from the
+  deterministic sampler, fits every draw on the plumbing train window,
+  evaluates AUC/Brier/logloss on validation only, and applies the
+  models.yaml deep-subset rule (5 configs per family at validation-AUC
+  quantile anchors min/q25/q50/q75/max; even-n median ties resolve
+  downward via round-half-even, documented). Selection extracted as
+  `deep_subset_indices()` + 3 tests pinning quantile positions vs
+  config ids (the anchor must track the AUC ordering, not the config
+  id). `reports/tables/sweep_dryrun.csv` (120 rows) +
+  `reports/tables/deep_subset_dryrun.csv` (20 rows). Plumbing picture
+  (dry-run only): tree families produce genuinely heterogeneous
+  configs (AUC spreads 0.043 RF / 0.080 XGB / 0.044 LGBM; XGB log-loss
+  spread 0.089), while LR regularization moves AUC by ~0.0025 across
+  the whole C range; AUC-Brier correlations at this scale are strongly
+  negative for trees (-0.75..-0.94), which is what the RQ4 association
+  is designed to interrogate at real scale. Re-run after the
+  behaviour-neutral refactor produced identical numbers. New table
+  adapters added to `export_numbers.py` (10,028 keys exported). 3 new
+  tests; suite now 210 passed; ruff clean; AI sweep clean.

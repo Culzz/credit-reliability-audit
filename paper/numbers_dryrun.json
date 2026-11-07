@@ -7521,6 +7521,816 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.120629
     },
+    "dryrun.lightgbm.c0.auc": {
+      "columns": {
+        "config_index": 0,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.600662
+    },
+    "dryrun.lightgbm.c0.brier": {
+      "columns": {
+        "config_index": 0,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.110441
+    },
+    "dryrun.lightgbm.c0.log_loss": {
+      "columns": {
+        "config_index": 0,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.376821
+    },
+    "dryrun.lightgbm.c1.auc": {
+      "columns": {
+        "config_index": 1,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.597195
+    },
+    "dryrun.lightgbm.c1.brier": {
+      "columns": {
+        "config_index": 1,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.11738
+    },
+    "dryrun.lightgbm.c1.log_loss": {
+      "columns": {
+        "config_index": 1,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.445627
+    },
+    "dryrun.lightgbm.c10.auc": {
+      "columns": {
+        "config_index": 10,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.599948
+    },
+    "dryrun.lightgbm.c10.brier": {
+      "columns": {
+        "config_index": 10,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108895
+    },
+    "dryrun.lightgbm.c10.log_loss": {
+      "columns": {
+        "config_index": 10,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.373656
+    },
+    "dryrun.lightgbm.c11.auc": {
+      "columns": {
+        "config_index": 11,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.60035
+    },
+    "dryrun.lightgbm.c11.brier": {
+      "columns": {
+        "config_index": 11,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.113956
+    },
+    "dryrun.lightgbm.c11.log_loss": {
+      "columns": {
+        "config_index": 11,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.432192
+    },
+    "dryrun.lightgbm.c12.auc": {
+      "columns": {
+        "config_index": 12,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.573678
+    },
+    "dryrun.lightgbm.c12.brier": {
+      "columns": {
+        "config_index": 12,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.125387
+    },
+    "dryrun.lightgbm.c12.log_loss": {
+      "columns": {
+        "config_index": 12,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.565942
+    },
+    "dryrun.lightgbm.c13.auc": {
+      "columns": {
+        "config_index": 13,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.605892
+    },
+    "dryrun.lightgbm.c13.brier": {
+      "columns": {
+        "config_index": 13,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.1106
+    },
+    "dryrun.lightgbm.c13.log_loss": {
+      "columns": {
+        "config_index": 13,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.3859
+    },
+    "dryrun.lightgbm.c14.auc": {
+      "columns": {
+        "config_index": 14,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.603531
+    },
+    "dryrun.lightgbm.c14.brier": {
+      "columns": {
+        "config_index": 14,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.110237
+    },
+    "dryrun.lightgbm.c14.log_loss": {
+      "columns": {
+        "config_index": 14,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.378507
+    },
+    "dryrun.lightgbm.c15.auc": {
+      "columns": {
+        "config_index": 15,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.587507
+    },
+    "dryrun.lightgbm.c15.brier": {
+      "columns": {
+        "config_index": 15,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.121995
+    },
+    "dryrun.lightgbm.c15.log_loss": {
+      "columns": {
+        "config_index": 15,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.722407
+    },
+    "dryrun.lightgbm.c16.auc": {
+      "columns": {
+        "config_index": 16,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.571237
+    },
+    "dryrun.lightgbm.c16.brier": {
+      "columns": {
+        "config_index": 16,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.121371
+    },
+    "dryrun.lightgbm.c16.log_loss": {
+      "columns": {
+        "config_index": 16,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.74051
+    },
+    "dryrun.lightgbm.c17.auc": {
+      "columns": {
+        "config_index": 17,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.596554
+    },
+    "dryrun.lightgbm.c17.brier": {
+      "columns": {
+        "config_index": 17,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.110814
+    },
+    "dryrun.lightgbm.c17.log_loss": {
+      "columns": {
+        "config_index": 17,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.379569
+    },
+    "dryrun.lightgbm.c18.auc": {
+      "columns": {
+        "config_index": 18,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.613079
+    },
+    "dryrun.lightgbm.c18.brier": {
+      "columns": {
+        "config_index": 18,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107747
+    },
+    "dryrun.lightgbm.c18.log_loss": {
+      "columns": {
+        "config_index": 18,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368197
+    },
+    "dryrun.lightgbm.c19.auc": {
+      "columns": {
+        "config_index": 19,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.594991
+    },
+    "dryrun.lightgbm.c19.brier": {
+      "columns": {
+        "config_index": 19,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.114143
+    },
+    "dryrun.lightgbm.c19.log_loss": {
+      "columns": {
+        "config_index": 19,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.424961
+    },
+    "dryrun.lightgbm.c2.auc": {
+      "columns": {
+        "config_index": 2,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.59756
+    },
+    "dryrun.lightgbm.c2.brier": {
+      "columns": {
+        "config_index": 2,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.109456
+    },
+    "dryrun.lightgbm.c2.log_loss": {
+      "columns": {
+        "config_index": 2,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.376694
+    },
+    "dryrun.lightgbm.c20.auc": {
+      "columns": {
+        "config_index": 20,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.604729
+    },
+    "dryrun.lightgbm.c20.brier": {
+      "columns": {
+        "config_index": 20,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.115606
+    },
+    "dryrun.lightgbm.c20.log_loss": {
+      "columns": {
+        "config_index": 20,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.459229
+    },
+    "dryrun.lightgbm.c21.auc": {
+      "columns": {
+        "config_index": 21,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.602353
+    },
+    "dryrun.lightgbm.c21.brier": {
+      "columns": {
+        "config_index": 21,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108752
+    },
+    "dryrun.lightgbm.c21.log_loss": {
+      "columns": {
+        "config_index": 21,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.371379
+    },
+    "dryrun.lightgbm.c22.auc": {
+      "columns": {
+        "config_index": 22,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.602172
+    },
+    "dryrun.lightgbm.c22.brier": {
+      "columns": {
+        "config_index": 22,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.117055
+    },
+    "dryrun.lightgbm.c22.log_loss": {
+      "columns": {
+        "config_index": 22,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.465082
+    },
+    "dryrun.lightgbm.c23.auc": {
+      "columns": {
+        "config_index": 23,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.590548
+    },
+    "dryrun.lightgbm.c23.brier": {
+      "columns": {
+        "config_index": 23,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.119191
+    },
+    "dryrun.lightgbm.c23.log_loss": {
+      "columns": {
+        "config_index": 23,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.483781
+    },
+    "dryrun.lightgbm.c24.auc": {
+      "columns": {
+        "config_index": 24,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.608945
+    },
+    "dryrun.lightgbm.c24.brier": {
+      "columns": {
+        "config_index": 24,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.111289
+    },
+    "dryrun.lightgbm.c24.log_loss": {
+      "columns": {
+        "config_index": 24,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.392819
+    },
+    "dryrun.lightgbm.c25.auc": {
+      "columns": {
+        "config_index": 25,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.602697
+    },
+    "dryrun.lightgbm.c25.brier": {
+      "columns": {
+        "config_index": 25,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108568
+    },
+    "dryrun.lightgbm.c25.log_loss": {
+      "columns": {
+        "config_index": 25,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.372544
+    },
+    "dryrun.lightgbm.c26.auc": {
+      "columns": {
+        "config_index": 26,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.602484
+    },
+    "dryrun.lightgbm.c26.brier": {
+      "columns": {
+        "config_index": 26,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.111522
+    },
+    "dryrun.lightgbm.c26.log_loss": {
+      "columns": {
+        "config_index": 26,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.383527
+    },
+    "dryrun.lightgbm.c27.auc": {
+      "columns": {
+        "config_index": 27,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.600023
+    },
+    "dryrun.lightgbm.c27.brier": {
+      "columns": {
+        "config_index": 27,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.120183
+    },
+    "dryrun.lightgbm.c27.log_loss": {
+      "columns": {
+        "config_index": 27,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.613858
+    },
+    "dryrun.lightgbm.c28.auc": {
+      "columns": {
+        "config_index": 28,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.593556
+    },
+    "dryrun.lightgbm.c28.brier": {
+      "columns": {
+        "config_index": 28,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.118948
+    },
+    "dryrun.lightgbm.c28.log_loss": {
+      "columns": {
+        "config_index": 28,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.564186
+    },
+    "dryrun.lightgbm.c29.auc": {
+      "columns": {
+        "config_index": 29,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.606237
+    },
+    "dryrun.lightgbm.c29.brier": {
+      "columns": {
+        "config_index": 29,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108235
+    },
+    "dryrun.lightgbm.c29.log_loss": {
+      "columns": {
+        "config_index": 29,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.369861
+    },
+    "dryrun.lightgbm.c3.auc": {
+      "columns": {
+        "config_index": 3,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.610033
+    },
+    "dryrun.lightgbm.c3.brier": {
+      "columns": {
+        "config_index": 3,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.117473
+    },
+    "dryrun.lightgbm.c3.log_loss": {
+      "columns": {
+        "config_index": 3,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.518186
+    },
+    "dryrun.lightgbm.c4.auc": {
+      "columns": {
+        "config_index": 4,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.599708
+    },
+    "dryrun.lightgbm.c4.brier": {
+      "columns": {
+        "config_index": 4,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.11313
+    },
+    "dryrun.lightgbm.c4.log_loss": {
+      "columns": {
+        "config_index": 4,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.41808
+    },
+    "dryrun.lightgbm.c5.auc": {
+      "columns": {
+        "config_index": 5,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.615453
+    },
+    "dryrun.lightgbm.c5.brier": {
+      "columns": {
+        "config_index": 5,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107416
+    },
+    "dryrun.lightgbm.c5.log_loss": {
+      "columns": {
+        "config_index": 5,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367184
+    },
+    "dryrun.lightgbm.c6.auc": {
+      "columns": {
+        "config_index": 6,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.5852
+    },
+    "dryrun.lightgbm.c6.brier": {
+      "columns": {
+        "config_index": 6,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.121079
+    },
+    "dryrun.lightgbm.c6.log_loss": {
+      "columns": {
+        "config_index": 6,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.641709
+    },
+    "dryrun.lightgbm.c7.auc": {
+      "columns": {
+        "config_index": 7,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.601128
+    },
+    "dryrun.lightgbm.c7.brier": {
+      "columns": {
+        "config_index": 7,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10851
+    },
+    "dryrun.lightgbm.c7.log_loss": {
+      "columns": {
+        "config_index": 7,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.371521
+    },
+    "dryrun.lightgbm.c8.auc": {
+      "columns": {
+        "config_index": 8,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.607184
+    },
+    "dryrun.lightgbm.c8.brier": {
+      "columns": {
+        "config_index": 8,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.109031
+    },
+    "dryrun.lightgbm.c8.log_loss": {
+      "columns": {
+        "config_index": 8,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.372494
+    },
+    "dryrun.lightgbm.c9.auc": {
+      "columns": {
+        "config_index": 9,
+        "family": "lightgbm",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.601682
+    },
+    "dryrun.lightgbm.c9.brier": {
+      "columns": {
+        "config_index": 9,
+        "family": "lightgbm",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.111393
+    },
+    "dryrun.lightgbm.c9.log_loss": {
+      "columns": {
+        "config_index": 9,
+        "family": "lightgbm",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.387264
+    },
     "dryrun.lightgbm.f1.hi": {
       "columns": {
         "family": "lightgbm",
@@ -10872,6 +11682,22 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.577404
     },
+    "dryrun.lightgbm.max.config_index": {
+      "columns": {
+        "anchor": "max",
+        "family": "lightgbm"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 5
+    },
+    "dryrun.lightgbm.min.config_index": {
+      "columns": {
+        "anchor": "min",
+        "family": "lightgbm"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 16
+    },
     "dryrun.lightgbm.none.ae_ratio": {
       "columns": {
         "arm": "none",
@@ -11725,6 +12551,30 @@
       },
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.307692
+    },
+    "dryrun.lightgbm.q25.config_index": {
+      "columns": {
+        "anchor": "q25",
+        "family": "lightgbm"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 17
+    },
+    "dryrun.lightgbm.q50.config_index": {
+      "columns": {
+        "anchor": "q50",
+        "family": "lightgbm"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 0
+    },
+    "dryrun.lightgbm.q75.config_index": {
+      "columns": {
+        "anchor": "q75",
+        "family": "lightgbm"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 20
     },
     "dryrun.lightgbm.recall.hi": {
       "columns": {
@@ -32597,6 +33447,816 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.108008
     },
+    "dryrun.logistic_regression.c0.auc": {
+      "columns": {
+        "config_index": 0,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.619438
+    },
+    "dryrun.logistic_regression.c0.brier": {
+      "columns": {
+        "config_index": 0,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107444
+    },
+    "dryrun.logistic_regression.c0.log_loss": {
+      "columns": {
+        "config_index": 0,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367505
+    },
+    "dryrun.logistic_regression.c1.auc": {
+      "columns": {
+        "config_index": 1,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620911
+    },
+    "dryrun.logistic_regression.c1.brier": {
+      "columns": {
+        "config_index": 1,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108018
+    },
+    "dryrun.logistic_regression.c1.log_loss": {
+      "columns": {
+        "config_index": 1,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368698
+    },
+    "dryrun.logistic_regression.c10.auc": {
+      "columns": {
+        "config_index": 10,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.619339
+    },
+    "dryrun.logistic_regression.c10.brier": {
+      "columns": {
+        "config_index": 10,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106894
+    },
+    "dryrun.logistic_regression.c10.log_loss": {
+      "columns": {
+        "config_index": 10,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367302
+    },
+    "dryrun.logistic_regression.c11.auc": {
+      "columns": {
+        "config_index": 11,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620838
+    },
+    "dryrun.logistic_regression.c11.brier": {
+      "columns": {
+        "config_index": 11,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108042
+    },
+    "dryrun.logistic_regression.c11.log_loss": {
+      "columns": {
+        "config_index": 11,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368738
+    },
+    "dryrun.logistic_regression.c12.auc": {
+      "columns": {
+        "config_index": 12,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621016
+    },
+    "dryrun.logistic_regression.c12.brier": {
+      "columns": {
+        "config_index": 12,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108065
+    },
+    "dryrun.logistic_regression.c12.log_loss": {
+      "columns": {
+        "config_index": 12,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368779
+    },
+    "dryrun.logistic_regression.c13.auc": {
+      "columns": {
+        "config_index": 13,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621022
+    },
+    "dryrun.logistic_regression.c13.brier": {
+      "columns": {
+        "config_index": 13,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108059
+    },
+    "dryrun.logistic_regression.c13.log_loss": {
+      "columns": {
+        "config_index": 13,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368768
+    },
+    "dryrun.logistic_regression.c14.auc": {
+      "columns": {
+        "config_index": 14,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621025
+    },
+    "dryrun.logistic_regression.c14.brier": {
+      "columns": {
+        "config_index": 14,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108068
+    },
+    "dryrun.logistic_regression.c14.log_loss": {
+      "columns": {
+        "config_index": 14,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368783
+    },
+    "dryrun.logistic_regression.c15.auc": {
+      "columns": {
+        "config_index": 15,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621025
+    },
+    "dryrun.logistic_regression.c15.brier": {
+      "columns": {
+        "config_index": 15,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108069
+    },
+    "dryrun.logistic_regression.c15.log_loss": {
+      "columns": {
+        "config_index": 15,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368784
+    },
+    "dryrun.logistic_regression.c16.auc": {
+      "columns": {
+        "config_index": 16,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618605
+    },
+    "dryrun.logistic_regression.c16.brier": {
+      "columns": {
+        "config_index": 16,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106954
+    },
+    "dryrun.logistic_regression.c16.log_loss": {
+      "columns": {
+        "config_index": 16,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366544
+    },
+    "dryrun.logistic_regression.c17.auc": {
+      "columns": {
+        "config_index": 17,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621022
+    },
+    "dryrun.logistic_regression.c17.brier": {
+      "columns": {
+        "config_index": 17,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108057
+    },
+    "dryrun.logistic_regression.c17.log_loss": {
+      "columns": {
+        "config_index": 17,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368764
+    },
+    "dryrun.logistic_regression.c18.auc": {
+      "columns": {
+        "config_index": 18,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620441
+    },
+    "dryrun.logistic_regression.c18.brier": {
+      "columns": {
+        "config_index": 18,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10783
+    },
+    "dryrun.logistic_regression.c18.log_loss": {
+      "columns": {
+        "config_index": 18,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.36835
+    },
+    "dryrun.logistic_regression.c19.auc": {
+      "columns": {
+        "config_index": 19,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621019
+    },
+    "dryrun.logistic_regression.c19.brier": {
+      "columns": {
+        "config_index": 19,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108058
+    },
+    "dryrun.logistic_regression.c19.log_loss": {
+      "columns": {
+        "config_index": 19,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368767
+    },
+    "dryrun.logistic_regression.c2.auc": {
+      "columns": {
+        "config_index": 2,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620494
+    },
+    "dryrun.logistic_regression.c2.brier": {
+      "columns": {
+        "config_index": 2,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107837
+    },
+    "dryrun.logistic_regression.c2.log_loss": {
+      "columns": {
+        "config_index": 2,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368364
+    },
+    "dryrun.logistic_regression.c20.auc": {
+      "columns": {
+        "config_index": 20,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.62092
+    },
+    "dryrun.logistic_regression.c20.brier": {
+      "columns": {
+        "config_index": 20,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108015
+    },
+    "dryrun.logistic_regression.c20.log_loss": {
+      "columns": {
+        "config_index": 20,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368692
+    },
+    "dryrun.logistic_regression.c21.auc": {
+      "columns": {
+        "config_index": 21,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621016
+    },
+    "dryrun.logistic_regression.c21.brier": {
+      "columns": {
+        "config_index": 21,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108049
+    },
+    "dryrun.logistic_regression.c21.log_loss": {
+      "columns": {
+        "config_index": 21,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.36875
+    },
+    "dryrun.logistic_regression.c22.auc": {
+      "columns": {
+        "config_index": 22,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618593
+    },
+    "dryrun.logistic_regression.c22.brier": {
+      "columns": {
+        "config_index": 22,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106948
+    },
+    "dryrun.logistic_regression.c22.log_loss": {
+      "columns": {
+        "config_index": 22,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366535
+    },
+    "dryrun.logistic_regression.c23.auc": {
+      "columns": {
+        "config_index": 23,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620925
+    },
+    "dryrun.logistic_regression.c23.brier": {
+      "columns": {
+        "config_index": 23,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108016
+    },
+    "dryrun.logistic_regression.c23.log_loss": {
+      "columns": {
+        "config_index": 23,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368702
+    },
+    "dryrun.logistic_regression.c24.auc": {
+      "columns": {
+        "config_index": 24,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620797
+    },
+    "dryrun.logistic_regression.c24.brier": {
+      "columns": {
+        "config_index": 24,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107964
+    },
+    "dryrun.logistic_regression.c24.log_loss": {
+      "columns": {
+        "config_index": 24,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368608
+    },
+    "dryrun.logistic_regression.c25.auc": {
+      "columns": {
+        "config_index": 25,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621025
+    },
+    "dryrun.logistic_regression.c25.brier": {
+      "columns": {
+        "config_index": 25,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108067
+    },
+    "dryrun.logistic_regression.c25.log_loss": {
+      "columns": {
+        "config_index": 25,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368781
+    },
+    "dryrun.logistic_regression.c26.auc": {
+      "columns": {
+        "config_index": 26,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618911
+    },
+    "dryrun.logistic_regression.c26.brier": {
+      "columns": {
+        "config_index": 26,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107097
+    },
+    "dryrun.logistic_regression.c26.log_loss": {
+      "columns": {
+        "config_index": 26,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368407
+    },
+    "dryrun.logistic_regression.c27.auc": {
+      "columns": {
+        "config_index": 27,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621022
+    },
+    "dryrun.logistic_regression.c27.brier": {
+      "columns": {
+        "config_index": 27,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108067
+    },
+    "dryrun.logistic_regression.c27.log_loss": {
+      "columns": {
+        "config_index": 27,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368781
+    },
+    "dryrun.logistic_regression.c28.auc": {
+      "columns": {
+        "config_index": 28,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621025
+    },
+    "dryrun.logistic_regression.c28.brier": {
+      "columns": {
+        "config_index": 28,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108068
+    },
+    "dryrun.logistic_regression.c28.log_loss": {
+      "columns": {
+        "config_index": 28,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368784
+    },
+    "dryrun.logistic_regression.c29.auc": {
+      "columns": {
+        "config_index": 29,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621033
+    },
+    "dryrun.logistic_regression.c29.brier": {
+      "columns": {
+        "config_index": 29,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108054
+    },
+    "dryrun.logistic_regression.c29.log_loss": {
+      "columns": {
+        "config_index": 29,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368759
+    },
+    "dryrun.logistic_regression.c3.auc": {
+      "columns": {
+        "config_index": 3,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621025
+    },
+    "dryrun.logistic_regression.c3.brier": {
+      "columns": {
+        "config_index": 3,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108067
+    },
+    "dryrun.logistic_regression.c3.log_loss": {
+      "columns": {
+        "config_index": 3,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368781
+    },
+    "dryrun.logistic_regression.c4.auc": {
+      "columns": {
+        "config_index": 4,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620902
+    },
+    "dryrun.logistic_regression.c4.brier": {
+      "columns": {
+        "config_index": 4,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108052
+    },
+    "dryrun.logistic_regression.c4.log_loss": {
+      "columns": {
+        "config_index": 4,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368749
+    },
+    "dryrun.logistic_regression.c5.auc": {
+      "columns": {
+        "config_index": 5,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620704
+    },
+    "dryrun.logistic_regression.c5.brier": {
+      "columns": {
+        "config_index": 5,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107937
+    },
+    "dryrun.logistic_regression.c5.log_loss": {
+      "columns": {
+        "config_index": 5,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368557
+    },
+    "dryrun.logistic_regression.c6.auc": {
+      "columns": {
+        "config_index": 6,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620255
+    },
+    "dryrun.logistic_regression.c6.brier": {
+      "columns": {
+        "config_index": 6,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107716
+    },
+    "dryrun.logistic_regression.c6.log_loss": {
+      "columns": {
+        "config_index": 6,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368104
+    },
+    "dryrun.logistic_regression.c7.auc": {
+      "columns": {
+        "config_index": 7,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618546
+    },
+    "dryrun.logistic_regression.c7.brier": {
+      "columns": {
+        "config_index": 7,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107071
+    },
+    "dryrun.logistic_regression.c7.log_loss": {
+      "columns": {
+        "config_index": 7,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366742
+    },
+    "dryrun.logistic_regression.c8.auc": {
+      "columns": {
+        "config_index": 8,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618952
+    },
+    "dryrun.logistic_regression.c8.brier": {
+      "columns": {
+        "config_index": 8,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106821
+    },
+    "dryrun.logistic_regression.c8.log_loss": {
+      "columns": {
+        "config_index": 8,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366522
+    },
+    "dryrun.logistic_regression.c9.auc": {
+      "columns": {
+        "config_index": 9,
+        "family": "logistic_regression",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618981
+    },
+    "dryrun.logistic_regression.c9.brier": {
+      "columns": {
+        "config_index": 9,
+        "family": "logistic_regression",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107074
+    },
+    "dryrun.logistic_regression.c9.log_loss": {
+      "columns": {
+        "config_index": 9,
+        "family": "logistic_regression",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368291
+    },
     "dryrun.logistic_regression.f1.hi": {
       "columns": {
         "family": "logistic_regression",
@@ -35948,6 +37608,22 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.368688
     },
+    "dryrun.logistic_regression.max.config_index": {
+      "columns": {
+        "anchor": "max",
+        "family": "logistic_regression"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 29
+    },
+    "dryrun.logistic_regression.min.config_index": {
+      "columns": {
+        "anchor": "min",
+        "family": "logistic_regression"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 7
+    },
     "dryrun.logistic_regression.none.ae_ratio": {
       "columns": {
         "arm": "none",
@@ -36801,6 +38477,30 @@
       },
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.5
+    },
+    "dryrun.logistic_regression.q25.config_index": {
+      "columns": {
+        "anchor": "q25",
+        "family": "logistic_regression"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 0
+    },
+    "dryrun.logistic_regression.q50.config_index": {
+      "columns": {
+        "anchor": "q50",
+        "family": "logistic_regression"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 4
+    },
+    "dryrun.logistic_regression.q75.config_index": {
+      "columns": {
+        "anchor": "q75",
+        "family": "logistic_regression"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 13
     },
     "dryrun.logistic_regression.recall.hi": {
       "columns": {
@@ -57673,6 +59373,816 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.106527
     },
+    "dryrun.random_forest.c0.auc": {
+      "columns": {
+        "config_index": 0,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.594804
+    },
+    "dryrun.random_forest.c0.brier": {
+      "columns": {
+        "config_index": 0,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10967
+    },
+    "dryrun.random_forest.c0.log_loss": {
+      "columns": {
+        "config_index": 0,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.375578
+    },
+    "dryrun.random_forest.c1.auc": {
+      "columns": {
+        "config_index": 1,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620264
+    },
+    "dryrun.random_forest.c1.brier": {
+      "columns": {
+        "config_index": 1,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10666
+    },
+    "dryrun.random_forest.c1.log_loss": {
+      "columns": {
+        "config_index": 1,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365634
+    },
+    "dryrun.random_forest.c10.auc": {
+      "columns": {
+        "config_index": 10,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618838
+    },
+    "dryrun.random_forest.c10.brier": {
+      "columns": {
+        "config_index": 10,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106837
+    },
+    "dryrun.random_forest.c10.log_loss": {
+      "columns": {
+        "config_index": 10,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366931
+    },
+    "dryrun.random_forest.c11.auc": {
+      "columns": {
+        "config_index": 11,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.610767
+    },
+    "dryrun.random_forest.c11.brier": {
+      "columns": {
+        "config_index": 11,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107604
+    },
+    "dryrun.random_forest.c11.log_loss": {
+      "columns": {
+        "config_index": 11,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368781
+    },
+    "dryrun.random_forest.c12.auc": {
+      "columns": {
+        "config_index": 12,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.624605
+    },
+    "dryrun.random_forest.c12.brier": {
+      "columns": {
+        "config_index": 12,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106366
+    },
+    "dryrun.random_forest.c12.log_loss": {
+      "columns": {
+        "config_index": 12,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.36486
+    },
+    "dryrun.random_forest.c13.auc": {
+      "columns": {
+        "config_index": 13,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.612444
+    },
+    "dryrun.random_forest.c13.brier": {
+      "columns": {
+        "config_index": 13,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107463
+    },
+    "dryrun.random_forest.c13.log_loss": {
+      "columns": {
+        "config_index": 13,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368092
+    },
+    "dryrun.random_forest.c14.auc": {
+      "columns": {
+        "config_index": 14,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.616543
+    },
+    "dryrun.random_forest.c14.brier": {
+      "columns": {
+        "config_index": 14,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107276
+    },
+    "dryrun.random_forest.c14.log_loss": {
+      "columns": {
+        "config_index": 14,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367275
+    },
+    "dryrun.random_forest.c15.auc": {
+      "columns": {
+        "config_index": 15,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621692
+    },
+    "dryrun.random_forest.c15.brier": {
+      "columns": {
+        "config_index": 15,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106627
+    },
+    "dryrun.random_forest.c15.log_loss": {
+      "columns": {
+        "config_index": 15,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365376
+    },
+    "dryrun.random_forest.c16.auc": {
+      "columns": {
+        "config_index": 16,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.616144
+    },
+    "dryrun.random_forest.c16.brier": {
+      "columns": {
+        "config_index": 16,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107756
+    },
+    "dryrun.random_forest.c16.log_loss": {
+      "columns": {
+        "config_index": 16,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368814
+    },
+    "dryrun.random_forest.c17.auc": {
+      "columns": {
+        "config_index": 17,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.619237
+    },
+    "dryrun.random_forest.c17.brier": {
+      "columns": {
+        "config_index": 17,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106617
+    },
+    "dryrun.random_forest.c17.log_loss": {
+      "columns": {
+        "config_index": 17,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365947
+    },
+    "dryrun.random_forest.c18.auc": {
+      "columns": {
+        "config_index": 18,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.604091
+    },
+    "dryrun.random_forest.c18.brier": {
+      "columns": {
+        "config_index": 18,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108097
+    },
+    "dryrun.random_forest.c18.log_loss": {
+      "columns": {
+        "config_index": 18,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.370616
+    },
+    "dryrun.random_forest.c19.auc": {
+      "columns": {
+        "config_index": 19,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.62352
+    },
+    "dryrun.random_forest.c19.brier": {
+      "columns": {
+        "config_index": 19,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106408
+    },
+    "dryrun.random_forest.c19.log_loss": {
+      "columns": {
+        "config_index": 19,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365011
+    },
+    "dryrun.random_forest.c2.auc": {
+      "columns": {
+        "config_index": 2,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.633019
+    },
+    "dryrun.random_forest.c2.brier": {
+      "columns": {
+        "config_index": 2,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106168
+    },
+    "dryrun.random_forest.c2.log_loss": {
+      "columns": {
+        "config_index": 2,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.364469
+    },
+    "dryrun.random_forest.c20.auc": {
+      "columns": {
+        "config_index": 20,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.60828
+    },
+    "dryrun.random_forest.c20.brier": {
+      "columns": {
+        "config_index": 20,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108144
+    },
+    "dryrun.random_forest.c20.log_loss": {
+      "columns": {
+        "config_index": 20,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.37046
+    },
+    "dryrun.random_forest.c21.auc": {
+      "columns": {
+        "config_index": 21,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.616228
+    },
+    "dryrun.random_forest.c21.brier": {
+      "columns": {
+        "config_index": 21,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107412
+    },
+    "dryrun.random_forest.c21.log_loss": {
+      "columns": {
+        "config_index": 21,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368261
+    },
+    "dryrun.random_forest.c22.auc": {
+      "columns": {
+        "config_index": 22,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.61808
+    },
+    "dryrun.random_forest.c22.brier": {
+      "columns": {
+        "config_index": 22,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106812
+    },
+    "dryrun.random_forest.c22.log_loss": {
+      "columns": {
+        "config_index": 22,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366842
+    },
+    "dryrun.random_forest.c23.auc": {
+      "columns": {
+        "config_index": 23,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.613572
+    },
+    "dryrun.random_forest.c23.brier": {
+      "columns": {
+        "config_index": 23,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107372
+    },
+    "dryrun.random_forest.c23.log_loss": {
+      "columns": {
+        "config_index": 23,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367637
+    },
+    "dryrun.random_forest.c24.auc": {
+      "columns": {
+        "config_index": 24,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.619258
+    },
+    "dryrun.random_forest.c24.brier": {
+      "columns": {
+        "config_index": 24,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107294
+    },
+    "dryrun.random_forest.c24.log_loss": {
+      "columns": {
+        "config_index": 24,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.36753
+    },
+    "dryrun.random_forest.c25.auc": {
+      "columns": {
+        "config_index": 25,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.614208
+    },
+    "dryrun.random_forest.c25.brier": {
+      "columns": {
+        "config_index": 25,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107545
+    },
+    "dryrun.random_forest.c25.log_loss": {
+      "columns": {
+        "config_index": 25,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368609
+    },
+    "dryrun.random_forest.c26.auc": {
+      "columns": {
+        "config_index": 26,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.625074
+    },
+    "dryrun.random_forest.c26.brier": {
+      "columns": {
+        "config_index": 26,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10698
+    },
+    "dryrun.random_forest.c26.log_loss": {
+      "columns": {
+        "config_index": 26,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367167
+    },
+    "dryrun.random_forest.c27.auc": {
+      "columns": {
+        "config_index": 27,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.620293
+    },
+    "dryrun.random_forest.c27.brier": {
+      "columns": {
+        "config_index": 27,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107063
+    },
+    "dryrun.random_forest.c27.log_loss": {
+      "columns": {
+        "config_index": 27,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367241
+    },
+    "dryrun.random_forest.c28.auc": {
+      "columns": {
+        "config_index": 28,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621465
+    },
+    "dryrun.random_forest.c28.brier": {
+      "columns": {
+        "config_index": 28,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106598
+    },
+    "dryrun.random_forest.c28.log_loss": {
+      "columns": {
+        "config_index": 28,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365224
+    },
+    "dryrun.random_forest.c29.auc": {
+      "columns": {
+        "config_index": 29,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.611715
+    },
+    "dryrun.random_forest.c29.brier": {
+      "columns": {
+        "config_index": 29,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107089
+    },
+    "dryrun.random_forest.c29.log_loss": {
+      "columns": {
+        "config_index": 29,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367236
+    },
+    "dryrun.random_forest.c3.auc": {
+      "columns": {
+        "config_index": 3,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.615575
+    },
+    "dryrun.random_forest.c3.brier": {
+      "columns": {
+        "config_index": 3,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107447
+    },
+    "dryrun.random_forest.c3.log_loss": {
+      "columns": {
+        "config_index": 3,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368179
+    },
+    "dryrun.random_forest.c4.auc": {
+      "columns": {
+        "config_index": 4,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.599983
+    },
+    "dryrun.random_forest.c4.brier": {
+      "columns": {
+        "config_index": 4,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.109046
+    },
+    "dryrun.random_forest.c4.log_loss": {
+      "columns": {
+        "config_index": 4,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.373109
+    },
+    "dryrun.random_forest.c5.auc": {
+      "columns": {
+        "config_index": 5,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618742
+    },
+    "dryrun.random_forest.c5.brier": {
+      "columns": {
+        "config_index": 5,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10663
+    },
+    "dryrun.random_forest.c5.log_loss": {
+      "columns": {
+        "config_index": 5,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365619
+    },
+    "dryrun.random_forest.c6.auc": {
+      "columns": {
+        "config_index": 6,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.590472
+    },
+    "dryrun.random_forest.c6.brier": {
+      "columns": {
+        "config_index": 6,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.110938
+    },
+    "dryrun.random_forest.c6.log_loss": {
+      "columns": {
+        "config_index": 6,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.378866
+    },
+    "dryrun.random_forest.c7.auc": {
+      "columns": {
+        "config_index": 7,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618293
+    },
+    "dryrun.random_forest.c7.brier": {
+      "columns": {
+        "config_index": 7,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106742
+    },
+    "dryrun.random_forest.c7.log_loss": {
+      "columns": {
+        "config_index": 7,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366125
+    },
+    "dryrun.random_forest.c8.auc": {
+      "columns": {
+        "config_index": 8,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.613622
+    },
+    "dryrun.random_forest.c8.brier": {
+      "columns": {
+        "config_index": 8,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107605
+    },
+    "dryrun.random_forest.c8.log_loss": {
+      "columns": {
+        "config_index": 8,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368082
+    },
+    "dryrun.random_forest.c9.auc": {
+      "columns": {
+        "config_index": 9,
+        "family": "random_forest",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621051
+    },
+    "dryrun.random_forest.c9.brier": {
+      "columns": {
+        "config_index": 9,
+        "family": "random_forest",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107043
+    },
+    "dryrun.random_forest.c9.log_loss": {
+      "columns": {
+        "config_index": 9,
+        "family": "random_forest",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367308
+    },
     "dryrun.random_forest.f1.hi": {
       "columns": {
         "family": "random_forest",
@@ -61024,6 +63534,22 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.36562
     },
+    "dryrun.random_forest.max.config_index": {
+      "columns": {
+        "anchor": "max",
+        "family": "random_forest"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 2
+    },
+    "dryrun.random_forest.min.config_index": {
+      "columns": {
+        "anchor": "min",
+        "family": "random_forest"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 6
+    },
     "dryrun.random_forest.none.ae_ratio": {
       "columns": {
         "arm": "none",
@@ -61877,6 +64403,30 @@
       },
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.0
+    },
+    "dryrun.random_forest.q25.config_index": {
+      "columns": {
+        "anchor": "q25",
+        "family": "random_forest"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 13
+    },
+    "dryrun.random_forest.q50.config_index": {
+      "columns": {
+        "anchor": "q50",
+        "family": "random_forest"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 14
+    },
+    "dryrun.random_forest.q75.config_index": {
+      "columns": {
+        "anchor": "q75",
+        "family": "random_forest"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 27
     },
     "dryrun.random_forest.recall.hi": {
       "columns": {
@@ -82749,6 +85299,816 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.116383
     },
+    "dryrun.xgboost.c0.auc": {
+      "columns": {
+        "config_index": 0,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.616345
+    },
+    "dryrun.xgboost.c0.brier": {
+      "columns": {
+        "config_index": 0,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106813
+    },
+    "dryrun.xgboost.c0.log_loss": {
+      "columns": {
+        "config_index": 0,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.3666
+    },
+    "dryrun.xgboost.c1.auc": {
+      "columns": {
+        "config_index": 1,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.624742
+    },
+    "dryrun.xgboost.c1.brier": {
+      "columns": {
+        "config_index": 1,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106651
+    },
+    "dryrun.xgboost.c1.log_loss": {
+      "columns": {
+        "config_index": 1,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365959
+    },
+    "dryrun.xgboost.c10.auc": {
+      "columns": {
+        "config_index": 10,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.608872
+    },
+    "dryrun.xgboost.c10.brier": {
+      "columns": {
+        "config_index": 10,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108633
+    },
+    "dryrun.xgboost.c10.log_loss": {
+      "columns": {
+        "config_index": 10,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.371573
+    },
+    "dryrun.xgboost.c11.auc": {
+      "columns": {
+        "config_index": 11,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.588358
+    },
+    "dryrun.xgboost.c11.brier": {
+      "columns": {
+        "config_index": 11,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.109818
+    },
+    "dryrun.xgboost.c11.log_loss": {
+      "columns": {
+        "config_index": 11,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.377064
+    },
+    "dryrun.xgboost.c12.auc": {
+      "columns": {
+        "config_index": 12,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.608012
+    },
+    "dryrun.xgboost.c12.brier": {
+      "columns": {
+        "config_index": 12,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107388
+    },
+    "dryrun.xgboost.c12.log_loss": {
+      "columns": {
+        "config_index": 12,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368147
+    },
+    "dryrun.xgboost.c13.auc": {
+      "columns": {
+        "config_index": 13,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.604438
+    },
+    "dryrun.xgboost.c13.brier": {
+      "columns": {
+        "config_index": 13,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108059
+    },
+    "dryrun.xgboost.c13.log_loss": {
+      "columns": {
+        "config_index": 13,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.37102
+    },
+    "dryrun.xgboost.c14.auc": {
+      "columns": {
+        "config_index": 14,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.601096
+    },
+    "dryrun.xgboost.c14.brier": {
+      "columns": {
+        "config_index": 14,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.109271
+    },
+    "dryrun.xgboost.c14.log_loss": {
+      "columns": {
+        "config_index": 14,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.37446
+    },
+    "dryrun.xgboost.c15.auc": {
+      "columns": {
+        "config_index": 15,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.588768
+    },
+    "dryrun.xgboost.c15.brier": {
+      "columns": {
+        "config_index": 15,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.115274
+    },
+    "dryrun.xgboost.c15.log_loss": {
+      "columns": {
+        "config_index": 15,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.41056
+    },
+    "dryrun.xgboost.c16.auc": {
+      "columns": {
+        "config_index": 16,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.585221
+    },
+    "dryrun.xgboost.c16.brier": {
+      "columns": {
+        "config_index": 16,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.109636
+    },
+    "dryrun.xgboost.c16.log_loss": {
+      "columns": {
+        "config_index": 16,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.376364
+    },
+    "dryrun.xgboost.c17.auc": {
+      "columns": {
+        "config_index": 17,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.638422
+    },
+    "dryrun.xgboost.c17.brier": {
+      "columns": {
+        "config_index": 17,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.106246
+    },
+    "dryrun.xgboost.c17.log_loss": {
+      "columns": {
+        "config_index": 17,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.364735
+    },
+    "dryrun.xgboost.c18.auc": {
+      "columns": {
+        "config_index": 18,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.60249
+    },
+    "dryrun.xgboost.c18.brier": {
+      "columns": {
+        "config_index": 18,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108612
+    },
+    "dryrun.xgboost.c18.log_loss": {
+      "columns": {
+        "config_index": 18,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.371824
+    },
+    "dryrun.xgboost.c19.auc": {
+      "columns": {
+        "config_index": 19,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.606706
+    },
+    "dryrun.xgboost.c19.brier": {
+      "columns": {
+        "config_index": 19,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108276
+    },
+    "dryrun.xgboost.c19.log_loss": {
+      "columns": {
+        "config_index": 19,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.370229
+    },
+    "dryrun.xgboost.c2.auc": {
+      "columns": {
+        "config_index": 2,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.621759
+    },
+    "dryrun.xgboost.c2.brier": {
+      "columns": {
+        "config_index": 2,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10675
+    },
+    "dryrun.xgboost.c2.log_loss": {
+      "columns": {
+        "config_index": 2,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.365997
+    },
+    "dryrun.xgboost.c20.auc": {
+      "columns": {
+        "config_index": 20,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.568482
+    },
+    "dryrun.xgboost.c20.brier": {
+      "columns": {
+        "config_index": 20,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.121064
+    },
+    "dryrun.xgboost.c20.log_loss": {
+      "columns": {
+        "config_index": 20,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.416415
+    },
+    "dryrun.xgboost.c21.auc": {
+      "columns": {
+        "config_index": 21,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.574462
+    },
+    "dryrun.xgboost.c21.brier": {
+      "columns": {
+        "config_index": 21,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.12317
+    },
+    "dryrun.xgboost.c21.log_loss": {
+      "columns": {
+        "config_index": 21,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.453964
+    },
+    "dryrun.xgboost.c22.auc": {
+      "columns": {
+        "config_index": 22,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.60365
+    },
+    "dryrun.xgboost.c22.brier": {
+      "columns": {
+        "config_index": 22,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108761
+    },
+    "dryrun.xgboost.c22.log_loss": {
+      "columns": {
+        "config_index": 22,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.371844
+    },
+    "dryrun.xgboost.c23.auc": {
+      "columns": {
+        "config_index": 23,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.614701
+    },
+    "dryrun.xgboost.c23.brier": {
+      "columns": {
+        "config_index": 23,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108011
+    },
+    "dryrun.xgboost.c23.log_loss": {
+      "columns": {
+        "config_index": 23,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.368866
+    },
+    "dryrun.xgboost.c24.auc": {
+      "columns": {
+        "config_index": 24,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.600388
+    },
+    "dryrun.xgboost.c24.brier": {
+      "columns": {
+        "config_index": 24,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.110487
+    },
+    "dryrun.xgboost.c24.log_loss": {
+      "columns": {
+        "config_index": 24,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.377543
+    },
+    "dryrun.xgboost.c25.auc": {
+      "columns": {
+        "config_index": 25,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.599353
+    },
+    "dryrun.xgboost.c25.brier": {
+      "columns": {
+        "config_index": 25,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.109824
+    },
+    "dryrun.xgboost.c25.log_loss": {
+      "columns": {
+        "config_index": 25,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.376067
+    },
+    "dryrun.xgboost.c26.auc": {
+      "columns": {
+        "config_index": 26,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.55803
+    },
+    "dryrun.xgboost.c26.brier": {
+      "columns": {
+        "config_index": 26,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.121008
+    },
+    "dryrun.xgboost.c26.log_loss": {
+      "columns": {
+        "config_index": 26,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.44604
+    },
+    "dryrun.xgboost.c27.auc": {
+      "columns": {
+        "config_index": 27,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.611721
+    },
+    "dryrun.xgboost.c27.brier": {
+      "columns": {
+        "config_index": 27,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107992
+    },
+    "dryrun.xgboost.c27.log_loss": {
+      "columns": {
+        "config_index": 27,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.369518
+    },
+    "dryrun.xgboost.c28.auc": {
+      "columns": {
+        "config_index": 28,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.597668
+    },
+    "dryrun.xgboost.c28.brier": {
+      "columns": {
+        "config_index": 28,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.108158
+    },
+    "dryrun.xgboost.c28.log_loss": {
+      "columns": {
+        "config_index": 28,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.37082
+    },
+    "dryrun.xgboost.c29.auc": {
+      "columns": {
+        "config_index": 29,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.598927
+    },
+    "dryrun.xgboost.c29.brier": {
+      "columns": {
+        "config_index": 29,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.110185
+    },
+    "dryrun.xgboost.c29.log_loss": {
+      "columns": {
+        "config_index": 29,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.376659
+    },
+    "dryrun.xgboost.c3.auc": {
+      "columns": {
+        "config_index": 3,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.635282
+    },
+    "dryrun.xgboost.c3.brier": {
+      "columns": {
+        "config_index": 3,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10654
+    },
+    "dryrun.xgboost.c3.log_loss": {
+      "columns": {
+        "config_index": 3,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.366238
+    },
+    "dryrun.xgboost.c4.auc": {
+      "columns": {
+        "config_index": 4,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.618485
+    },
+    "dryrun.xgboost.c4.brier": {
+      "columns": {
+        "config_index": 4,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.107293
+    },
+    "dryrun.xgboost.c4.log_loss": {
+      "columns": {
+        "config_index": 4,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.367442
+    },
+    "dryrun.xgboost.c5.auc": {
+      "columns": {
+        "config_index": 5,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.608068
+    },
+    "dryrun.xgboost.c5.brier": {
+      "columns": {
+        "config_index": 5,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.111215
+    },
+    "dryrun.xgboost.c5.log_loss": {
+      "columns": {
+        "config_index": 5,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.384074
+    },
+    "dryrun.xgboost.c6.auc": {
+      "columns": {
+        "config_index": 6,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.591518
+    },
+    "dryrun.xgboost.c6.brier": {
+      "columns": {
+        "config_index": 6,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.114463
+    },
+    "dryrun.xgboost.c6.log_loss": {
+      "columns": {
+        "config_index": 6,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.392024
+    },
+    "dryrun.xgboost.c7.auc": {
+      "columns": {
+        "config_index": 7,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.581273
+    },
+    "dryrun.xgboost.c7.brier": {
+      "columns": {
+        "config_index": 7,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.111795
+    },
+    "dryrun.xgboost.c7.log_loss": {
+      "columns": {
+        "config_index": 7,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.382917
+    },
+    "dryrun.xgboost.c8.auc": {
+      "columns": {
+        "config_index": 8,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.585486
+    },
+    "dryrun.xgboost.c8.brier": {
+      "columns": {
+        "config_index": 8,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.113844
+    },
+    "dryrun.xgboost.c8.log_loss": {
+      "columns": {
+        "config_index": 8,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.392441
+    },
+    "dryrun.xgboost.c9.auc": {
+      "columns": {
+        "config_index": 9,
+        "family": "xgboost",
+        "metric": "auc"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.611531
+    },
+    "dryrun.xgboost.c9.brier": {
+      "columns": {
+        "config_index": 9,
+        "family": "xgboost",
+        "metric": "brier"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.10966
+    },
+    "dryrun.xgboost.c9.log_loss": {
+      "columns": {
+        "config_index": 9,
+        "family": "xgboost",
+        "metric": "log_loss"
+      },
+      "table": "sweep_dryrun.csv",
+      "value": 0.374195
+    },
     "dryrun.xgboost.f1.hi": {
       "columns": {
         "family": "xgboost",
@@ -86100,6 +89460,22 @@
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.43442
     },
+    "dryrun.xgboost.max.config_index": {
+      "columns": {
+        "anchor": "max",
+        "family": "xgboost"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 17
+    },
+    "dryrun.xgboost.min.config_index": {
+      "columns": {
+        "anchor": "min",
+        "family": "xgboost"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 26
+    },
     "dryrun.xgboost.none.ae_ratio": {
       "columns": {
         "arm": "none",
@@ -86953,6 +90329,30 @@
       },
       "table": "baseline_dryrun_metrics.csv",
       "value": 0.25
+    },
+    "dryrun.xgboost.q25.config_index": {
+      "columns": {
+        "anchor": "q25",
+        "family": "xgboost"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 15
+    },
+    "dryrun.xgboost.q50.config_index": {
+      "columns": {
+        "anchor": "q50",
+        "family": "xgboost"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 18
+    },
+    "dryrun.xgboost.q75.config_index": {
+      "columns": {
+        "anchor": "q75",
+        "family": "xgboost"
+      },
+      "table": "deep_subset_dryrun.csv",
+      "value": 27
     },
     "dryrun.xgboost.recall.hi": {
       "columns": {
