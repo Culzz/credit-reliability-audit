@@ -537,3 +537,17 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   4/2/2). 4 synthetic tests (config-side partition + KEEP coverage,
   engineered/one-hot resolution, unassigned-column errors,
   partition-cover property). Suite now 214 passed; ruff clean.
+- Noise-floor runner extended with the grouped stability battery:
+  `run_noise_floor.py` now builds the T5.4 partition over the design
+  columns (deterministic full-frame column order), computes one
+  importance scalar per group per seed, and reports grouped_cosine /
+  grouped_spearman / grouped_max_gap on every one of the 190 pairs x 4
+  families (7,600 metric rows total). Group-level reference
+  distributions at plumbing scale: grouped cosine >= 0.998 for the
+  boosters (group mass is seed-stable; per-feature cosine sat at
+  0.994-0.997), RF grouped_spearman floor 0.886 at p2.5, absolute
+  group-attribution gaps (max_gap) xgb 0.015-0.047 / lgbm 0.016-0.077
+  at the 2.5/97.5 percentile band. LR anchors at exactly zero as
+  before. This closes the grouped side of H2c's reference machinery
+  pre-freeze. numbers_dryrun.json re-exported (12,308 keys). Suite
+  stays 214 passed; ruff clean; AI sweep clean.

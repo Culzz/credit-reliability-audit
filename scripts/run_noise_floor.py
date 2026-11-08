@@ -19,6 +19,7 @@ import time
 
 import numpy as np
 import pandas as pd
+from scipy.stats import spearmanr
 from sklearn.metrics import roc_auc_score
 
 from scripts._common import (
@@ -29,6 +30,7 @@ from scripts._common import (
     load_plumbing_split,
 )
 from src.calibration.audit import decision_flips
+from src.explain.groups import group_attributions
 from src.explain.shap_wrap import explain_matrix, make_explainer
 from src.explain.stability import (
     attribution_distribution_distance,
@@ -36,6 +38,7 @@ from src.explain.stability import (
     jaccard_at_k,
     rank_agreement,
 )
+from src.features.groups import resolve_column_groups
 from src.models.harness import FAMILIES, make_estimator, make_preprocessor
 
 N_SEEDS = 20
@@ -44,6 +47,29 @@ N_BACKGROUND = 1000  # fixed background rows (training window head; protocol use
                      # a 1,000-row anchor; smaller heads gave degenerate one-hot
                      # columns and the wrapper refuses those, correctly)
 TOP_K = 10
+
+
+def _group_partition(columns: list[str]) -> dict[str, list[int]]:
+    """T5.4 resolver -> {group: design-column indices}, in design order."""
+    mapping = resolve_column_groups(columns)
+    groups: dict[str, list[int]] = {}
+    for idx, col in enumerate(columns):
+        groups.setdefault(mapping[col], []).append(idx)
+    return groups
+
+
+def build_feature_frame_columns() -> list[str]:
+    """The design-matrix column order, reconstructed deterministically from
+    the same assets the split loader used (full sample frame -> KEEP features
+    + issue_d; astype does not reorder). One-hot levels must come from the
+    FULL frame, so a head-only probe would under-count columns."""
+    import pandas as pd  # local: column names only
+
+    from src.features.build import build_feature_frame, keep_features
+
+    df = pd.read_parquet(REPO_ROOT / "data" / "interim" / "plumbing_sample.parquet")
+    feats = build_feature_frame(df[keep_features() + ["issue_d"]])
+    return list(feats.columns)
 
 
 def _stability_block(V1: np.ndarray, V2: np.ndarray) -> dict[str, float]:
@@ -76,6 +102,11 @@ def main() -> None:
     X_background = X_train_t[:N_BACKGROUND]
 
     base_seed = int(dry["seed"])
+
+    # T5.4 partition of the design columns (fixed order → fixed group order)
+    design_columns = build_feature_frame_columns()
+    groups = _group_partition(design_columns)
+    group_names = sorted(groups)
     rows = []
     for family in FAMILIES:
         params = dry["families"][family]
@@ -89,6 +120,12 @@ def main() -> None:
             expl = make_explainer(est, X_background, family=family)
             Vs.append(explain_matrix(expl, X_explain))
         fit_seconds = time.perf_counter() - t0
+
+        # grouped importance vectors, fixed group order across seeds
+        Gs = [
+            np.array([group_attributions(V, groups)[g] for g in group_names])
+            for V in Vs
+        ]
 
         for i in range(N_SEEDS):
             for j in range(i + 1, N_SEEDS):
@@ -110,6 +147,39 @@ def main() -> None:
                         "seed_j": base_seed + j,
                         "metric": "decision_flip_rate",
                         "value": round(float(flips.flip_rate), 6),
+                    }
+                )
+                # grouped metrics on the T5.4 partition
+                denom = np.linalg.norm(Gs[i]) * np.linalg.norm(Gs[j])
+                rows.append(
+                    {
+                        "family": family,
+                        "seed_i": base_seed + i,
+                        "seed_j": base_seed + j,
+                        "metric": "grouped_cosine",
+                        "value": round(
+                            float(np.dot(Gs[i], Gs[j]) / denom) if denom > 0 else 0.0,
+                            6,
+                        ),
+                    }
+                )
+                sp = float(spearmanr(Gs[i], Gs[j]).statistic)
+                rows.append(
+                    {
+                        "family": family,
+                        "seed_i": base_seed + i,
+                        "seed_j": base_seed + j,
+                        "metric": "grouped_spearman",
+                        "value": round(sp if np.isfinite(sp) else 0.0, 6),
+                    }
+                )
+                rows.append(
+                    {
+                        "family": family,
+                        "seed_i": base_seed + i,
+                        "seed_j": base_seed + j,
+                        "metric": "grouped_max_gap",
+                        "value": round(float(np.abs(Gs[i] - Gs[j]).max()), 6),
                     }
                 )
                 rows.append(
