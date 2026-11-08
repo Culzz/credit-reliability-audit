@@ -43,8 +43,15 @@
 
 ## Pre-freeze verification state (as of this draft)
 
-- Suite: 214 passed, ruff clean, AI-hygiene sweep clean.
+- Suite: 222 passed, ruff clean, AI-hygiene sweep clean.
 - All six Phase-5/7/8/9 runners dry-ran end to end: baselines,
-  calibration audit, decisions, noise floor (+grouped), sample size,
-  broad sweep.
+  calibration audit (+ per-arm reliability-bin segments), decisions,
+  noise floor (seed AND bootstrap-refit axes, grouped battery),
+  sample size, broad sweep (+ deep-subset selection).
+- Figure preforms render deterministically from the committed dry-run
+  tables (reliability grid + sweep scatter, dpi=150).
+- The equal-mass binning count regression (off-by-two) was found by the
+  figure work and fixed with a count-pinning test; affected tables
+  re-ran. Dry-run tables are re-derivable byte-identically at 1e-9
+  from the committed code and seeds.
 - Reproducibility tests pass at 1e-9 on full-path re-runs.
