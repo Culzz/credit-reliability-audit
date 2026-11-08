@@ -77,6 +77,21 @@ Findings:
 No defects found; the layer's earlier dry-run numbers are reproducible
 under the same seeds. Verdict: PASS.
 
+### R-7.2 addendum (binning fix) date: 2026-11-08
+While wiring the reliability-diagram export (T7.x figure preform), the
+new `reliability_bins` helper surfaced an off-by-two in the shared
+quantile-binning machinery (`_bin_masks`): the equal-mass path derived
+n_bins+2 inner cut counts from the edges template and therefore
+delivered n_bins+2 masks, so `ece_b15` in previously exported dry-run
+tables (calibration_audit, sample_size) was an adaptive ECE over 17
+bins, not the protocol's B=15. Fixed in `src/calibration/audit.py`
+(the template length encodes B: B-1 inner cuts at k/B), pinned by a
+new regression test that asserts the quantile path and the fixed-edge
+path deliver exactly B masks for B = 10/15/20/30 on continuous scores.
+`run_calibration` and `run_sample_size` re-ran; curves table and the
+figures follow. Lesson logged: count-pinning tests belong with any
+bin-count parameterised machinery.
+
 ### R-8.5 reviewer: Builder-review (grouped explanation machinery)  date: 2026-11-08
 Checked: `src/explain/groups.py` (group_attributions,
 grouped_permutation_importance, _validate_group_partition) and

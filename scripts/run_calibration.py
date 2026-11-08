@@ -8,6 +8,9 @@ calibration cohort is disjoint from the evaluation cohort — here they are
 different vintage windows by construction, checked explicitly.
 
 Outputs: reports/tables/calibration_audit_dryrun.csv
+         reports/tables/calibration_curves_dryrun.csv (reliability-bin
+         segments per family x arm; same equal-mass binning as the
+         primary ece_b15, fed to scripts/run_figures.py)
 Use    : python -m uv run python -m scripts.run_calibration
 """
 
@@ -25,7 +28,14 @@ from scripts._common import (
     load_configs,
     load_plumbing_split,
 )
-from src.calibration.audit import ae_ratio, brier_decomposition, citl_and_slope, decision_flips, ece
+from src.calibration.audit import (
+    ae_ratio,
+    brier_decomposition,
+    citl_and_slope,
+    decision_flips,
+    ece,
+    reliability_bins,
+)
 from src.calibration.recalibration import KINDS, fit_recalibrator
 from src.models.harness import FAMILIES, make_estimator, make_preprocessor
 
@@ -40,6 +50,7 @@ def main() -> None:
     print(f"plumbing sample: {split.shape_report} | disjoint: yes")
 
     rows = []
+    curve_rows = []
     for family in FAMILIES:
         params = cfg["families"][family]
         seed = cfg["seed"]
@@ -80,12 +91,21 @@ def main() -> None:
                         "fit_seconds": round(seconds, 2),
                     }
                 )
+            # reliability-diagram segments, same binning as the primary ece
+            for seg in reliability_bins(split.y_val, p_eval, n_bins=15, quantile_edges=True):
+                curve_rows.append({"family": family, "arm": arm, **seg})
         print(f"{family:>20} | arms x 9 metrics | {seconds:.1f}s")
 
     TABLES.mkdir(parents=True, exist_ok=True)
     out = TABLES / "calibration_audit_dryrun.csv"
     pd.DataFrame(rows).to_csv(out, index=False)
     print(f"wrote {out.relative_to(REPO_ROOT)}")
+    curves = TABLES / "calibration_curves_dryrun.csv"
+    pd.DataFrame(curve_rows).to_csv(curves, index=False)
+    print(
+        f"wrote {curves.relative_to(REPO_ROOT)} "
+        f"({len(curve_rows)} bin segments)"
+    )
 
 
 if __name__ == "__main__":

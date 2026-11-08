@@ -12,6 +12,7 @@ import pytest
 from scripts.export_numbers import (
     import_baseline,
     import_calibration,
+    import_curves,
     import_decisions,
     import_deep_subset,
     import_noise_floor,
@@ -55,6 +56,23 @@ class TestAdapters:
         )
         out = import_calibration(df, "calibration_audit_dryrun.csv")
         assert out["random_forest.isotonic.citl"]["value"] == pytest.approx(-1.234568)
+
+    def test_curves(self):
+        curves = pd.DataFrame(
+            {
+                "family": ["xgboost"],
+                "arm": ["isotonic"],
+                "bin": [3],
+                "n": [120],
+                "share": [0.06671],
+                "p_bar": [0.1234567],
+                "y_bar": [0.1345678],
+            }
+        )
+        out = import_curves(curves, "calibration_curves_dryrun.csv")
+        assert out["xgboost.isotonic.bin3.p_bar"]["value"] == pytest.approx(0.123457)
+        assert out["xgboost.isotonic.bin3.y_bar"]["value"] == pytest.approx(0.134568)
+        assert out["xgboost.isotonic.bin3.share"]["value"] == pytest.approx(0.06671)
 
     def test_sweep_and_deep_subset(self):
         sweep = pd.DataFrame(

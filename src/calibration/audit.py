@@ -42,7 +42,10 @@ def _bin_masks(
     quantile_edges: bool,
 ) -> list[np.ndarray]:
     if quantile_edges:
-        qs = np.linspace(0.0, 1.0, len(edges) + 2)[1:-1] if len(edges) else np.array([])
+        # the edges arg is the bin-boundary TEMPLATE over [0,1] with
+        # len(edges) = B+1 for B bins; equal-mass B bins need B-1 inner
+        # cut points at k/B, k = 1..B-1 (delivering exactly B masks)
+        qs = np.linspace(0.0, 1.0, len(edges))[1:-1] if len(edges) >= 2 else np.array([])
         edges = np.unique(np.sort(np.quantile(probabilities, qs)))
     inner = edges[(edges > 0.0) & (edges < 1.0)]
     bounds = np.concatenate(([0.0], inner, [1.0]))
@@ -156,6 +159,50 @@ def ece(
             continue
         total += (nb / len(y)) * abs(float(p[m].mean()) - float(y[m].mean()))
     return float(total)
+
+
+def reliability_bins(
+    targets: np.ndarray,
+    probabilities: np.ndarray,
+    *,
+    edges: np.ndarray | None = None,
+    quantile_edges: bool = True,
+    n_bins: int = 15,
+) -> list[dict]:
+    """Per-bin reliability-diagram segments (non-empty bins only).
+
+    Same binning machinery as `ece`/`brier_decomposition`; quantile
+    (equal-mass) edges are the default here because the primary ECE per
+    CONTEXT 7 is adaptive-bin and the diagram must match what the number
+    summarises. Returns dicts with bin index, n, share, mean prediction,
+    and mean outcome.
+    """
+    y = np.asarray(targets, dtype=float)
+    p = np.asarray(probabilities, dtype=float)
+    if y.ndim != 1 or p.ndim != 1 or len(y) != len(p) or len(y) == 0:
+        raise ValueError("targets and probabilities must be equal-length 1-D arrays")
+    if not np.all(np.isin(y, [0.0, 1.0])):
+        raise ValueError("targets must be binary")
+    if not np.all((p >= 0.0) & (p <= 1.0)):
+        raise ValueError("probabilities must lie in [0,1]")
+    if edges is None:
+        edges = np.linspace(0.0, 1.0, n_bins + 1)
+    masks = _bin_masks(p, np.asarray(edges, dtype=float), quantile_edges=quantile_edges)
+    out = []
+    for b, m in enumerate(masks):
+        nb = int(m.sum())
+        if nb == 0:
+            continue
+        out.append(
+            {
+                "bin": b,
+                "n": nb,
+                "share": round(nb / len(y), 6),
+                "p_bar": round(float(p[m].mean()), 6),
+                "y_bar": round(float(y[m].mean()), 6),
+            }
+        )
+    return out
 
 
 def ae_ratio(targets: np.ndarray, probabilities: np.ndarray) -> float:

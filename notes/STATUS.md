@@ -573,3 +573,32 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   cosine stays high under magnitude-preserving reversals, which is
   WHY spearman is reported alongside). Suite now 218 passed; ruff
   clean; AI sweep clean.
+- Reliability-diagram data + figure machinery landed (T7.x figure
+  preforms): new `reliability_bins()` in `src/calibration/audit.py`
+  (per-bin segments, quantile edges by default, same `_bin_masks`
+  machinery as ece), wired into `run_calibration.py` which now also
+  emits `reports/tables/calibration_curves_dryrun.csv` (205 segments,
+  family x arm x bin; isotonic arms legitimately collapse to fewer
+  non-empty segments because the step output repeats score values);
+  new `scripts/run_figures.py` renders `reports/figures/
+  reliability_diagram_dryrun.png` (4 families x 4 arms grid with the
+  diagonal; the intercept arm's pure offset shift and xgboost's
+  large residual under-prediction segment are directly visible) and
+  `sweep_auc_brier_dryrun.png` (per-family 30-config scatter showing
+  the AUC-Brier association). Conventions follow the existing figure
+  scripts (matplotlib Agg, dpi=150, deterministic axes, no
+  timestamps). NOTE an arm-name slip caught on first render: the
+  fourth sanctioned arm is `intercept`, not `beta`; corrected against
+  KINDS before committing.
+- Binning off-by-two found and fixed (R-7.2 addendum): the equal-mass
+  path of `_bin_masks` derived its inner cut count from the edges
+  template incorrectly and delivered n_bins+2 masks, so `ece_b15` in
+  the previously exported calibration/sample-size tables was computed
+  over 17 bins rather than the protocol's 15. Fixed by deriving B-1
+  inner cuts at k/B from the template length; pinned by a regression
+  test asserting exactly-B masks (quantile and fixed-edge paths, B =
+  10/15/20/30; the B=15 approximation now matches CONTEXT 7's
+  adaptive-bin definition as written). `run_calibration` +
+  `run_sample_size` re-ran end to end, numbers_dryrun.json
+  re-exported (30,323 keys including the new curves-table adapter).
+  Suite now 222 passed; ruff clean; AI sweep clean.

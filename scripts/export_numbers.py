@@ -157,9 +157,29 @@ def import_deep_subset(df: pd.DataFrame, table: str) -> dict[str, dict]:
     return out
 
 
+def import_curves(df: pd.DataFrame, table: str) -> dict[str, dict]:
+    _need(df, ["family", "arm", "bin", "n", "share", "p_bar", "y_bar"], table)
+    out = {}
+    for row in df.itertuples(index=False):
+        for field in ("share", "p_bar", "y_bar"):
+            key = f"{row.family}.{row.arm}.bin{row.bin}.{field}"
+            out[key] = {
+                "value": _round6(getattr(row, field)),
+                "table": table,
+                "columns": {
+                    "family": row.family,
+                    "arm": row.arm,
+                    "bin": row.bin,
+                    "field": field,
+                },
+            }
+    return out
+
+
 ADAPTERS = {
     "baseline_dryrun_metrics": import_baseline,
     "calibration_audit_dryrun": import_calibration,
+    "calibration_curves_dryrun": import_curves,
     "decision_flip_dryrun": import_decisions,
     "noise_floor_dryrun": import_noise_floor,
     "sample_size_dryrun": import_sample_size,

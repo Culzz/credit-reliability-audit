@@ -12,6 +12,7 @@ from src.calibration.audit import (
     decision_flips,
     ece,
     mean_within_cohort_spearman,
+    reliability_bins,
 )
 
 RNG = np.random.default_rng(20261103)
@@ -266,3 +267,53 @@ def test_mean_within_cohort_spearman_ignores_nan():
     vals = [0.9, float("nan"), 0.7, 0.8]
     assert mean_within_cohort_spearman(vals) == pytest.approx(0.8)
     assert np.isnan(mean_within_cohort_spearman([float("nan")]))
+
+
+# --------------------------------------------------------------------------
+# Reliability-diagram bin segments
+# --------------------------------------------------------------------------
+def test_reliability_bins_cover_and_match_binning():
+    # dissipate deterministic scores across [0,1]; quantile edges make
+    # equal-mass bins so shares must partition the cohort
+    n = 1500
+    p = np.linspace(0.0, 1.0, n) * 0.9999
+    rng = np.random.default_rng(20261108)
+    y = (rng.random(n) < p).astype(float)
+    segs = reliability_bins(y, p, n_bins=15, quantile_edges=True)
+    assert sum(s["n"] for s in segs) == n
+    # shares are rounded to 6 decimals, so the identity holds only to
+    # rounding: <= 5e-7 x one per non-empty bin
+    assert abs(sum(s["share"] for s in segs) - 1.0) <= 5e-7 * len(segs)
+    # equal-mass bins: every segment carries ~n/15 rows
+    assert all(abs(s["n"] - n / 15) <= 1 for s in segs)
+    # segments are ordered and p_bar increases with bin index
+    bars = [s["p_bar"] for s in segs]
+    assert bars == sorted(bars)
+
+
+def test_reliability_bins_match_primary_ece_binning():
+    # same machinery must reproduce the same |p_bar - y_bar| weighting
+    # that ece_b15 reports: sum(share * |p_bar - y_bar|) == ece
+    n = 900
+    rng = np.random.default_rng(19)
+    p = rng.random(n)
+    y = (rng.random(n) < p).astype(float)
+    segs = reliability_bins(y, p, n_bins=15, quantile_edges=True)
+    manual = sum(s["share"] * abs(s["p_bar"] - s["y_bar"]) for s in segs)
+    assert manual == pytest.approx(ece(y, p, n_bins=15, quantile_edges=True), abs=5e-6)
+
+
+def test_quantile_edge_path_delivers_exactly_n_bins():
+    # regression pin: the quantile path once delivered n_bins+2 masks
+    # (off-by-two in the inner-cut count); B must mean B, matching the
+    # fixed-edge path's mask count for the same n_bins
+    n = 1600
+    rng = np.random.default_rng(7)
+    p = rng.random(n)  # continuous scores, no duplicate quantile edges
+    y = (rng.random(n) < 0.2).astype(float)
+    for b in (10, 15, 20, 30):
+        segs = reliability_bins(y, p, n_bins=b, quantile_edges=True)
+        assert len(segs) == b, f"quantile binning delivered {len(segs)} bins for B={b}"
+        edges = np.linspace(0.0, 1.0, b + 1)
+        fixed = reliability_bins(y, p, n_bins=b, quantile_edges=False, edges=edges)
+        assert len(fixed) == b
