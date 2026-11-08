@@ -551,3 +551,25 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   before. This closes the grouped side of H2c's reference machinery
   pre-freeze. numbers_dryrun.json re-exported (12,308 keys). Suite
   stays 214 passed; ruff clean; AI sweep clean.
+- Bootstrap-refit axis added to the noise-floor runner (CONTEXT 7's
+  full noise-floor wording: seed-retrained pairs AND bootstrap-refit
+  models on identical data): 30 seeded bootstrap resamples of the
+  training rows per family, estimator seed pinned so variation is the
+  resample itself, all 435 refit pairs per family compared on the same
+  battery as the seed pairs; table now carries a `kind` column
+  (seed / bootstrap_refit; 25,000 pair x metric rows total) and the
+  export adapter follows (29,708 keys). Plumbing-scale floors:
+  bootstrap resampling moves RF's per-feature attribution structure a
+  lot (cosine median 0.882, p2.5 0.746) while the boosters hold
+  0.92-0.96 median and grouped cosine stays >= 0.96 everywhere -
+  group-level mass is more refit-stable than single columns, directly
+  relevant to which H2c threshold applies. Decision-flip floors
+  under refits: xgb ~4.0% / lgbm ~3.0% median, RF exactly 0 across all
+  435 pairs (leaf-smoothed RF scores very rarely cross the 0.5
+  threshold) - flagged for the real-cohort runner to re-check with
+  real-scale training. 4 tests for the grouped metric block added
+  (identical/proportional/reversed vectors + live partition cover of
+  the 52 design columns; two initial test-expectation slips corrected -
+  cosine stays high under magnitude-preserving reversals, which is
+  WHY spearman is reported alongside). Suite now 218 passed; ruff
+  clean; AI sweep clean.
