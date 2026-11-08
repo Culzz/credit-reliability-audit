@@ -1,0 +1,50 @@
+# protocol/GATE5.md — freeze checklist (PROPOSED for the PI)
+
+> **Status: PROPOSED.** Only the PI may create `protocol/PROTOCOL_FROZEN`
+> (empty marker) and tag `protocol-v1`. This file is the pre-assembled
+> list of what the PI ratifies at Gate 5, with pointers to where each
+> decision item is already drafted and logged. Nothing here is binding
+> until the PI acts.
+
+## Counter-signed artifacts the freeze consumes
+
+| Artifact | Status | Where |
+|---|---|---|
+| Test cohorts 2014Q1-2015Q4 (GATE4) | PASS 200/200 cells | `protocol/GATE4.md`, `configs/splits.yaml` (test: null until freeze) |
+| Hypothesis register (8 confirmatory + exploratory) | PROPOSED | `protocol/HYPOTHESES.md` |
+| Compute caps (SHAP <= 10k rows/config; headline B = 2000) | PROPOSED from T4.6 | `protocol/GATE4.md` |
+| Hyperparameter search spaces + sampler rules | PROPOSED (D-6) | `configs/search_spaces.yaml`, `protocol/SEARCH_SPACES.md` |
+| Feature-group partition (6-way) + resolver | PROPOSED (D-7) | `configs/feature_groups.yaml`, `protocol/FEATURE_GROUPS.md` |
+| Broad/deep sweep sizes and selection rule | configured | `configs/models.yaml` |
+
+## Open decision items to close at freeze
+
+- **D-3, D-4, D-5** (from GATE4): the PI decides; see `notes/DECISIONS.md`.
+- **D-6** search spaces: confirm ranges or edit before freeze.
+- **D-7** feature groups: confirm partition, event-absence grouping,
+  inquiry placement.
+- Test window in `configs/splits.yaml`: replace `test: null` with the
+  ratified 2014Q1-2015Q4 cohorts. Until then the shared loader REFUSES to
+  construct test cohorts by design (`scripts/_common.py` guard).
+
+## What the freeze changes mechanically
+
+1. `HYPOTHESES.md` becomes verbatim-frozen protocol text (PI edits ONLY
+   at this step, with strikes + reasons); Holm is applied ONCE, after
+   all confirmatory tests, post-freeze.
+2. Any code/data change after the freeze goes in
+   `protocol/DEVIATIONS.md` with: what, why, and whether test results
+   were already seen when it was made.
+3. `scripts/render_paper.py --source main` unlocks (requires
+   `protocol/PROTOCOL_FROZEN`); the real-cohort runners stop dry-run
+   mode and the I-11 export switches to `paper/numbers.json`.
+4. The dry-run tables (`reports/tables/*_dryrun.csv`) stay in the repo
+   as plumbing-scale artifacts; they are never cited as results.
+
+## Pre-freeze verification state (as of this draft)
+
+- Suite: 214 passed, ruff clean, AI-hygiene sweep clean.
+- All six Phase-5/7/8/9 runners dry-ran end to end: baselines,
+  calibration audit, decisions, noise floor (+grouped), sample size,
+  broad sweep.
+- Reproducibility tests pass at 1e-9 on full-path re-runs.

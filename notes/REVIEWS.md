@@ -52,3 +52,29 @@ sampling noise (~1.4% at that size); loosened honestly to 2%.
 Verdict: PASS_WITH_FIXES -> fixes applied in the same commit set; suite 206
 passed; all affected dry-run tables re-run.
 
+### R-9.4 reviewer: Builder-review (decision layer)  date: 2026-11-08
+Checked: `src/decisions/policy.py` (breakeven_threshold, threshold_policy,
+fixed_rate_policy, stylised_utility), `src/decisions/flips.py`
+(flip_flows, flip_delta_utility, matched_null_total_delta_utility,
+distance_to_nearest_threshold), and `scripts/run_decisions.py` anchor use
+against the plan's RQ3 definitions (decisions.yaml A7 stylised scenario).
+Findings:
+1. Verified: p* = 1/(1+L) reproduces the break-even of the stylised
+   account ((1-p)g - pL > 0 iff p < g/(g+L)).
+2. Verified: three-band codes are monotone with a deterministic tie rule
+   (strict `<` throughout: p = t_low is REFER, p = t_high is DECLINE);
+   fixed-rate threshold carries the same ties-to-not-approved rule.
+3. Verified: delta-utility is per-loan u(after) - u(before) with funded
+   good +g / funded default -gL, refer/decline 0; `util_flipping_loans`
+   counts only utility-affecting flips.
+4. Verified: the matched null permutes AFTER-scores only, so marginal
+   decision rates are identical to the observed arm and only the
+   score-outcome pairing is chance; resampling is under a single seeded
+   Generator (deterministic).
+5. Verified: runner anchors t_low/t_high = p* -/+ h from config (primary
+   ratio 5 refer half-width 0.02; sensitivity ratios and half-widths all
+   from decisions.yaml, none hard-coded).
+No defects found; the layer's earlier dry-run numbers are reproducible
+under the same seeds. Verdict: PASS.
+
+
