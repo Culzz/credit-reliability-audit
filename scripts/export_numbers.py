@@ -93,17 +93,18 @@ def import_decisions(df: pd.DataFrame, table: str) -> dict[str, dict]:
 
 
 def import_noise_floor(df: pd.DataFrame, table: str) -> dict[str, dict]:
-    _need(df, ["family", "seed_i", "seed_j", "metric", "value"], table)
+    _need(df, ["family", "kind", "a", "b", "metric", "value"], table)
     out = {}
     for row in df.itertuples(index=False):
-        key = f"{row.family}.s{row.seed_i}-s{row.seed_j}.{row.metric}"
+        key = f"{row.family}.k{row.kind}.a{row.a}-b{row.b}.{row.metric}"
         out[key] = {
             "value": _round6(row.value),
             "table": table,
             "columns": {
                 "family": row.family,
-                "seed_i": row.seed_i,
-                "seed_j": row.seed_j,
+                "kind": row.kind,
+                "a": row.a,
+                "b": row.b,
                 "metric": row.metric,
             },
         }

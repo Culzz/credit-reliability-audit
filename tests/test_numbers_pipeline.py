@@ -99,14 +99,15 @@ class TestAdapters:
         noise = pd.DataFrame(
             {
                 "family": ["xgboost"],
-                "seed_i": [1],
-                "seed_j": [2],
+                "kind": ["seed"],
+                "a": [1],
+                "b": [2],
                 "metric": ["cosine"],
                 "value": [0.9967123],
             }
         )
         out = import_noise_floor(noise, "noise_floor_dryrun.csv")
-        assert "xgboost.s1-s2.cosine" in out
+        assert "xgboost.kseed.a1-b2.cosine" in out
 
         size = pd.DataFrame(
             {

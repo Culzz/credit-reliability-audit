@@ -77,4 +77,35 @@ Findings:
 No defects found; the layer's earlier dry-run numbers are reproducible
 under the same seeds. Verdict: PASS.
 
+### R-8.5 reviewer: Builder-review (grouped explanation machinery)  date: 2026-11-08
+Checked: `src/explain/groups.py` (group_attributions,
+grouped_permutation_importance, _validate_group_partition) and
+`src/explain/stability.py` comparator usage inside the grouped noise-floor
+extension of `scripts/run_noise_floor.py`.
+Findings:
+1. Verified: the partition validator enforces a strict cover of ALL
+   feature indices with no overlap; both grouped metrics re-validate on
+   every call, so a malformed partition cannot pass silently.
+2. Verified: group attribution = mean over rows of |sum of group SHAP|
+   (the T8.5 wording), matching the paper's group-level mass definition.
+3. Verified: grouped permutation importance applies ONE row permutation
+   to the WHOLE group block per repeat (`Xp[:, cols] = Xa[idx][:, cols]`),
+   which preserves the within-group joint distribution and destroys only
+   the cross-group association - the correct joint scheme; per-column
+   independent shuffling would leak intra-group structure and
+   underestimate group importance.
+4. Verified: sign convention (loss: permuted - baseline; gain: baseline -
+   permuted, positive = informative) is consistent with the T8.5 test
+   suite's loss/gain pairing.
+5. Verified: single seeded Generator consumed in group order, so the
+   full grouped-importance report is reproducible run-to-run given the
+   same group dict (ordered as returned by the T5.4 resolver).
+6. Residual caveat (documented, not blocking): correlated groups (e.g.
+   credit_score vs utilization) distort joint-permutation readouts;
+   Hooker, Mentch & Zhou 2021 is cited in protocol/FEATURE_GROUPS.md and
+   the methods will carry the caveat - an accepted limitation, not an
+   implementation defect.
+Verdict: PASS.
+
+
 
