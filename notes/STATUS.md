@@ -618,3 +618,47 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   verification-state refreshed (suite 222, both noise-floor axes,
   figure preforms, binning-fix note). Suite stays 222 passed; ruff
   clean.
+
+## Session 2026-11-09 (post-freeze, Phase 6-7 launch)
+
+- GATE 5 FROZEN: PI ratified in session (freeze now; D-6 and D-7 as
+  drafted; T4.6 compute caps accepted) - D-8 logged; configs/splits.yaml
+  test window unlocked to 2014Q1-2015Q4; PROTOCOL_FROZEN created; tag
+  protocol-v1 pushed (85d81a2).
+- Real-cohort layer committed (1de8663): scripts/_real.py loader refuses
+  to run without PROTOCOL_FROZEN; verified live from the mature cache:
+  train 2012Q1-2013Q2 = 84,594 rows (exact match to the recorded count),
+  val 59,298; 8 test cohorts 445,596 rows after dropping 147 rows with
+  unresolved labels; every cohort floor met (events 4,384-13,138;
+  non-events 29,690-75,531 vs 200/200 minimum). 4 loader tests on
+  synthetic fixtures added.
+- Real battery runner completed and pilot-verified end to end on the
+  frozen cohorts (LR, 5 pilot configs, 2 seeds x 3 boots: 67-131 s per
+  config): per-window score aggregates (AUC/Brier/logloss/ECE-b15q/
+  CITL/slope/A-E/mean-p on all 9 windows), recalibration arms fitted
+  on training-window scores with per-cohort oracle recovery (arm
+  machinery verified standalone: 62 rows in 4.0 s, recalibrators within
+  the 0.4 s cap), pairwise flip tracks at the policy cell
+  (t_low=0.1467/t_high=0.1867), seed + bootstrap noise-floor batteries,
+  frozen-model cross-cohort battery, and per-group stability rows
+  (added for H2c's per-group reading: cosine/Spearman/mean-gap per
+  group per pair). Pilot artifact tables deleted (pre-arms code).
+- The T5.4 resolver partitions the real 55-column design (group sizes
+  4/4/10/2/2/33 - application_context absorbs the full-data one-hot
+  levels), verified live.
+- scripts/run_real_statistics.py committed (d4db109): H1a cluster
+  bootstrap over configurations (B=2000, seed 20261109), H1c recovery
+  cells with lag mapping (2014Q1=3 ... 2015Q4=10 quarters) + lag-order
+  Spearman, H2c share-of-cells-below-floor-2.5-pct statistic, H3a
+  recalibration flips vs the T9.2d seed floor q95, RQ4.1-4.4 pooled
+  within-pair Spearman deltas on ONE shared cluster design, Holm once
+  over the 8 confirmatory p-values. Synthetic smoke regression test
+  added (B monkeypatched to 60; 16.5 s) - full batterytables consumed
+  only when they exist.
+- Real broad sweep live-verified: LR pass 8.9 s on 84,594 rows
+  (AUC 0.6471..0.6477, spread 0.0006); RF pass in progress at
+  commit time. Known background-run failure mode: first sweep launch
+  died silently holding the log open (zombie python, empty log);
+  relaunched with unbuffered -u and liveness confirmed from log lines.
+- Suite 223 passed + 1 smoke test pending full-suite rerun; ruff
+  clean; AI sweep clean at last commit.

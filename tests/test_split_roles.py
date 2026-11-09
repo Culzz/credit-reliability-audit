@@ -20,6 +20,7 @@ from src.data.loader import (
     vintage_window,
 )
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
 VINTAGES = ["2012Q1", "2012Q2", "2013Q3", "2013Q4", "2014Q1", "2015Q4"]
 
 
@@ -67,9 +68,10 @@ def test_load_split_train_validation_pre_freeze(tmp_path: Path):
     )
 
 
-def test_load_split_test_locked(tmp_path: Path):
-    with pytest.raises(ProtocolLockError):
-        load_split("test", splits_path=tmp_splits(tmp_path))  # no PROTOCOL_FROZEN in this repo
+def test_load_split_test_resolved_after_freeze():
+    """Post-freeze (Gate 5, protocol-v1, D-8): the real test window
+    resolves from the shipped config plus the real frozen marker."""
+    assert vintage_window("test") == {"start": "2014Q1", "end": "2015Q4"}
 
 
 def test_load_split_test_needs_gate4_window(tmp_path: Path):
@@ -99,8 +101,14 @@ def test_descriptive_rejects_explicit_leak_request():
         load_descriptive(synthetic_frame(), feature_columns=["x1", "y"])
 
 
-def test_real_config_test_window_locked():
-    """The real configs/splits.yaml must ship with test=null and the real flag must be absent."""
-    assert not guard.protocol_is_frozen()
-    with pytest.raises(ProtocolLockError):
-        vintage_window("test")
+def test_real_config_test_window_matches_freeze():
+    """The shipped splits.yaml must carry exactly the ratified cohorts:
+    eight quarterly windows 2014Q1-2015Q4 (D-8), with the real marker
+    present in the repo."""
+    assert guard.protocol_is_frozen()
+    window = vintage_window("test")
+    assert window == {"start": "2014Q1", "end": "2015Q4"}
+    cfg = yaml.safe_load(
+        (REPO_ROOT / "configs" / "splits.yaml").read_text(encoding="utf-8")
+    )["splits"]["test"]
+    assert cfg["start"] == "2014Q1" and cfg["end"] == "2015Q4"

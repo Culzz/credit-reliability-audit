@@ -45,8 +45,10 @@ def test_test_role_allowed_after_flag_created(tmp_path: Path):
     assert require_unlocked("test", flag=flag) is None
 
 
-def test_real_repo_has_no_frozen_flag_yet():
-    """Guard the guard: this repo is pre-protocol, so the real flag must not exist."""
-    assert not protocol_is_frozen()
-    with pytest.raises(ProtocolLockError):
-        require_unlocked("test")
+def test_real_repo_frozen_after_gate5():
+    """Post-freeze invariant (Gate 5, protocol-v1): the frozen marker
+    exists in the real repo and the test role is unlocked in it. The
+    complementary pre-freeze state stays covered above with an absent
+    flag fixture."""
+    assert protocol_is_frozen()
+    assert require_unlocked("test") is None
