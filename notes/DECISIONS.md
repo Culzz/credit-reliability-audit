@@ -104,5 +104,27 @@ source feature;
 (c) `inq_last_6mths` in application_context rather than in the
 delinquency group.
 
+### D-8 2026-11-09 GATE 5 FREEZE - PI decision (executed)
+The PI ratified, in session, on 2026-11-09:
+(a) TEST-WINDOW COHORTS: 2014Q1-2015Q4 locked in `configs/splits.yaml`
+    (eight quarterly cohorts; every observed cell met the 200/200
+    minimum events/non-events floor at GATE4).
+(b) D-6 CONFIRMED: hyperparameter search spaces and sampler rules
+    accepted exactly as drafted (30 configs/family from the
+    deterministic [base_seed, family_slot, config_index] sampler;
+    ranges spanning weak to over-fitted; boosters n_estimators fixed
+    400; deep-subset = 5 configs/family at validation-AUC quantile
+    anchors min/q25/q50/q75/max with round-half-even on even-n ties).
+(c) D-7 CONFIRMED: the six-way feature-group partition accepted as
+    drafted, including (b) `*_isna` grouped with their source feature
+    and (c) `inq_last_6mths` in application_context.
+(d) T4.6 COMPUTE CAPS ACCEPTED: SHAP <= 10,000 rows/config; headline
+    bootstrap B = 2000; recalibrators <= 0.4 s.
+Mechanics executed by the tooling under the PI's blanket instruction:
+`protocol/PROTOCOL_FROZEN` created (empty, PI-owned marker), tag
+`protocol-v1`, GATE5.md status updated to ratified. Any change after
+this point goes through `protocol/DEVIATIONS.md`.
+
+
 
 

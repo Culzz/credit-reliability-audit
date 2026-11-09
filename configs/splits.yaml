@@ -6,8 +6,8 @@ splits:
     start: "2013Q3"       # PROPOSED
     end: "2013Q4"
   test:
-    start: null           # LOCKED. Set only at Gate 4 from the feasibility table,
-    end: null             # then readable only after PROTOCOL_FROZEN exists.
+    start: "2014Q1"       # Ratified by the PI at Gate 5 (2026-11-09): eight
+    end: "2015Q4"         # quarterly cohorts, all cells >= 200/200 (GATE4).
     note: "quarterly cohorts after validation, up to last mature vintage; aim >= 6"
   min_events_per_eval_cohort: 200       # PROPOSED
   min_nonevents_per_eval_cohort: 200

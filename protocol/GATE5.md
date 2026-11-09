@@ -1,10 +1,11 @@
 # protocol/GATE5.md — freeze checklist (PROPOSED for the PI)
 
-> **Status: PROPOSED.** Only the PI may create `protocol/PROTOCOL_FROZEN`
-> (empty marker) and tag `protocol-v1`. This file is the pre-assembled
-> list of what the PI ratifies at Gate 5, with pointers to where each
-> decision item is already drafted and logged. Nothing here is binding
-> until the PI acts.
+> **Status: RATIFIED 2026-11-09.** The PI ratified the freeze in session:
+> cohorts 2014Q1-2015Q4 unlocked in `configs/splits.yaml`, D-6 (search
+> spaces) and D-7 (feature groups) confirmed as drafted, T4.6 compute
+> caps accepted, `protocol/PROTOCOL_FROZEN` created, tag `protocol-v1`.
+> See D-8 in `notes/DECISIONS.md`. The checklist below is retained as
+> the record of what was ratified.
 
 ## Counter-signed artifacts the freeze consumes
 
