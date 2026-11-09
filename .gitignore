@@ -36,3 +36,4 @@ mlflow.db
 mlartifacts/
 *_log.txt
 
+suite_check.txt
