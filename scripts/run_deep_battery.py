@@ -28,6 +28,8 @@ Outputs: reports/tables/deep_agg_real.csv
          reports/tables/flip_pairs_real.csv
          reports/tables/stability_pairs_real.csv
          reports/tables/temporal_pairs_real.csv
+         reports/tables/deep_arms_real.csv
+         reports/tables/group_pairs_real.csv
 Use    : python -m uv run python -m scripts.run_deep_battery [--pilot]
 """
 
@@ -150,6 +152,63 @@ def _agg(family, config_index, kind, refit_id, window, metric, value) -> dict:
     }
 
 
+# recalibration arms: fitted on the model's TRAINING-window scores
+# (iron rule: historical eligible labels only), evaluated per window
+# from the model's cached predictions; the per-window "oracle" refits
+# the same arm ON the eval window itself and gives H1c's partial-
+# recovery denominator
+def _arm_point_rows(preds: dict, ctx: Ctx, family: str,
+                    config_index: int, kind: str, refit_id: int) -> list:
+    from src.calibration.recalibration import KINDS, fit_recalibrator
+
+    def row(arm, window, metric, value) -> dict:
+        return {
+            "family": family,
+            "config_index": config_index,
+            "kind": kind,
+            "refit_id": refit_id,
+            "arm": arm,
+            "window": window,
+            "metric": metric,
+            "value": round(float(value), 6),
+        }
+
+    rows = []
+    for arm in KINDS:
+        rec = fit_recalibrator(arm, ctx.y_eval["train"], preds["train"])
+        for wname in ctx.window_order:
+            if wname == "train":
+                continue
+            y = ctx.y_eval[wname]
+            p_before = preds[wname]
+            p_after = rec.apply(p_before)
+            b_before = brier_score_loss(y, p_before)
+            oracle = fit_recalibrator(arm, y, p_before)
+            b_oracle = float(brier_score_loss(y, oracle.apply(p_before)))
+            b_after = float(brier_score_loss(y, p_after))
+            citl = citl_and_slope(y, p_after)
+            denom = b_before - b_oracle
+            recovery = (
+                1.0 - (b_after - b_oracle) / denom
+                if abs(denom) > 1e-12
+                else float("nan")  # undefined when the window needs no repair
+            )
+            flows = flip_flows(_codes(p_before, ctx), _codes(p_after, ctx))
+            for metric, value in (
+                ("brier_before", b_before),
+                ("brier_after", b_after),
+                ("brier_oracle", b_oracle),
+                ("recovery", recovery),
+                ("citl_after", citl.citl),
+                ("slope_after", citl.slope),
+                ("ece_after", ece(y, p_after, n_bins=15, quantile_edges=True)),
+                ("flip_rate_vs_none", flows["n_flips"] / len(y)),
+            ):
+                rows.append(row(arm, wname, metric, value))
+    return rows
+
+
+
 def _codes(p: np.ndarray, ctx: Ctx) -> np.ndarray:
     return threshold_policy(p, t_low=ctx.t_low, t_high=ctx.t_high)
 
@@ -195,6 +254,38 @@ def _stability_rows(family, config_index, kind, i, j, Vi, GVi, Vj, GVj) -> list:
     return rows
 
 
+def _group_pair_rows(family, config_index, kind, i, j,
+                     Vi, Vj, ctx: Ctx) -> list:
+    """Per-group restricted stability battery (H2c's noise-floor and
+    temporal-similarity inputs): cosine and Spearman of the attribution
+    profiles computed on each group's columns only."""
+    from scipy.stats import spearmanr
+
+    from src.explain.stability import cosine_importance
+
+    rows = []
+    for group in ctx.group_names:
+        cols = ctx.groups[group]
+        Vi_g, Vj_g = Vi[:, cols], Vj[:, cols]
+        gi = np.abs(Vi_g).mean(axis=0)
+        gj = np.abs(Vj_g).mean(axis=0)
+        sp = float(spearmanr(gi, gj).statistic)
+        rows.append(
+            {
+                "family": family,
+                "config_index": config_index,
+                "kind": kind,
+                "i": i,
+                "j": j,
+                "group": group,
+                "group_cosine": cosine_importance(Vi_g, Vj_g),
+                "group_spearman": round(sp, 6) if np.isfinite(sp) else 0.0,
+                "group_mean_gap": round(float(np.abs(gi - gj).mean()), 6),
+            }
+        )
+    return rows
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--pilot", action="store_true",
@@ -222,7 +313,8 @@ def main() -> None:
     val_head = ctx.windows["val"][:N_EXPLAIN_CAP]
     cohort_heads = {q: X[:N_EXPLAIN_CAP] for q, X in ctx.windows.items()
                     if q not in ("train",)}
-    agg_rows, flip_rows, stab_rows, temp_rows = [], [], [], []
+    (agg_rows, flip_rows, stab_rows, temp_rows, arm_rows, group_rows) = (
+        [], [], [], [], [], [])
     for slot, family in enumerate(families):
         params_list = spaces[family]
         sub = deep[deep["family"] == family]
@@ -241,6 +333,7 @@ def main() -> None:
                 Ps[k] = {w: est.predict_proba(ctx.windows[w])[:, 1]
                          for w in ctx.windows}
                 agg_rows += _window_aggregate_rows(est, ctx, family, cfg_idx, "seed", k)
+                arm_rows += _arm_point_rows(Ps[k], ctx, family, cfg_idx, "seed", k)
                 expl = make_explainer(est, background, family=family)
                 Vs[k] = explain_matrix(expl, val_head)
                 GVs[k] = np.array([group_attributions(Vs[k], ctx.groups)[g]
@@ -252,6 +345,8 @@ def main() -> None:
                                                  CK[i], CK[j], ctx)
                     stab_rows += _stability_rows(family, cfg_idx, "seed", i, j,
                                                  Vs[i], GVs[i], Vs[j], GVs[j])
+                    group_rows += _group_pair_rows(family, cfg_idx, "seed", i, j,
+                                                   Vs[i], Vs[j], ctx)
             del Ps, CK
 
             # ---- bootstrap axis: resampled ROWS only, estimator seed pinned
@@ -266,6 +361,7 @@ def main() -> None:
                 )
                 P_b[b] = {w: est.predict_proba(ctx.windows[w])[:, 1] for w in ctx.windows}
                 agg_rows += _window_aggregate_rows(est, ctx, family, cfg_idx, "boot", b)
+                arm_rows += _arm_point_rows(P_b[b], ctx, family, cfg_idx, "boot", b)
                 expl = make_explainer(est, background, family=family)
                 V_b[b] = explain_matrix(expl, val_head)
                 GV_b[b] = np.array([group_attributions(V_b[b], ctx.groups)[g]
@@ -277,6 +373,8 @@ def main() -> None:
                                                  CK_b[i], CK_b[j], ctx)
                     stab_rows += _stability_rows(family, cfg_idx, "boot", i, j,
                                                  V_b[i], GV_b[i], V_b[j], GV_b[j])
+                    group_rows += _group_pair_rows(family, cfg_idx, "boot", i, j,
+                                                   V_b[i], V_b[j], ctx)
             del P_b, CK_b
 
             # ---- frozen model (seed 0): cross-cohort explanation battery
@@ -303,6 +401,9 @@ def main() -> None:
                             "metric": metric,
                             "value": round(float(value), 6),
                         })
+                    group_rows += _group_pair_rows(
+                        family, cfg_idx, "cohort", wi, wj, Vw[wi], Vw[wj], ctx
+                    )
             seconds = time.perf_counter() - t0
             print(f"{family:>20} cfg{cfg_idx:<2} | seeds {n_seeds} + boots "
                   f"{n_boots} | {seconds:.1f}s", flush=True)
@@ -313,6 +414,8 @@ def main() -> None:
         ("flip_pairs_real.csv", flip_rows),
         ("stability_pairs_real.csv", stab_rows),
         ("temporal_pairs_real.csv", temp_rows),
+        ("deep_arms_real.csv", arm_rows),
+        ("group_pairs_real.csv", group_rows),
     ):
         out = TABLES / name
         pd.DataFrame(rows).to_csv(out, index=False)
