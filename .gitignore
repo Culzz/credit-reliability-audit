@@ -34,3 +34,5 @@ Thumbs.db
 .DS_Store
 mlflow.db
 mlartifacts/
+*_log.txt
+
