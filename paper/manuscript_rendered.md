@@ -7,10 +7,13 @@
 
 Placeholder syntax (double-brace `n:`-placeholders as documented in
 paper/README.md) resolves from `numbers_dryrun.json` in dry-run mode or
-`numbers.json` (--source main) after the freeze. An example key that
-resolves in dry-run mode (do NOT cite dry-run numbers in prose anywhere):
+`numbers.json` (--source main) after the freeze. An example key kept
+inside a fence so the renderer leaves it literal (placeholders in code
+blocks are documentation, not claims):
 
-    0.620923
+```
+{{n:dryrun.logistic_regression.roc_auc.point}}
+```
 
 ## Planned structure (CONTEXT.md)
 

@@ -170,6 +170,21 @@ class TestRender:
         assert out == "0.620942"  # 6 significant digits, trailing zeros trimmed
         assert missing == []
 
+    def test_fenced_placeholders_stay_literal(self):
+        # the stub's fenced example documents the syntax; it must NOT
+        # resolve into a dry-run number sitting in prose (the earlier
+        # rendered stub embedded 0.620923 - that is the regression pin)
+        text = (
+            "prose {{n:dryrun.a.b}} continues\n\n"
+            "```\n{{n:dryrun.a.b}}\n```\n\n"
+            "after {{n:missing.pretty.print}} end"
+        )
+        out, missing = render(text, self.NUMBERS)
+        assert missing == ["missing.pretty.print"]  # fence did not swallow checks
+        assert "{{n:dryrun.a.b}}" in out          # fenced: still literal
+        assert "0.620942" in out                  # unfenced: resolved
+        assert out.count("0.620942") == 1
+
 
 def test_claims_register_schema_is_fixed():
     with (REPO_ROOT / "paper" / "claims.csv").open(encoding="utf-8", newline="") as fh:

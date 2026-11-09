@@ -122,5 +122,30 @@ Findings:
    implementation defect.
 Verdict: PASS.
 
+### R-11.1 Analyst-review (paper scaffolding vs numbers discipline)  date: 2026-11-08
+Checked: `paper/manuscript.md` (stub), `paper/README.md`,
+`paper/manuscript_rendered.md` (generated), `paper/claims.csv`,
+`scripts/render_paper.py`, and the CONTEXT 11 discipline ("numbers are
+NEVER typed by hand").
+Findings:
+1. DEFECT (fixed): the stub's example placeholder was an INDENTED code
+   block, and the renderer resolved it, embedding the plumbing-scale
+   LR AUC 0.620923 directly in the rendered stub - exactly what the
+   README's own "do NOT cite dry-run numbers in prose anywhere" forbids
+   at the prose boundary. Fix: the renderer now splits on fences and
+   leaves placeholders inside fenced code blocks literal (fenced
+   content is documentation, not claims); the stub example moved into a
+   proper fence; README documents the rule; a regression test pins that
+   unfenced placeholders still resolve, missing keys are still a hard
+   error, and fenced keys stay untouched.
+2. Verified: the placeholder-count print skips fenced segments, and
+   `--source main` still refuses to run without `protocol/PROTOCOL_FROZEN`.
+3. Verified: `claims.csv` has the fixed header and stays empty while the
+   stub carries no empirical sentences (schema test exists).
+4. Non-issue investigated: the heading em-dashes look garbled in
+   console output but the file bytes are valid UTF-8 U+2014 - no file
+   corruption, no change made.
+Verdict: PASS_WITH_FIXES -> fixes applied in the same commit set.
+
 
 

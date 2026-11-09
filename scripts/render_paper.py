@@ -2,9 +2,10 @@
 
 Placeholder syntax: {{n:key}} -> paper/numbers_dryrun.json key. Rendering is
 strict: any placeholder without a value is a HARD ERROR with the missing key
-list (CONTEXT.md 11 - "do not paper over it"). The dry-run mode renders
-against numbers_dryrun.json only; after the freeze a `--source main` renders
-the real manuscript against the frozen export. Output:
+list (CONTEXT.md 11 - "do not paper over it"). Placeholders inside fenced
+code blocks are documentation, not claims, and stay literal. The dry-run mode
+renders against numbers_dryrun.json only; after the freeze a `--source main`
+renders the real manuscript against the frozen export. Output:
 paper/manuscript_rendered.md (never overwrites the source).
 """
 
@@ -36,7 +37,15 @@ def render(text: str, numbers: dict) -> tuple[str, list[str]]:
             return match.group(0)
         return format(entry["value"], ".6g").rstrip("0").rstrip(".") if isinstance(entry["value"], float) else str(entry["value"])
 
-    rendered = PLACEHOLDER.sub(_subst, text)
+    # fenced code blocks are documentation, not claims: the stub's example
+    # placeholder must stay a literal example instead of resolving into a
+    # dry-run number sitting in prose. Splitting on ``` keeps pair parity:
+    # odd segments are INSIDE a fence.
+    segments = text.split("```")
+    for i, chunk in enumerate(segments):
+        if i % 2 == 0:
+            segments[i] = PLACEHOLDER.sub(_subst, chunk)
+    rendered = "```".join(segments)
     return rendered, missing
 
 
@@ -55,7 +64,9 @@ def main() -> None:
             + ", ".join(sorted(set(missing))[:20])
         )
     OUT.write_text(rendered, encoding="utf-8")
-    count = len(PLACEHOLDER.findall(text))
+    # count only what the renderer owns (unfenced segments)
+    segments = text.split("```")
+    count = sum(len(PLACEHOLDER.findall(segments[i])) for i in range(0, len(segments), 2))
     print(f"rendered {count} placeholder(s) -> {OUT.relative_to(REPO_ROOT)}")
 
 

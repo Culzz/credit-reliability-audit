@@ -21,3 +21,6 @@ Manuscript numbers are NEVER typed by hand (CONTEXT.md 11):
 - `manuscript_rendered.md` — renderer output (never edited directly).
 
 Rendering is strict: a placeholder without a value fails the build.
+Placeholders inside fenced code blocks are NOT rendered: a fenced
+example documents the write-it-with-a-placeholder discipline instead of
+resolving into a dry-run number sitting in prose.

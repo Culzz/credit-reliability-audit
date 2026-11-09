@@ -602,3 +602,19 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   `run_sample_size` re-ran end to end, numbers_dryrun.json
   re-exported (30,323 keys including the new curves-table adapter).
   Suite now 222 passed; ruff clean; AI sweep clean.
+- Analyst-review R-11.1 (paper scaffolding vs numbers discipline)
+  found and fixed a prose-boundary defect: the stub's example
+  placeholder sat in an INDENTED code block, so the renderer resolved
+  it and the rendered stub embedded the plumbing-scale LR AUC value
+  directly in text - contrary to the README's own no-dry-run-numbers
+  rule. Fix: `render_paper.py` now treats fenced code blocks as
+  documentation (placeholders inside fences stay literal), the stub
+  example moved into a proper fence, the README documents the rule,
+  and a regression test pins resolve/missing/literal behaviour (one
+  test-side slip - a placeholder missing the `n:` prefix - corrected
+  before commit). Also verified: claims register schema stays fixed
+  and empty; suspected heading corruption in the stub/README turned
+  out to be console-only (file bytes are valid UTF-8 U+2014); GATE5
+  verification-state refreshed (suite 222, both noise-floor axes,
+  figure preforms, binning-fix note). Suite stays 222 passed; ruff
+  clean.
