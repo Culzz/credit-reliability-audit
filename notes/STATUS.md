@@ -1,9 +1,11 @@
 # notes/STATUS.md — working status (update at the end of every work session)
 
 ## Current phase
-Phase 0 closing (Gate 0 awaits the Zotero collection only). Phase 1 literature
-review started (matrix seeds + 2 competitor notes). Phase 2 data acquisition
-complete through T2.4 (raw gz → Parquet → profile tables).
+**Study complete.** Protocol frozen (`protocol-v1`), four-family battery
+finished, all eight confirmatory tests adjudicated, manuscript rendered from
+`paper/numbers.json`, claim register filled (34 rows), suite 243 passed,
+released to `origin/main` at `c49645d` (+ notes commit). Remaining open item:
+Gate 1 (literature matrix / bibliography), which is external PI work.
 
 ## Responsibilities on this project
 - Implementation and testing: dataset access, features, models, metrics, explanations, decision code, run scripts (Builder duties).

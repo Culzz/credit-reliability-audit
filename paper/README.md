@@ -16,8 +16,10 @@ Manuscript numbers are NEVER typed by hand (CONTEXT.md 11):
 - `claims.csv` — the claim register: `claim_id, sentence, evidence_file,
   number_keys, status(SUPPORTED|PARTIAL|UNSUPPORTED)`. No sentence making
   an empirical claim may exist in the manuscript without a row here; the
-  stub manuscript contains no empirical sentences, so the register starts
-  empty.
+  register currently holds 34 rows (30 auto-extracted empirical sentences
+  plus 4 qualitative rows), and enforcing tests check that each `sentence`
+  is an exact substring of `manuscript.md` and that every key exists in
+  `numbers.json`.
 - `manuscript_rendered.md` — renderer output (never edited directly).
 
 Rendering is strict: a placeholder without a value fails the build.
