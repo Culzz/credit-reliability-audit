@@ -744,5 +744,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   the known "installment" false positive); banned-phrase grep clean;
   no `verdict}}` and no `{{n:` in the rendered manuscript;
   rf_log.txt (approx 4 GB) and boost_log.txt deleted.
-- Commit: see the "Post-freeze results" commit on main (hash recorded
-  in the follow-up notes commit).
+- Commit: `c49645d29f6183aa6fd841e3c83b549ac0ef4e2e` ("Post-freeze
+  results: four-family battery, confirmatory statistics, verdicts,
+  paper tables, real figures, manuscript"), pushed to origin/main;
+  tag `protocol-v1` present.
