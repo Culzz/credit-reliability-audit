@@ -9,6 +9,7 @@ the test stays sub-minute. Real verdicts come only from the real tables
 from __future__ import annotations
 
 import itertools
+import sys
 
 import numpy as np
 import pandas as pd
@@ -142,6 +143,9 @@ def synthetic_tables(tmp_path, monkeypatch):
         df.to_csv(tmp_path / f"{name}.csv", index=False)
     monkeypatch.setattr(rs, "TABLES", tmp_path)
     monkeypatch.setattr(rs, "B_HEADLINE", 60)
+    # main() now parses CLI args (--b-headline/--suffix); give it a clean
+    # argv so pytest's own arguments are not consumed
+    monkeypatch.setattr(sys, "argv", ["run_real_statistics"])
     return tmp_path
 
 

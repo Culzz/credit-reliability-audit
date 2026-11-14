@@ -2,6 +2,7 @@
 
 **Does accuracy predict reliability? A temporal audit of calibration, explanations and decisions in credit-risk models.**
 
+[![CircleCI](https://circleci.com/gh/Culzz/credit-reliability-audit.svg?style=shield)](https://circleci.com/gh/Culzz/credit-reliability-audit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Tests](https://img.shields.io/badge/tests-243%20passed-brightgreen)
@@ -23,7 +24,8 @@ tables — nothing is typed by hand.
 
 ## Headline results
 
-Eight pre-registered tests, Holm-adjusted once over the family (α = 0.05),
+Eight hypothesis tests frozen and tagged (`protocol-v1`) before
+confirmatory analysis, Holm-adjusted once over the family (α = 0.05),
 cluster bootstrap over 20 deep-battery model configurations.
 
 | ID | Question | Estimate [95% CI] | p (Holm) | Verdict |
@@ -58,14 +60,26 @@ rendered deterministically from committed tables by
 
 - [`paper/manuscript_rendered.md`](paper/manuscript_rendered.md) — the full
   manuscript with every value resolved.
-- [`paper/claims.csv`](paper/claims.csv) — claim register: 34 empirical
+- [`paper/claims.csv`](paper/claims.csv) — claim register: 34+ empirical
   sentences, each tied to its evidence table and number keys (a test
   enforces exact substrings and key existence).
+- [`notes/REVIEWS.md`](notes/REVIEWS.md) — the internal review log:
+  builder-side (formulas, leakage, seeds) and analyst-side (every number
+  vs the export) reviews with PASS/PASS_WITH_FIXES verdicts, appended
+  throughout the project.
 - [`protocol/HYPOTHESES.md`](protocol/HYPOTHESES.md) — pre-registered
   hypotheses; [`protocol/HYPOTHESES_VERDICTS.md`](protocol/HYPOTHESES_VERDICTS.md)
   — generated outcome record; [`protocol/DEVIATIONS.md`](protocol/DEVIATIONS.md)
   — three recorded post-freeze deviations (battery scale, lag axis,
-  recovery-ratio companions).
+  recovery-ratio companions), summarised as a dated table in the paper's
+  Appendix A.
+- [`docs/REPRODUCTION.md`](docs/REPRODUCTION.md) — environment lockfile,
+  per-stage runtimes and hardware reference.
+- [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md) — the four audited model
+  families with their frozen hyperparameter ranges.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) — remaining post-release work
+  (registration, external validity, second dataset), grouped by what
+  blocks it.
 
 ## Repository layout
 

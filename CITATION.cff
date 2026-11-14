@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: >-
+  If you use this study or its code, please cite it using this
+  metadata.
+title: >-
+  When a credit score stops meaning what it meant: a reliability audit
+  of calibration, explanations and decisions across eight LendingClub
+  cohorts
+authors:
+  - family-names: Omeche
+    given-names: Chimaobi Benedict
+keywords:
+  - credit risk
+  - temporal distribution shift
+  - calibration
+  - explainability
+  - decision stability
+  - model monitoring
+type: dataset
+license: MIT
+repository-code: "https://github.com/Culzz/credit-reliability-audit"
+url: "https://github.com/Culzz/credit-reliability-audit"
+preferred-citation:
+  type: manual
+  title: >-
+    When a credit score stops meaning what it meant: a reliability audit
+    of calibration, explanations and decisions across eight LendingClub
+    cohorts
+  authors:
+    - family-names: Omeche
+      given-names: Chimaobi Benedict
+  notes: >-
+    Working paper, frozen protocol protocol-v1. See paper/manuscript.md
+    and paper/manuscript_rendered.md in the repository.

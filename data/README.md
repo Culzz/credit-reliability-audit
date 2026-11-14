@@ -39,6 +39,14 @@ Reference counts (2.26 M rows × 151 cols, ~1.68 GB uncompressed, ~393 MB
 gzipped) were used as expectations to check against at the profiling step;
 they are not guarantees.
 
+## Verify before use
+
+After downloading, confirm the file matches the checksum above:
+
+```powershell
+python -m uv run python -m scripts.verify_raw_data --path accepted_2007_to_2018Q4.csv.gz
+```
+
 ## Transformations
 
 1. Parquet conversion via DuckDB with footer-row removal by numeric-`id` check

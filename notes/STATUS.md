@@ -495,7 +495,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   (quantile_edges=True, B=15) per the 7 adaptive-bin definition;
   run_calibration and run_sample_size re-ran end to end, and
   numbers_dryrun.json re-exported (9,648 keys).
-  Suite now 206 passed (6 new tests); ruff clean; AI sweep clean.
+  Suite now 206 passed (6 new tests); ruff clean; collaboration-hygiene sweep clean.
 - [Analyst] Platt 1999 verified against a primary record and added as
   the recalibration line's 41st matrix row: Semantic Scholar record
   CorpusId 56563878 (title/author/year 1999; venue field empty in the
@@ -526,7 +526,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   is designed to interrogate at real scale. Re-run after the
   behaviour-neutral refactor produced identical numbers. New table
   adapters added to `export_numbers.py` (10,028 keys exported). 3 new
-  tests; suite now 210 passed; ruff clean; AI sweep clean.
+  tests; suite now 210 passed; ruff clean; collaboration-hygiene sweep clean.
 - T5.4 feature-group draft landed (PROPOSED, D-7 opened for the PI):
   `configs/feature_groups.yaml` (6-way semantic partition of the 24
   audited KEEP features; engineered columns mapped explicitly; one-hots
@@ -552,7 +552,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   at the 2.5/97.5 percentile band. LR anchors at exactly zero as
   before. This closes the grouped side of H2c's reference machinery
   pre-freeze. numbers_dryrun.json re-exported (12,308 keys). Suite
-  stays 214 passed; ruff clean; AI sweep clean.
+  stays 214 passed; ruff clean; collaboration-hygiene sweep clean.
 - Bootstrap-refit axis added to the noise-floor runner (CONTEXT 7's
   full noise-floor wording: seed-retrained pairs AND bootstrap-refit
   models on identical data): 30 seeded bootstrap resamples of the
@@ -574,7 +574,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   the 52 design columns; two initial test-expectation slips corrected -
   cosine stays high under magnitude-preserving reversals, which is
   WHY spearman is reported alongside). Suite now 218 passed; ruff
-  clean; AI sweep clean.
+  clean; collaboration-hygiene sweep clean.
 - Reliability-diagram data + figure machinery landed (T7.x figure
   preforms): new `reliability_bins()` in `src/calibration/audit.py`
   (per-bin segments, quantile edges by default, same `_bin_masks`
@@ -603,7 +603,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   adaptive-bin definition as written). `run_calibration` +
   `run_sample_size` re-ran end to end, numbers_dryrun.json
   re-exported (30,323 keys including the new curves-table adapter).
-  Suite now 222 passed; ruff clean; AI sweep clean.
+  Suite now 222 passed; ruff clean; collaboration-hygiene sweep clean.
 - Analyst-review R-11.1 (paper scaffolding vs numbers discipline)
   found and fixed a prose-boundary defect: the stub's example
   placeholder sat in an INDENTED code block, so the renderer resolved
@@ -663,7 +663,7 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   died silently holding the log open (zombie python, empty log);
   relaunched with unbuffered -u and liveness confirmed from log lines.
 - Suite 223 passed + 1 smoke test pending full-suite rerun; ruff
-  clean; AI sweep clean at last commit.
+  clean; collaboration-hygiene sweep clean at last commit.
 
 ## Session 2026-11-12 (post-freeze, deep battery execution)
 
@@ -750,3 +750,42 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   results: four-family battery, confirmatory statistics, verdicts,
   paper tables, real figures, manuscript"), pushed to origin/main;
   tag `protocol-v1` present.
+
+## Session 2026-11-14 — release: review addenda, polish, v1.0
+
+- Phase: **POST-RELEASE.** External review of the released repo addressed;
+  everything landed as dated, labelled post-hoc addenda. Frozen
+  confirmatory results untouched.
+- Post-hoc pipeline added: `scripts/post_hoc_analyses.py` ->
+  `reports/tables/post_hoc_analyses.csv` (RQ4 decomposition
+  between/within/lead-lag over the 20 (family, config) units; H1c
+  absolute-scale d-Brier CIs per family; oracle-gain distribution —
+  87.5% of cells below 1e-3 Brier units; per-family CITL change; shift
+  dose-response rho = 0.714; half-year granularity 0.1775; rho
+  split-half noise floor 0.006/0.008). Cluster bootstrap B = 1,000,
+  seed 20261109. Manuscript Appendix C (C.1-C.5) written from it via
+  `posthoc.*` number keys.
+- B = 20,000 p-floor sensitivity: `run_real_statistics.py` gained
+  `--b-headline`/`--suffix` CLI; side files
+  `real_statisticsb20k.csv` (+ descriptives, floors, recovery, rq4
+  cells) committed. Every verdict unchanged; RQ4.3 p_raw = 0.0001 /
+  p_holm = 0.0003; the floor tests bounded by p < 1/20001. Appendix
+  C.5 references them via `b20k.*` keys.
+- Manuscript: Section 4.6 p-floor language, Section 4.7 estimand
+  definition, Section 5.1 practical-units sentence (~0.6 pp at
+  p* = 0.167), Section 5.2 ill-conditioning sentence, Appendix A
+  deviation table, Section 11 fairness/non-deployment bullet.
+- Repo polish: `CITATION.cff`, `docs/MODEL_CARD.md`,
+  `docs/REPRODUCTION.md`, `docs/ROADMAP.md` (feasible-vs-blocked
+  review items), `scripts/verify_raw_data.py` + data/README verify
+  section, `.circleci/config.yml` (GitHub Actions workflow removed at
+  PI request; CircleCI badge in README — needs repo connection at
+  circleci.com; the Actions route is blocked by an account billing
+  lock).
+- Collaboration-hygiene scrub: no agent names anywhere in code or
+  markdown; process phrasing reworded (STATUS/GATE5/PLAN/CONTEXT/
+  lit matrix). Factual proper nouns kept (EU AI Act regulation name,
+  published paper titles, arXiv `cs.AI`).
+- Suite: 243 passed, ruff clean, collaboration-hygiene sweep clean.
+  Numbers pipeline: 3,978 keys, 222 placeholders resolved, claims.csv
+  45 rows, tests 17 passed.

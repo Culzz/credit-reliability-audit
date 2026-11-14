@@ -384,6 +384,22 @@ def import_group_summary(df: pd.DataFrame, table: str) -> dict[str, dict]:
     return out
 
 
+def import_posthoc(df: pd.DataFrame, table: str) -> dict[str, dict]:
+    """Generic adapter for reports/tables/post_hoc_analyses.csv (labeled
+    post-hoc estimates; none enters a confirmatory test)."""
+    _need(df, ["analysis", "label", "statistic", "value", "ci_low",
+               "ci_high", "n", "note"], table)
+    out: dict[str, dict] = {}
+    for row in df.itertuples(index=False):
+        base = (f"posthoc.{_slug(row.analysis)}.{_slug(row.label)}")
+        for field in ("value", "ci_low", "ci_high", "n"):
+            v = getattr(row, field)
+            if pd.notna(v):
+                out[f"{base}.{field}"] = {
+                    "value": round(float(v), 6), "table": table}
+    return out
+
+
 MAIN_ADAPTERS = {
     "real_cohorts": import_real_cohorts,
     "real_statistics": import_real_statistics,
@@ -395,6 +411,12 @@ MAIN_ADAPTERS = {
     "flip_pairs_real": import_flip_summary,
     "temporal_pairs_real": import_temporal_summary,
     "group_pairs_real": import_group_summary,
+    "post_hoc_analyses": import_posthoc,
+    # B = 20,000 p-floor sensitivity (Appendix C.5); namespaced so the
+    # keys cannot collide with the primary export
+    "real_statisticsb20k":
+        lambda df, table: {f"b20k.{k}": v for k, v in
+                           import_real_statistics(df, table).items()},
     "sweep": import_sweep,
     "deep_subset": import_deep_subset,
 }

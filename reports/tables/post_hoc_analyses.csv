@@ -1,0 +1,60 @@
+analysis,label,statistic,value,ci_low,ci_high,n,note
+rq4_between,ece,"mean Spearman rho(AUC_t, outcome_t+1) across configs",-0.287722,-0.678438,0.181038,20,post-hoc; resampling unit = configuration
+rq4_within,ece,"pooled demeaned Pearson corr(dAUC, dOutcome), config x pair",-0.462925,-0.55503,-0.375467,20,post-hoc
+rq4_leadlag,ece,OLS coefficient of AUC_t in outcome_t+1 ~ outcome_t + AUC_t,0.041414,0.00842,0.129278,20,post-hoc
+rq4_between,slope_dev,"mean Spearman rho(AUC_t, outcome_t+1) across configs",-0.685996,-0.902631,-0.280022,20,post-hoc; resampling unit = configuration
+rq4_within,slope_dev,"pooled demeaned Pearson corr(dAUC, dOutcome), config x pair",-0.244112,-0.560069,0.13851,20,post-hoc
+rq4_leadlag,slope_dev,OLS coefficient of AUC_t in outcome_t+1 ~ outcome_t + AUC_t,0.018774,-0.999309,1.340794,20,post-hoc
+rq4_between,flip_rate,"mean Spearman rho(AUC_t, outcome_t+1) across configs",-0.18292,-0.644081,0.369363,20,post-hoc; resampling unit = configuration
+rq4_within,flip_rate,"pooled demeaned Pearson corr(dAUC, dOutcome), config x pair",-0.445863,-0.584634,-0.309762,20,post-hoc
+rq4_leadlag,flip_rate,OLS coefficient of AUC_t in outcome_t+1 ~ outcome_t + AUC_t,0.036168,0.024895,0.082575,20,post-hoc
+h1c_abs_brier,lightgbm,mean Brier change (after - before),0.0107,0.004338,0.016661,5,post-hoc; Brier units; arms pooled
+h1c_abs_brier,logistic_regression,mean Brier change (after - before),-6e-06,-9e-06,-4e-06,5,post-hoc; Brier units; arms pooled
+h1c_abs_brier,random_forest,mean Brier change (after - before),0.006276,0.001869,0.01107,5,post-hoc; Brier units; arms pooled
+h1c_abs_brier,xgboost,mean Brier change (after - before),0.003546,0.000136,0.008549,5,post-hoc; Brier units; arms pooled
+h1c_abs_brier_lag,lightgbm@2014Q1,mean Brier change (after - before),0.010729,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,lightgbm@2014Q2,mean Brier change (after - before),0.010758,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,lightgbm@2014Q3,mean Brier change (after - before),0.011091,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,lightgbm@2014Q4,mean Brier change (after - before),0.01128,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,lightgbm@2015Q1,mean Brier change (after - before),0.011423,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,lightgbm@2015Q2,mean Brier change (after - before),0.010996,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,lightgbm@2015Q3,mean Brier change (after - before),0.010098,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,lightgbm@2015Q4,mean Brier change (after - before),0.010024,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2014Q1,mean Brier change (after - before),7e-06,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2014Q2,mean Brier change (after - before),1e-06,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2014Q3,mean Brier change (after - before),-6e-06,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2014Q4,mean Brier change (after - before),0.0,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2015Q1,mean Brier change (after - before),-2.9e-05,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2015Q2,mean Brier change (after - before),-1.8e-05,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2015Q3,mean Brier change (after - before),-9e-06,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,logistic_regression@2015Q4,mean Brier change (after - before),-1e-05,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2014Q1,mean Brier change (after - before),0.005658,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2014Q2,mean Brier change (after - before),0.006141,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2014Q3,mean Brier change (after - before),0.006288,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2014Q4,mean Brier change (after - before),0.006645,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2015Q1,mean Brier change (after - before),0.007075,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2015Q2,mean Brier change (after - before),0.007013,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2015Q3,mean Brier change (after - before),0.006378,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,random_forest@2015Q4,mean Brier change (after - before),0.0065,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2014Q1,mean Brier change (after - before),0.003522,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2014Q2,mean Brier change (after - before),0.003651,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2014Q3,mean Brier change (after - before),0.003634,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2014Q4,mean Brier change (after - before),0.003719,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2015Q1,mean Brier change (after - before),0.003758,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2015Q2,mean Brier change (after - before),0.003581,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2015Q3,mean Brier change (after - before),0.003432,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_abs_brier_lag,xgboost@2015Q4,mean Brier change (after - before),0.003358,,,5,post-hoc; per label age; no CI (few clusters per cell)
+h1c_orc_gain,lightgbm,median oracle gain (Brier units),0.000435,,,5,post-hoc; denominator of the frozen recovery ratio
+h1c_orc_gain,logistic_regression,median oracle gain (Brier units),0.000288,,,5,post-hoc; denominator of the frozen recovery ratio
+h1c_orc_gain,random_forest,median oracle gain (Brier units),0.00026,,,5,post-hoc; denominator of the frozen recovery ratio
+h1c_orc_gain,xgboost,median oracle gain (Brier units),0.000333,,,5,post-hoc; denominator of the frozen recovery ratio
+h1c_orc_gain,share_gain_below_1e3,share of cells with oracle gain < 1e-3,0.875185,,,2700,post-hoc; ill-conditioning of the frozen ratio
+h1c_abs_citl,lightgbm,mean CITL change (after - uncalibrated),0.41299,,,5,post-hoc; CITL units
+h1c_abs_citl,logistic_regression,mean CITL change (after - uncalibrated),-0.000308,,,5,post-hoc; CITL units
+h1c_abs_citl,random_forest,mean CITL change (after - uncalibrated),0.843848,,,5,post-hoc; CITL units
+h1c_abs_citl,xgboost,mean CITL change (after - uncalibrated),0.027402,,,5,post-hoc; CITL units
+shift_dose,citl_change,"Spearman(shift AUC, mean |CITL change|)",0.714286,,,8,"post-hoc; 8 cohorts, no CI"
+shift_dose,ece_change,"Spearman(shift AUC, mean |ECE change|)",0.714286,,,8,"post-hoc; 8 cohorts, no CI"
+hy_granularity,citl_change_mean,"mean(|CITL_half_year| - |CITL_val|), H1a statistic at half-year",0.17754,,,4,post-hoc; sensitivity to cohort granularity; quarterly value 0.045384
+rho_noise,ece,half-split difference of between-config rho (A-half minus B-half),0.006017,,,20,"post-hoc; seeds {0,1} vs {2,3,4}; mean over 7 pairs; flip rate excluded (no refit axis)"
+rho_noise,slope_dev,half-split difference of between-config rho (A-half minus B-half),0.008378,,,20,"post-hoc; seeds {0,1} vs {2,3,4}; mean over 7 pairs; flip rate excluded (no refit axis)"

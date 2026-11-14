@@ -1,0 +1,10 @@
+hypothesis,scope,statistic,value,ci_low,ci_high,p_raw,note,p_holm,verdict
+H1a,20 configurations,mean(|CITL_cohort| - |CITL_val|),0.045384,0.015674,0.079966,0.0013,practical anchor |dCITL| >= 0.02,0.0026,reject_H0
+H1c,20 configurations x 3 arms x 8 cohorts,mean recovery,-13.660196,-26.042081,-4.659191,0.0,partial recovery iff CI excludes 1,0.0,reject_H0
+H1c-lag,arm x lag cell means,"Spearman(lag, recovery)",0.904762,,,,exploratory within H1c,,exploratory
+H2c,24 family-group cells,share below floor 2.5th pct (group_cosine),0.083333,0.0,0.208333,0.2409,temporal median < floor q2.5 per cell,0.2409,not_rejected
+H3a,20 configuration x family rows,mean recalibration flip rate - seed floor q95,-0.102468,-0.12206,-0.07225,0.0,floor per family (T9.2d),0.0,reject_H0
+RQ4.1,"20 clusters, 7 pairs","delta rho(AUC_t, ece_t+1) vs rho(AUC_t, AUC_t+1)",-1.203654,-1.614192,-0.665901,0.0,"rho outcome -0.249047 (CI -0.642101..0.24106, region inconclusive); baseline 0.954607",0.0,reject_H0
+RQ4.2,"20 clusters, 7 pairs","delta rho(AUC_t, slope_dev_t+1) vs rho(AUC_t, AUC_t+1)",-1.643823,-1.879815,-1.191813,0.0,"rho outcome -0.689216 (CI -0.899111..-0.30997, region meaningful); baseline 0.954607",0.0,reject_H0
+RQ4.3,"20 clusters, 7 pairs","delta rho(AUC_t, expl_stability_t+1) vs rho(AUC_t, AUC_t+1)",-0.802744,-1.19558,-0.39506,0.0001,"rho outcome 0.151863 (CI -0.248176..0.538618, region inconclusive); baseline 0.954607",0.0003,reject_H0
+RQ4.4,"20 clusters, 7 pairs","delta rho(AUC_t, flip_rate_t+1) vs rho(AUC_t, AUC_t+1)",-1.123891,-1.587158,-0.520124,0.0,"rho outcome -0.169284 (CI -0.621716..0.391986, region inconclusive); baseline 0.954607",0.0,reject_H0

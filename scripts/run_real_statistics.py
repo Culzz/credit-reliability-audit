@@ -31,6 +31,7 @@ Use    : python -m uv run python -m scripts.run_real_statistics
 
 from __future__ import annotations
 
+import argparse
 import itertools
 import time
 
@@ -41,7 +42,14 @@ from scipy.stats import spearmanr
 from scripts._common import TABLES
 from src.statistics.inference import holm_pvalues
 
-B_HEADLINE = 2000        # statistics.yaml bootstrap.B_headline
+B_HEADLINE = 2000        # statistics.yaml bootstrap.B_headline; overridable
+OUTPUT_SUFFIX = ""       # --suffix: non-empty writes *_<suffix>.csv side files
+
+
+def _out(name: str) -> str:
+    stem, _, ext = name.partition(".")
+    return f"{stem}{OUTPUT_SUFFIX}.{ext}" if OUTPUT_SUFFIX else name
+
 STAT_SEED = 20261109     # fixed bootstrap-design seed (explicit literal)
 CUTOFF_COHORTS = tuple(  # ratified test cohorts, frozen order
     f"{y}Q{q}" for y, q in [
@@ -419,6 +427,16 @@ def rq4_statistics(units: pd.DataFrame, fu: pd.DataFrame,
 
 # ================================ main =====================================
 def main() -> None:
+    global B_HEADLINE, OUTPUT_SUFFIX
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--b-headline", type=int, default=B_HEADLINE,
+                        help="bootstrap resample count for the headline CIs")
+    parser.add_argument("--suffix", default="",
+                        help="write *_<suffix>.csv side files instead of "
+                             "overwriting the primary outputs")
+    args = parser.parse_args()
+    B_HEADLINE = args.b_headline
+    OUTPUT_SUFFIX = args.suffix
     t0 = time.perf_counter()
     tables = load_tables()
     units = window_units(tables["deep_agg_real"])
@@ -426,7 +444,7 @@ def main() -> None:
     floors = noise_floors(tables["stability_pairs_real"],
                           tables["group_pairs_real"],
                           tables["flip_pairs_real"])
-    floors.to_csv(TABLES / "real_noise_floors.csv", index=False)
+    floors.to_csv(TABLES / _out("real_noise_floors.csv"), index=False)
 
     stats_rows: list[dict] = []
     descriptives: list[dict] = []
@@ -458,7 +476,7 @@ def main() -> None:
 
     # ---- H1c
     cells = h1c_cells(tables["deep_arms_real"])
-    cells.to_csv(TABLES / "recovery_cells_real.csv", index=False)
+    cells.to_csv(TABLES / _out("recovery_cells_real.csv"), index=False)
     vals, deltas_c, _lag_mean, lag_order = h1c_statistic(cells)
     rec_hat = float(vals.mean())
     add_row("H1c", f"{len(vals)} configurations x "
@@ -499,7 +517,7 @@ def main() -> None:
     # ---- RQ4.x
     rq = rq4_statistics(units, flip_units(tables["flip_pairs_real"]),
                         tables["temporal_pairs_real"])
-    rq.to_csv(TABLES / "rq4_cells_real.csv", index=False)
+    rq.to_csv(TABLES / _out("rq4_cells_real.csv"), index=False)
     for _, row in rq.iterrows():
         add_row(RQ_IDS[row.key],
                 f"{row.n_clusters} clusters, {row.n_pairs} pairs",
@@ -520,9 +538,9 @@ def main() -> None:
         r.setdefault("verdict", "exploratory")
 
     out = pd.DataFrame(stats_rows)
-    out.to_csv(TABLES / "real_statistics.csv", index=False)
-    pd.DataFrame(descriptives).to_csv(TABLES / "real_descriptives.csv",
-                                      index=False)
+    out.to_csv(TABLES / _out("real_statistics.csv"), index=False)
+    pd.DataFrame(descriptives).to_csv(
+        TABLES / _out("real_descriptives.csv"), index=False)
     print(out[["hypothesis", "statistic", "value", "ci_low", "ci_high",
                "p_raw", "p_holm", "verdict"]].to_string(index=False))
     print(f"done in {time.perf_counter() - t0:.1f}s")

@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.11
+    steps:
+      - checkout
+      - run:
+          name: Install uv
+          command: pip install uv
+      - run:
+          name: Sync locked environment
+          command: uv sync
+      - run:
+          name: Lint
+          command: uv run ruff check .
+      - run:
+          name: Tests
+          command: uv run pytest -q
+
+workflows:
+  commit:
+    jobs:
+      - test

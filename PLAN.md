@@ -21,7 +21,7 @@ The original blueprint is kept in full. These changes fix gaps found on review. 
 | I-8 | **RQ4 power fix**: cheap SHAP stability for all configs; equivalence-region test; cluster bootstrap by configuration | 20 expensive configs give wide CIs; now the test is informative |
 | I-9 | **Seed design resolved** (broad = 1 seed × 30 configs/family; deep = 5 configs × 20 seeds; stochastic search spaces) | Blueprint listed 5 seeds in one place and 20 in another; deterministic boosters make seeds meaningless |
 | I-10 | **Degradation always relative to validation**; logistic regression as the natural calibration control | Separates baseline miscalibration from shift-induced degradation |
-| I-11 | **Numbers pipeline**: manuscript placeholders, `numbers.json`, claim register | AI-written text cannot contain a hand-typed or invented number |
+| I-11 | **Numbers pipeline**: manuscript placeholders, `numbers.json`, claim register | Drafted text cannot contain a hand-typed or invented number |
 | I-12 | **Collaboration protocol**: STATUS, DECISIONS, REVIEWS, per-task report format, mandatory cross-review | Lets collaborators who share no session memory work without drift |
 | I-13 | **Scope tiers, time budget and cut lines** | Protects the core paper if time runs short |
 | I-14 | **Concrete default parameters** for every threshold the blueprint left open (marked PROPOSED) | Work can proceed; PI confirms at Gate 4/5 |
@@ -255,7 +255,7 @@ Drafting starts early and runs in parallel; text depends only on gated outputs.
 - **T12.8 (B, A)** Cross-review of the full draft: numbers vs `numbers.json`, formulas vs `CONTEXT.md` §7, language vs rules, figures vs captions.
 - **T12.9 (H)** Supervisor review; incorporate feedback with records in `DECISIONS.md`.
 - **T12.10 (H)** Verify every reference against its source; resolve all `TO_VERIFY`; proofread.
-- **T12.11 (H)** Choose the venue from its current call-for-papers/aims page (candidate types: applied ML/decision-support journals, finance journals, trustworthy-ML or AI-in-finance workshops, TMLR). Check article type, length, data/code rules, charges. Do not pay fees for promises of fast acceptance. Format accordingly (Markdown + BibTeX via pandoc, or LaTeX template).
+- **T12.11 (H)** Choose the venue from its current call-for-papers/aims page (candidate types: applied ML/decision-support journals, finance journals, trustworthy-ML or ML-in-finance workshops, TMLR). Check article type, length, data/code rules, charges. Do not pay fees for promises of fast acceptance. Format accordingly (Markdown + BibTeX via pandoc, or LaTeX template).
 
 ### Phase 13 — Release
 

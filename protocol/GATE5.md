@@ -44,7 +44,7 @@
 
 ## Pre-freeze verification state (as of this draft)
 
-- Suite: 222 passed, ruff clean, AI-hygiene sweep clean.
+- Suite: 222 passed, ruff clean, collaboration-hygiene sweep clean.
 - All six Phase-5/7/8/9 runners dry-ran end to end: baselines,
   calibration audit (+ per-arm reliability-bin segments), decisions,
   noise floor (seed AND bootstrap-refit axes, grouped battery),

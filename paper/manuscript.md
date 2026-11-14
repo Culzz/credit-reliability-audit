@@ -402,6 +402,12 @@ Holm step-down is applied once over their eight p-values at α = 0.05,
 two-sided. Exploratory results are reported with raw CIs and labelled as
 such. A null is reported as not rejected, not as evidence of absence.
 
+Because the cluster bootstrap draws B = 2,000 resamples, the smallest
+reportable p-value is bounded below by 1/(B + 1) ≈ 0.0005; values at
+that bound are reported as p < 0.0005 rather than as 0.000, and the
+reading leans on the CI and the effect size. Appendix C reports a
+B = 20,000 sensitivity of all eight confirmatory p-values.
+
 ### 4.7 Does AUC predict reliability?
 
 For each adjacent cohort pair `(t, t+1)` we compute the Spearman
@@ -414,7 +420,16 @@ stable), and the seed-pair flip rate. The baseline is the correlation between AU
 correlations over the seven adjacent pairs. The delta between each
 outcome correlation and the baseline is recomputed on every resample of a
 single cluster bootstrap design shared by all four outcomes, so the
-comparisons are paired. An equivalence region of `|ρ| < 0.3` is
+comparisons are paired. The confirmatory estimand is therefore a
+difference of two Spearman correlations measured on the same clusters,
+Δ = ρ(AUC_t, outcome_{t+1}) − ρ(AUC_t, AUC_{t+1}), a unit-free quantity
+on [−2, 2]; negative Δ means AUC tracks the reliability outcome more
+weakly than it tracks its own future, which is the "bad" direction.
+The estimand is a comparison, not an absence claim: it does not assert
+that AUC carries no information about the outcomes. The
+between-configuration and within-configuration decompositions in
+Appendix C address the selection and monitoring questions separately.
+An equivalence region of `|ρ| < 0.3` is
 pre-registered for the outcome correlations: a CI wholly inside is
 described as negligible, wholly outside as meaningful, and otherwise
 inconclusive.
@@ -434,7 +449,12 @@ null of no change in absolute CITL was rejected at the 5% level. The
 family means are heterogeneous: the change is
 {{n:main.H1a.lightgbm}} for LightGBM and {{n:main.H1a.xgboost}} for
 XGBoost, {{n:main.H1a.logistic_regression}} for logistic regression and
-{{n:main.H1a.random_forest}} for random forest.
+{{n:main.H1a.random_forest}} for random forest. In practical units: at
+the operating point p* ≈ 0.167, a CITL offset of {{n:main.H1a.value}}
+corresponds to a misstatement of the predicted default rate of roughly
+0.6 percentage points (arithmetic conversion p(1 − p)Δ), against the
+pre-registered practical anchor of 0.02 in absolute CITL, about 0.3
+points at the same operating point.
 
 By 2015Q4 the mean absolute CITL is
 {{n:main.logistic_regression.2015Q4.citl.mean}} for logistic regression,
@@ -490,6 +510,15 @@ fraction of the achievable gain. That is why the frozen mean is reported
 as the confirmatory decision but the discussion below uses two stable
 companions on the same cells (DEV-3): the median cell recovery and the
 mean change in Brier score from applying the deployable arm.
+
+The ill-conditioning is not hypothetical: on the pooled seed-axis cells,
+{{n:main.posthoc.h1c_orc_gain.share_gain_below_1e3.value}} have an oracle
+gain below 10^-3 Brier units, and the median oracle gain per family
+ranges from {{n:main.posthoc.h1c_orc_gain.logistic_regression.value}} to
+{{n:main.posthoc.h1c_orc_gain.lightgbm.value}}. The substantive finding
+is therefore not the frozen ratio's magnitude but that deployable
+recalibration has little oracle gain to recover on cohorts that are
+already close to calibrated, and sometimes makes the score worse.
 
 By that reading the deployable arms do not recover the oracle gain for
 any family. The median cell recovery is
@@ -722,6 +751,11 @@ of these is available in the public file; all are stated as limitations.
 
 ## 11. Limitations
 
+- **No fairness or protected-attribute analysis.** Reliability under shift
+  may differ across subgroups; the public file's protected-attribute
+  proxies are unreliable, and no fairness analysis was attempted. The
+  results are an audit of population-level reliability, not an equity
+  assessment, and are not deployment advice for any lender.
 - **Accepted-loan selection.** Only granted loans have outcomes. Rejected
   applicants are absent, so the audit cannot speak to the full decision
   population and may understate shift in the declined region.
@@ -825,6 +859,17 @@ change log is maintained in `protocol/DEVIATIONS.md`.
 
 ## Appendix A. Post-freeze deviations
 
+The discipline is that every post-freeze change is dated, labelled, and
+visible; the original pre-specified results are unchanged. The table
+summarises; the full text of each deviation is in
+`protocol/DEVIATIONS.md`.
+
+| ID | Date | Deviation | Decided | Reason | Effect on conclusions |
+|---|---|---|---|---|---|
+| DEV-1 | 2026-11-12 | 5 seed + 5 bootstrap refits instead of 20/30; SHAP capped at 1,000 rows; RF explained by permutation importance; seed-0 estimator reused for the cohort battery | Before any confirmatory result | Measured wall-clock cost on the real training window | Noise floors pool 100 pairs per family instead of 3,125; percentile anchors are noisier; every floor row carries its pair count. No cohort, threshold, hypothesis or the confirmatory family changed. |
+| DEV-2 | 2026-11-12 | The realised H1c lag axis is label age at cohort start (3–10 quarters), not the 0–36-month sliding label-delay grid | Before confirmatory analysis | Deployable arms are fitted on the training window; the sliding grid needs true label-arrival times the file does not carry | H1c's confirmatory definition unchanged; the delay grid is reported as a pre-freeze feasibility result and left to future work. |
+| DEV-3 | 2026-11-12 | Stable descriptive companions added to the H1c ratio (median cell recovery, negative-cell share, mean Brier change) | After a preliminary three-family peek, before the four-family confirmatory run | The ratio's denominator (the oracle gain) is too small to support a mean | Confirmatory estimator, CI, p-value and Holm family unchanged; companions are descriptives only (Appendix C reports their CIs on the absolute scale). |
+
 DEV-1 (2026-11-12) reduced the deep battery to five seed and five
 bootstrap refits per configuration, capped SHAP explanations at 1,000
 rows, substituted Brier-loss permutation importance for SHAP on random
@@ -877,3 +922,133 @@ improved on the uncalibrated score); F6 explanation stability
 (`flip_rate_by_cohort_real.png`); F8 AUC versus reliability
 (`rq4_delta_real.png`). No figure contains a hand-typed value; each is
 rendered by a committed script from a committed table.
+
+---
+
+## Appendix C. Post-hoc analyses (labelled; not confirmatory)
+
+This appendix was added after the frozen confirmatory analysis ran, in
+response to external review. Every estimate here is labelled post-hoc:
+none enters a confirmatory test, the Holm family, or the abstract's
+verdicts. All values are resolved from `paper/numbers.json`, which is
+exported from the committed table `reports/tables/post_hoc_analyses.csv`
+built by `scripts/post_hoc_analyses.py` from the per-configuration
+battery tables (no raw data required). Cluster bootstrap CIs resample
+configurations (B = 1,000, seed 20261109); per-family CIs have only five
+clusters and are correspondingly wide.
+
+### C.1 Decomposing the RQ4 association
+
+Three practitioner questions are separated. All use the twenty deep
+configurations and the seven adjacent cohort pairs.
+
+**Selection (between-configuration):** within one cohort, do
+higher-AUC configurations score better on the reliability outcome?
+Pooled Spearman ρ(AUC_t, outcome_{t+1}) across configurations is
+{{n:main.posthoc.rq4_between.ece.value}} (95% CI
+{{n:main.posthoc.rq4_between.ece.ci_low}} to
+{{n:main.posthoc.rq4_between.ece.ci_high}}) for ECE,
+{{n:main.posthoc.rq4_between.slope_dev.value}} (95% CI
+{{n:main.posthoc.rq4_between.slope_dev.ci_low}} to
+{{n:main.posthoc.rq4_between.slope_dev.ci_high}}) for `|slope − 1|`,
+and {{n:main.posthoc.rq4_between.flip_rate.value}} (95% CI
+{{n:main.posthoc.rq4_between.flip_rate.ci_low}} to
+{{n:main.posthoc.rq4_between.flip_rate.ci_high}}) for the flip rate.
+Only the slope-deviation association is clearly negative; the other two
+CIs are wide, because the deep subset spans each family's validation-AUC
+range by design and therefore has restricted AUC variance.
+
+**Monitoring (within-configuration, over time):** does a configuration
+whose AUC changes between `t` and `t+1` see its reliability change? The
+pooled demeaned correlation of (ΔAUC, Δoutcome) is
+{{n:main.posthoc.rq4_within.ece.value}} (95% CI
+{{n:main.posthoc.rq4_within.ece.ci_low}} to
+{{n:main.posthoc.rq4_within.ece.ci_high}}) for ECE and
+{{n:main.posthoc.rq4_within.flip_rate.value}} (95% CI
+{{n:main.posthoc.rq4_within.flip_rate.ci_low}} to
+{{n:main.posthoc.rq4_within.flip_rate.ci_high}}) for the flip rate;
+both are clearly negative, so AUC movement is informative about
+calibration and flip movement even though cross-configuration selection
+by AUC is not.
+
+**Lead-lag:** does AUC_t predict outcome_{t+1} beyond outcome_t? The
+OLS coefficient of AUC_t in outcome_{t+1} ~ outcome_t + AUC_t is
+{{n:main.posthoc.rq4_leadlag.ece.value}} (95% CI
+{{n:main.posthoc.rq4_leadlag.ece.ci_low}} to
+{{n:main.posthoc.rq4_leadlag.ece.ci_high}}) for ECE and
+{{n:main.posthoc.rq4_leadlag.flip_rate.value}} (95% CI
+{{n:main.posthoc.rq4_leadlag.flip_rate.ci_low}} to
+{{n:main.posthoc.rq4_leadlag.flip_rate.ci_high}}) for the flip rate —
+small positive, so the outcome's own lag carries almost all of the
+predictable signal.
+
+**Measurement noise:** a split-half check over seed refits (seeds 0–1
+versus 2–4) puts the half-to-half spread of the between-configuration ρ
+at {{n:main.posthoc.rho_noise.ece.value}} for ECE and
+{{n:main.posthoc.rho_noise.slope_dev.value}} for `|slope − 1|`. The
+measurement noise in ρ is negligible, so the weak associations above are
+not an artefact of noisy per-cohort inputs.
+
+### C.2 H1c on the absolute scale
+
+In Brier units, the mean change from applying the deployable arms
+(after minus before, seed axis, arms pooled, cluster bootstrap over the
+five configurations per family) is
+{{n:main.posthoc.h1c_abs_brier.logistic_regression.value}} (95% CI
+{{n:main.posthoc.h1c_abs_brier.logistic_regression.ci_low}} to
+{{n:main.posthoc.h1c_abs_brier.logistic_regression.ci_high}}) for
+logistic regression, {{n:main.posthoc.h1c_abs_brier.xgboost.value}}
+(95% CI {{n:main.posthoc.h1c_abs_brier.xgboost.ci_low}} to
+{{n:main.posthoc.h1c_abs_brier.xgboost.ci_high}}) for XGBoost,
+{{n:main.posthoc.h1c_abs_brier.lightgbm.value}} (95% CI
+{{n:main.posthoc.h1c_abs_brier.lightgbm.ci_low}} to
+{{n:main.posthoc.h1c_abs_brier.lightgbm.ci_high}}) for LightGBM and
+{{n:main.posthoc.h1c_abs_brier.random_forest.value}} (95% CI
+{{n:main.posthoc.h1c_abs_brier.random_forest.ci_low}} to
+{{n:main.posthoc.h1c_abs_brier.random_forest.ci_high}}) for random
+forest. The per-label-age cell means are stable across the eight test
+cohorts (for LightGBM between 0.0100 and 0.0114 across the whole label
+age range) and are committed in the same table. The mechanism is the one
+the deviation record anticipated: isotonic and Platt mappings fitted on
+stale training-window scores extrapolate badly off the covered score
+region, and the tree families' shifted score distributions make that
+extrapolation harmful, while logistic regression's mapping transfers.
+A calibrator-family comparison (beta calibration, temperature scaling,
+calibration-set size as a factor) requires refits and is listed as
+future work rather than run post hoc.
+
+### C.3 Shift dose-response
+
+Ranking the eight test cohorts by the feature-only adversarial AUC
+against the training window, the Spearman correlation of shift
+magnitude with the mean |CITL| change is
+{{n:main.posthoc.shift_dose.citl_change.value}} and with the mean |ECE|
+change {{n:main.posthoc.shift_dose.ece_change.value}} (n = 8 cohorts;
+no CI is reported at this granularity). The association is positive and
+moderate-to-strong: cohorts that are more distinguishable from the
+training window lose more calibration. With eight points this is a
+descriptive pattern, not a fitted law.
+
+### C.4 Cohort-granularity sensitivity
+
+Recomputing the H1a statistic at half-year granularity (four half-years
+instead of eight quarters) gives
+{{n:main.posthoc.hy_granularity.citl_change_mean.value}}. The
+half-year statistic pools the two quarters' CITL before taking the
+absolute value, so its magnitude is not directly comparable with the
+quarterly {{n:main.H1a.value}}; the qualitative conclusion — absolute
+CITL deteriorated relative to validation — is unchanged.
+
+### C.5 p-value floor sensitivity
+
+Section 4.6 reports confirmatory p-values from B = 2,000 resamples,
+whose floor is p < 1/(B + 1) ≈ 0.0005. Rerunning the frozen statistics
+with B = 20,000 (same estimators, same seed, side files only) leaves
+every verdict unchanged; the sensitivity run is committed as
+`reports/tables/real_statisticsb20k.csv`. The tests that sat at the
+B = 2,000 floor (H1c, H3a, RQ4.1, RQ4.2, RQ4.4) are bounded by
+p < 1/20001 ≈ 0.00005 at B = 20,000 (Holm-adjusted
+p = {{n:main.b20k.H3a.p_holm}} or less for each), and RQ4.3, whose
+B = 2,000 value was also at the floor, is p =
+{{n:main.b20k.RQ4.3.p_raw}} raw, Holm-adjusted
+{{n:main.b20k.RQ4.3.p_holm}}.

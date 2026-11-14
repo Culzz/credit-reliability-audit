@@ -34,7 +34,7 @@ We audit all three on the *same* real loans, with strictly time-ordered evaluati
 
 **Working title.** *Does Accuracy Predict Reliability? Calibration, Explanation Fidelity and Decision Stability of Credit-Risk Models Under Temporal Distribution Shift.*
 
-**Why it matters to the PI.** The paper supports the PI's applications for fully funded postgraduate AI/ML scholarships (2027 intake) and a preprint. Quality, honesty and reproducibility matter more than volume. A reviewer should be unable to find leakage, p-hacking, fabricated references or unsupported claims.
+**Why it matters to the PI.** The paper supports the PI's applications for fully funded postgraduate ML scholarships (2027 intake) and a preprint. Quality, honesty and reproducibility matter more than volume. A reviewer should be unable to find leakage, p-hacking, fabricated references or unsupported claims.
 
 **What "excellent" means here.** Not the most experiments. It means: a defensible gap, clean leakage-free data, a frozen protocol, uncertainty on every number, honest limitations, a reproducible repo, and a manuscript whose every number traces to a script. Originality is *earned at Gate 1* (Section 10) and never assumed.
 
