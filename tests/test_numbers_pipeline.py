@@ -6,6 +6,7 @@ import csv
 from pathlib import Path
 from typing import ClassVar
 
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -197,6 +198,120 @@ def test_claims_register_schema_is_fixed():
         "status",
     ]
     assert all(len(r) == 5 for r in rows)
+
+
+def test_claims_rows_point_at_manuscript_text_and_export_keys():
+    """Every registered claim must quote the manuscript verbatim and its
+    keys must exist in the main export (once that export exists)."""
+    import json
+
+    manuscript = (REPO_ROOT / "paper" / "manuscript.md").read_text(
+        encoding="utf-8"
+    )
+    numbers_path = REPO_ROOT / "paper" / "numbers.json"
+    numbers = (
+        json.loads(numbers_path.read_text(encoding="utf-8"))["numbers"]
+        if numbers_path.exists() else None
+    )
+    with (REPO_ROOT / "paper" / "claims.csv").open(
+        encoding="utf-8", newline=""
+    ) as fh:
+        rows = list(csv.DictReader(fh))
+    for row in rows:
+        assert row["status"] in {"SUPPORTED", "PARTIAL", "UNSUPPORTED"}
+        assert row["sentence"] in manuscript, row["claim_id"]
+        keys = [k.strip() for k in row["number_keys"].split(";") if k.strip()]
+        assert keys, f"{row['claim_id']} has no number keys"
+        if numbers is not None:
+            missing = [k for k in keys if k not in numbers]
+            assert not missing, f"{row['claim_id']} missing {missing}"
+
+
+class TestRealAdapters:
+    def test_statistics_adapter_keeps_nan_as_null(self):
+        from scripts.export_numbers import import_real_statistics
+
+        df = pd.DataFrame({
+            "hypothesis": ["H1a", "H1c-lag"],
+            "statistic": ["mean delta", "rho"],
+            "value": [0.0312345, 0.4],
+            "ci_low": [0.01, np.nan],
+            "ci_high": [0.05, np.nan],
+            "p_raw": [0.001, np.nan],
+            "p_holm": [0.004, np.nan],
+            "verdict": ["reject_H0", "exploratory"],
+        })
+        out = import_real_statistics(df, "real_statistics.csv")
+        assert out["H1a.value"]["value"] == pytest.approx(0.031234)
+        assert out["H1a.verdict"]["value"] == "reject_H0"
+        assert out["H1c-lag.p_holm"]["value"] is None
+
+    def test_noise_floor_dotted_quantile_header(self):
+        from scripts.export_numbers import import_real_noise_floors
+
+        df = pd.DataFrame({
+            "family": ["random_forest"],
+            "dimension": ["stability"],
+            "label": ["jaccard_top10"],
+            "q2.5": [0.41],
+            "q50": [0.62],
+            "q95": [0.80],
+            "n_pairs": [50],
+        })
+        out = import_real_noise_floors(df, "real_noise_floors.csv")
+        key = "random_forest.stability.jaccard_top10"
+        assert out[f"{key}.q2_5"]["value"] == pytest.approx(0.41)
+        assert out[f"{key}.q95"]["value"] == pytest.approx(0.80)
+        assert out[f"{key}.n_pairs"]["value"] == 50
+
+    def test_cohorts_and_battery_summary(self):
+        from scripts.export_numbers import (
+            import_battery_summary,
+            import_real_cohorts,
+        )
+
+        cohorts = pd.DataFrame({
+            "role": ["train", "test"],
+            "window": ["2012Q1-2013Q2", "2014Q1"],
+            "n": [84594, 34074],
+            "n_events": [11137, 4384],
+            "n_nonevents": [73457, 29690],
+            "default_rate": [0.131652, 0.128661],
+            "n_unresolved": [0, 0],
+        })
+        out = import_real_cohorts(cohorts, "real_cohorts.csv")
+        assert out["train.2012Q1-2013Q2.n"]["value"] == 84594
+        assert out["test.2014Q1.n_events"]["value"] == 4384
+
+        agg = pd.DataFrame({
+            "family": ["xgboost"] * 4,
+            "config_index": [0, 0, 1, 1],
+            "kind": ["seed", "seed", "boot", "boot"],
+            "window": ["2014Q1"] * 4,
+            "metric": ["citl"] * 4,
+            "value": [0.1, 0.3, 5.0, 999.0],
+        })
+        out = import_battery_summary(agg, "deep_agg_real.csv")
+        base = "xgboost.2014Q1.citl"
+        assert out[f"{base}.mean"]["value"] == pytest.approx(0.2)
+        assert out[f"{base}.n"]["value"] == 2
+
+    def test_flip_summary_excludes_train_and_bootstrap_axis(self):
+        from scripts.export_numbers import import_flip_summary
+
+        df = pd.DataFrame({
+            "family": ["xgboost"] * 4,
+            "config_index": [0, 0, 1, 1],
+            "kind": ["seed", "seed", "boot", "seed"],
+            "window": ["train", "2014Q1", "2014Q1", "2014Q1"],
+            "flip_rate": [0.9, 0.01, 0.5, 0.03],
+        })
+        out = import_flip_summary(df, "flip_pairs_real.csv")
+        base = "xgboost.2014Q1.flip_rate"
+        assert out[f"{base}.mean"]["value"] == pytest.approx(0.02)
+        assert out[f"{base}.max"]["value"] == pytest.approx(0.03)
+        assert out[f"{base}.n"]["value"] == 2
+        assert "xgboost.train.flip_rate.mean" not in out
 
 
 def test_real_export_runs_and_is_dryrun_namespaced():

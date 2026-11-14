@@ -1,0 +1,5 @@
+key,n_clusters,n_pairs,rho_outcome,rho_base,delta,rho_ci_low,rho_ci_high,ci_low,ci_high,p_raw,region
+ece,20,7,-0.249047,0.954607,-1.203654,-0.653018,0.259027,-1.62557,-0.645155,0.0,inconclusive
+slope_dev,20,7,-0.689216,0.954607,-1.643823,-0.902606,-0.304402,-1.879541,-1.165347,0.0,meaningful
+expl_stability,20,7,0.151863,0.954607,-0.802744,-0.241906,0.536053,-1.193126,-0.399443,0.0,inconclusive
+flip_rate,20,7,-0.169284,0.954607,-1.123891,-0.625543,0.406285,-1.592716,-0.499232,0.0,inconclusive

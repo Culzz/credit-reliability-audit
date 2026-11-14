@@ -1,1 +1,189 @@
 claim_id,sentence,evidence_file,number_keys,status
+C01,"Using 36-month LendingClub
+loans, we train four model families on 2012Q1–2013Q2
+(n = {{n:main.train.2012Q1-2013Q2.n}}), validate on 2013Q3–2013Q4
+(n = {{n:main.validation.2013Q3-2013Q4.n}}), and evaluate on eight quarterly
+cohorts from 2014Q1 to 2015Q4 ({{n:main.test.2014Q1.n}} to
+{{n:main.test.2015Q4.n}} loans).",real_cohorts.csv,main.train.2012Q1-2013Q2.n;main.validation.2013Q3-2013Q4.n;main.test.2014Q1.n;main.test.2015Q4.n,SUPPORTED
+C02,"Calibration-in-the-large changed by
+{{n:main.H1a.value}} in absolute value on average across cohorts (95% CI
+{{n:main.H1a.ci_low}} to {{n:main.H1a.ci_high}}).",real_statistics.csv,main.H1a.value;main.H1a.ci_low;main.H1a.ci_high,SUPPORTED
+C03,"Deployable
+recalibration did not recover the within-cohort oracle gain: the frozen
+recovery ratio is dominated by a near-zero denominator and is negative,
+and the median cell recovery was {{n:main.H1c-median.logistic_regression}}
+for logistic regression and negative for the three tree families.",real_descriptives.csv,main.H1c-median.logistic_regression,SUPPORTED
+C04,"Only
+{{n:main.H2c.value}} of family-by-group explanation cells fell below
+their seed/bootstrap noise floor, which is not distinguishable from none.",real_statistics.csv,main.H2c.value,SUPPORTED
+C05,"Recalibration produced fewer decision flips than reseeding the same model
+({{n:main.H3a.value}} relative to the seed floor, 95% CI
+{{n:main.H3a.ci_low}} to {{n:main.H3a.ci_high}}).",real_statistics.csv,main.H3a.value;main.H3a.ci_low;main.H3a.ci_high,SUPPORTED
+C06,"AUC in cohort `t` was
+strongly associated with AUC in `t+1` but only weakly, or negatively,
+with next-cohort calibration, explanation stability and flip rate; the
+paired delta for ECE was {{n:main.RQ4.1.value}} (95% CI
+{{n:main.RQ4.1.ci_low}} to {{n:main.RQ4.1.ci_high}}).",real_statistics.csv,main.RQ4.1.value;main.RQ4.1.ci_low;main.RQ4.1.ci_high,SUPPORTED
+C07,"The consequence is that each
+noise floor pools ten seed pairs plus ten bootstrap pairs per
+configuration — for example
+{{n:main.random_forest.stability.jaccard_top10.n_pairs}} pairs for the
+random-forest Jaccard floor across five configurations — rather than 625
+per configuration under the registered design, so the 2.5th and 95th
+percentile anchors are noisier; every floor row carries its pair count.",real_noise_floors.csv,main.random_forest.stability.jaccard_top10.n_pairs,SUPPORTED
+C08,"Averaged over the twenty deep-battery configurations,
+the mean change in absolute CITL was {{n:main.H1a.value}}
+(cluster-bootstrap 95% CI {{n:main.H1a.ci_low}} to
+{{n:main.H1a.ci_high}}; Holm-adjusted p = {{n:main.H1a.p_holm}}).",real_statistics.csv,main.H1a.value;main.H1a.ci_low;main.H1a.ci_high;main.H1a.p_holm,SUPPORTED
+C09,"The
+family means are heterogeneous: the change is
+{{n:main.H1a.lightgbm}} for LightGBM and {{n:main.H1a.xgboost}} for
+XGBoost, {{n:main.H1a.logistic_regression}} for logistic regression and
+{{n:main.H1a.random_forest}} for random forest.",real_descriptives.csv,main.H1a.lightgbm;main.H1a.xgboost;main.H1a.logistic_regression;main.H1a.random_forest,SUPPORTED
+C10,"By 2015Q4 the mean absolute CITL is
+{{n:main.logistic_regression.2015Q4.citl.mean}} for logistic regression,
+{{n:main.xgboost.2015Q4.citl.mean}} for XGBoost,
+{{n:main.lightgbm.2015Q4.citl.mean}} for LightGBM and
+{{n:main.random_forest.2015Q4.citl.mean}} for random forest, against
+validation values of {{n:main.logistic_regression.val.citl.mean}},
+{{n:main.xgboost.val.citl.mean}}, {{n:main.lightgbm.val.citl.mean}} and
+{{n:main.random_forest.val.citl.mean}} respectively.",deep_agg_real.csv,main.logistic_regression.2015Q4.citl.mean;main.xgboost.2015Q4.citl.mean;main.lightgbm.2015Q4.citl.mean;main.random_forest.2015Q4.citl.mean;main.logistic_regression.val.citl.mean;main.xgboost.val.citl.mean;main.lightgbm.val.citl.mean;main.random_forest.val.citl.mean,SUPPORTED
+C11,"Mean ECE in the same
+cohort is {{n:main.xgboost.2015Q4.ece_b15q.mean}},
+{{n:main.lightgbm.2015Q4.ece_b15q.mean}} and
+{{n:main.random_forest.2015Q4.ece_b15q.mean}} for the three nonlinear
+families, and {{n:main.logistic_regression.2015Q4.ece_b15q.mean}} for
+logistic regression.",deep_agg_real.csv,main.xgboost.2015Q4.ece_b15q.mean;main.lightgbm.2015Q4.ece_b15q.mean;main.random_forest.2015Q4.ece_b15q.mean;main.logistic_regression.2015Q4.ece_b15q.mean,SUPPORTED
+C12,"The A/E ratio over the same cohort is
+{{n:main.xgboost.2015Q4.ae_ratio.mean}},
+{{n:main.lightgbm.2015Q4.ae_ratio.mean}},
+{{n:main.random_forest.2015Q4.ae_ratio.mean}} and
+{{n:main.logistic_regression.2015Q4.ae_ratio.mean}}.",deep_agg_real.csv,main.xgboost.2015Q4.ae_ratio.mean;main.lightgbm.2015Q4.ae_ratio.mean;main.random_forest.2015Q4.ae_ratio.mean;main.logistic_regression.2015Q4.ae_ratio.mean,SUPPORTED
+C13,"Mean
+deviation `|slope − 1|` in 2015Q4 is
+{{n:main.xgboost.2015Q4.slope.mean}} for XGBoost,
+{{n:main.lightgbm.2015Q4.slope.mean}} for LightGBM,
+{{n:main.random_forest.2015Q4.slope.mean}} for random forest and
+{{n:main.logistic_regression.2015Q4.slope.mean}} for logistic regression.",deep_agg_real.csv,main.xgboost.2015Q4.slope.mean;main.lightgbm.2015Q4.slope.mean;main.random_forest.2015Q4.slope.mean;main.logistic_regression.2015Q4.slope.mean,SUPPORTED
+C14,"The exploratory H1b summary — mean slope change relative to validation,
+averaged over cohorts, on its own scale — is
+{{n:main.H1b.logistic_regression}},
+{{n:main.H1b.xgboost}},
+{{n:main.H1b.lightgbm}} and
+{{n:main.H1b.random_forest}}.",real_descriptives.csv,main.H1b.logistic_regression;main.H1b.xgboost;main.H1b.lightgbm;main.H1b.random_forest,SUPPORTED
+C15,"The frozen H1c statistic, the pooled mean of the recovery ratio over all
+feasible arm × cohort cells, is {{n:main.H1c.value}} (95% CI
+{{n:main.H1c.ci_low}} to {{n:main.H1c.ci_high}}; Holm-adjusted
+p = {{n:main.H1c.p_holm}}), so the null that the deployable arms match
+the within-cohort oracle was rejected; the sign of the estimate is
+negative, and the stable companions below show why it is not a
+partial-recovery fraction.",real_statistics.csv,main.H1c.value;main.H1c.ci_low;main.H1c.ci_high;main.H1c.p_holm,SUPPORTED
+C16,"The median cell recovery is
+{{n:main.H1c-median.logistic_regression}} for logistic regression,
+{{n:main.H1c-median.xgboost}} for XGBoost,
+{{n:main.H1c-median.lightgbm}} for LightGBM and
+{{n:main.H1c-median.random_forest}} for random forest, and the share of
+cells with a negative ratio is
+{{n:main.H1c-negshare.logistic_regression}},
+{{n:main.H1c-negshare.xgboost}},
+{{n:main.H1c-negshare.lightgbm}} and
+{{n:main.H1c-negshare.random_forest}} respectively.",real_descriptives.csv,main.H1c-median.logistic_regression;main.H1c-median.xgboost;main.H1c-median.lightgbm;main.H1c-median.random_forest;main.H1c-negshare.logistic_regression;main.H1c-negshare.xgboost;main.H1c-negshare.lightgbm;main.H1c-negshare.random_forest,SUPPORTED
+C17,"The mean Brier change
+on the same cells is {{n:main.H1c-brier.logistic_regression}} for logistic
+regression, {{n:main.H1c-brier.xgboost}} for XGBoost,
+{{n:main.H1c-brier.lightgbm}} for LightGBM and
+{{n:main.H1c-brier.random_forest}} for random forest; positive values mean
+the deployable arm made the score worse than leaving it uncalibrated.",real_descriptives.csv,main.H1c-brier.logistic_regression;main.H1c-brier.xgboost;main.H1c-brier.lightgbm;main.H1c-brier.random_forest,SUPPORTED
+C18,"The rank correlation between label age and
+the cell-mean recovery ratio is {{n:main.H1c-lag.value}} (exploratory,
+within H1c).",real_statistics.csv,main.H1c-lag.value,SUPPORTED
+C19,"For
+XGBoost the mean adjacent Jaccard is
+{{n:main.xgboost.2014Q1.2014Q2.jaccard_top10.mean}} from 2014Q1 to 2014Q2
+and {{n:main.xgboost.2015Q3.2015Q4.jaccard_top10.mean}} from 2015Q3 to
+2015Q4, against a floor median of
+{{n:main.xgboost.stability.jaccard_top10.q50}} and a 2.5th percentile of
+{{n:main.xgboost.stability.jaccard_top10.q2_5}}.",real_noise_floors.csv;temporal_pairs_real.csv,main.xgboost.2014Q1.2014Q2.jaccard_top10.mean;main.xgboost.2015Q3.2015Q4.jaccard_top10.mean;main.xgboost.stability.jaccard_top10.q50;main.xgboost.stability.jaccard_top10.q2_5,SUPPORTED
+C20,"LightGBM's corresponding
+values are {{n:main.lightgbm.2014Q1.2014Q2.jaccard_top10.mean}},
+{{n:main.lightgbm.2015Q3.2015Q4.jaccard_top10.mean}},
+{{n:main.lightgbm.stability.jaccard_top10.q50}} and
+{{n:main.lightgbm.stability.jaccard_top10.q2_5}}; random forest's are
+{{n:main.random_forest.2014Q1.2014Q2.jaccard_top10.mean}},
+{{n:main.random_forest.2015Q3.2015Q4.jaccard_top10.mean}},
+{{n:main.random_forest.stability.jaccard_top10.q50}} and
+{{n:main.random_forest.stability.jaccard_top10.q2_5}}.",real_noise_floors.csv;temporal_pairs_real.csv,main.lightgbm.2014Q1.2014Q2.jaccard_top10.mean;main.lightgbm.2015Q3.2015Q4.jaccard_top10.mean;main.lightgbm.stability.jaccard_top10.q50;main.lightgbm.stability.jaccard_top10.q2_5;main.random_forest.2014Q1.2014Q2.jaccard_top10.mean;main.random_forest.2015Q3.2015Q4.jaccard_top10.mean;main.random_forest.stability.jaccard_top10.q50;main.random_forest.stability.jaccard_top10.q2_5,SUPPORTED
+C21,"The share of family-by-group cells below the 2.5th
+percentile was {{n:main.H2c.value}} (95% CI {{n:main.H2c.ci_low}} to
+{{n:main.H2c.ci_high}}; Holm-adjusted p = {{n:main.H2c.p_holm}}), so the
+null of no group falling below its floor was not rejected at the 5%
+level; this share is not distinguishable from none.",real_statistics.csv,main.H2c.value;main.H2c.ci_low;main.H2c.ci_high;main.H2c.p_holm,SUPPORTED
+C22,"Group-level
+agreement is generally
+higher than feature-level agreement, which is expected because groups
+aggregate correlated columns; the group medians for XGBoost range from
+{{n:main.xgboost.cohort.borrower_capacity.group_cosine.median}} for
+borrower capacity to
+{{n:main.xgboost.cohort.credit_score.group_cosine.median}} for credit
+score, against a credit-score floor of
+{{n:main.xgboost.group.credit_score.group_cosine.q2_5}}.",group_pairs_real.csv;real_noise_floors.csv,main.xgboost.cohort.borrower_capacity.group_cosine.median;main.xgboost.cohort.credit_score.group_cosine.median;main.xgboost.group.credit_score.group_cosine.q2_5,SUPPORTED
+C23,"At the primary policy cell (`p* ≈ 0.167`, refer band ±0.02), the mean
+seed-pair flip rate in 2015Q4 is
+{{n:main.logistic_regression.2015Q4.flip_rate.mean}} for logistic
+regression, {{n:main.xgboost.2015Q4.flip_rate.mean}} for XGBoost,
+{{n:main.lightgbm.2015Q4.flip_rate.mean}} for LightGBM and
+{{n:main.random_forest.2015Q4.flip_rate.mean}} for random forest; the
+corresponding family seed floors (95th percentile) are
+{{n:main.logistic_regression.flip.seed_floor.q95}},
+{{n:main.xgboost.flip.seed_floor.q95}},
+{{n:main.lightgbm.flip.seed_floor.q95}} and
+{{n:main.random_forest.flip.seed_floor.q95}}.",flip_pairs_real.csv;real_noise_floors.csv,main.logistic_regression.2015Q4.flip_rate.mean;main.xgboost.2015Q4.flip_rate.mean;main.lightgbm.2015Q4.flip_rate.mean;main.random_forest.2015Q4.flip_rate.mean;main.logistic_regression.flip.seed_floor.q95;main.xgboost.flip.seed_floor.q95;main.lightgbm.flip.seed_floor.q95;main.random_forest.flip.seed_floor.q95,SUPPORTED
+C24,"The frozen H3a statistic is {{n:main.H3a.value}} (95% CI
+{{n:main.H3a.ci_low}} to {{n:main.H3a.ci_high}}; Holm-adjusted
+p = {{n:main.H3a.p_holm}}), so the null of zero difference from the seed
+floor was rejected — but the sign is negative.",real_statistics.csv,main.H3a.value;main.H3a.ci_low;main.H3a.ci_high;main.H3a.p_holm,SUPPORTED
+C25,"The family-level
+differences are {{n:main.H3a.logistic_regression}},
+{{n:main.H3a.xgboost}},
+{{n:main.H3a.lightgbm}} and
+{{n:main.H3a.random_forest}}; the positive value for logistic regression
+reflects its zero seed floor, not a large flip rate.",real_descriptives.csv,main.H3a.logistic_regression;main.H3a.xgboost;main.H3a.lightgbm;main.H3a.random_forest,SUPPORTED
+C26,"AUC in cohort `t` correlates
+{{n:main.ece.rho_base}} with AUC in `t+1`, so the baseline is close to
+one; all four reliability outcomes are associated with AUC far more
+weakly, and three of the four outcome correlations are negative.",rq4_cells_real.csv,main.ece.rho_base,SUPPORTED
+C27,"For ECE
+the outcome correlation is
+{{n:main.ece.rho_outcome}} against a baseline of {{n:main.ece.rho_base}};
+the delta is {{n:main.ece.delta}} (95% CI {{n:main.ece.ci_low}} to
+{{n:main.ece.ci_high}}; Holm-adjusted p = {{n:main.RQ4.1.p_holm}}), and the
+correlation is {{n:main.ece.region}} by the pre-registered equivalence
+rule.",real_statistics.csv;rq4_cells_real.csv,main.ece.rho_outcome;main.ece.rho_base;main.ece.delta;main.ece.ci_low;main.ece.ci_high;main.RQ4.1.p_holm;main.ece.region,SUPPORTED
+C28,"For `|slope − 1|` the outcome correlation is
+{{n:main.slope_dev.rho_outcome}} (delta {{n:main.slope_dev.delta}}, 95% CI
+{{n:main.slope_dev.ci_low}} to {{n:main.slope_dev.ci_high}};
+p = {{n:main.RQ4.2.p_holm}}; {{n:main.slope_dev.region}}).",real_statistics.csv;rq4_cells_real.csv,main.slope_dev.rho_outcome;main.slope_dev.delta;main.slope_dev.ci_low;main.slope_dev.ci_high;main.RQ4.2.p_holm;main.slope_dev.region,SUPPORTED
+C29,"For
+explanation stability the outcome correlation is
+{{n:main.expl_stability.rho_outcome}} (delta
+{{n:main.expl_stability.delta}}, 95% CI
+{{n:main.expl_stability.ci_low}} to {{n:main.expl_stability.ci_high}};
+p = {{n:main.RQ4.3.p_holm}}; {{n:main.expl_stability.region}}).",real_statistics.csv;rq4_cells_real.csv,main.expl_stability.rho_outcome;main.expl_stability.delta;main.expl_stability.ci_low;main.expl_stability.ci_high;main.RQ4.3.p_holm;main.expl_stability.region,SUPPORTED
+C30,"For the
+flip rate the outcome correlation is {{n:main.flip_rate.rho_outcome}}
+(delta {{n:main.flip_rate.delta}}, 95% CI {{n:main.flip_rate.ci_low}} to
+{{n:main.flip_rate.ci_high}}; p = {{n:main.RQ4.4.p_holm}};
+{{n:main.flip_rate.region}}).",real_statistics.csv;rq4_cells_real.csv,main.flip_rate.rho_outcome;main.flip_rate.delta;main.flip_rate.ci_low;main.flip_rate.ci_high;main.RQ4.4.p_holm;main.flip_rate.region,SUPPORTED
+M01,"By that reading the deployable arms do not recover the oracle gain for
+any family.",real_descriptives.csv,main.H1c-median.logistic_regression;main.H1c-median.xgboost;main.H1c-median.lightgbm;main.H1c-median.random_forest,SUPPORTED
+M02,"Figure 8 plots the four deltas. Only the
+slope-deviation outcome is classified as meaningful by the
+pre-registered region; the other three are inconclusive.",rq4_cells_real.csv,main.ece.rho_base;main.slope_dev.rho_outcome;main.expl_stability.rho_outcome;main.flip_rate.rho_outcome,SUPPORTED
+M03,"The results argue for
+monitoring reliability outcomes directly rather than treating
+discrimination as a sufficient proxy, and they separate what
+recalibration on historical labels can repair from what it cannot.",real_statistics.csv,main.RQ4.1.value;main.RQ4.1.ci_low;main.RQ4.1.ci_high,SUPPORTED
+M04,"A team that monitors only discrimination would have
+missed the calibration movement that H1a measures and the fact that
+recalibration moved fewer loans than reseeding, even where the ranking of
+borrowers was largely preserved.",real_statistics.csv,main.H1a.value;main.H3a.value,SUPPORTED

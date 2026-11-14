@@ -149,3 +149,57 @@ Verdict: PASS_WITH_FIXES -> fixes applied in the same commit set.
 
 
 
+
+### R-13.1 Builder-review (post-freeze statistics vs frozen definitions)  date: 2026-11-14
+Checked: `scripts/run_real_statistics.py` against CONTEXT.md SS7 and
+`configs/statistics.yaml`: H1a cluster bootstrap over the 20 deep
+configurations of |CITL_cohort| - |CITL_validation| (offset-GLM CITL,
+slope pinned at 1; clip 1e-6 before logit); H1c pooled recovery ratio
+with the frozen estimator and lag rank correlation (DEV-2 axis:
+label age 3-10 quarters); H2c share of family-by-group cells below the
+2.5th percentile of the pooled seed+bootstrap group-cosine floor; H3a
+recalibration flip rate minus the seed-floor q95 at the frozen policy
+cell (p* approx 0.167, refer band +-0.02); RQ4.1-4.4 pooled within-pair
+Spearman deltas on ONE shared cluster bootstrap design (B=2000,
+STAT_SEED=20261109); Holm applied once over the 8 confirmatory
+p-values. Verified: leakage guards untouched (no test rows in any fit);
+explicit seeds only, no hash(), no wall-clock seeding; battery
+per-family crash-safe writes and merge refuse schema drift;
+`export_numbers --source main` adapters read only `reports/tables/`.
+Findings:
+1. Verified the H3a sign convention end to end: a NEGATIVE statistic
+   means recalibration flips fewer loans than the seed floor. The
+   manuscript prose was checked to state this direction (SS7, SS10,
+   abstract, conclusion) - earlier draft language ("exceeds the floor")
+   was corrected before the release commit.
+2. Verified DEV-3 companions (median recovery, negative share, mean
+   Brier change) are descriptives only and do not enter any
+   confirmatory estimator; the Holm family is unchanged.
+3. Non-issue investigated: LR's positive H3a excess (+0.01094) traces
+   to its exactly-zero seed floor (deterministic solver), not to a
+   large flip rate; documented in the manuscript prose.
+Verdict: PASS.
+
+### R-13.2 Analyst-review (manuscript numbers, claims register, release hygiene)  date: 2026-11-14
+Checked: every empirical number in `paper/manuscript.md` (176
+placeholders) against `paper/numbers.json` via the strict renderer
+(zero missing keys, zero `{{n:` left in `manuscript_rendered.md`);
+every empirical sentence against `paper/claims.csv` (34 rows; exact
+substring test + key-existence test both pass; keys are main-prefixed
+and trace to `reports/tables/`); formulas vs CONTEXT.md SS7; figure
+captions vs the plotted tables (F5 caption corrected to "mean Brier
+change by family, arm and label age" to match
+`recovery_by_lag_real.png`); GATE1 neutrality (SS2 note intact, no
+bibliography, no priority/"first" claim added); banned-phrase grep
+clean; Table 3 vs `real_statistics.csv` re-derived independently from
+the printed statistics (values match to the printed precision).
+Findings:
+1. Verified the two direction-sensitive readings: H1c is NOT described
+   as partial recovery anywhere (denominator warning present, DEV-3
+   companions carry the interpretation); H3a is described as FEWER
+   flips than reseeding, never as exceeding the floor.
+2. Verified `notes/STATUS.md` numbers are observed values copied from
+   `real_statistics.csv`, not re-typed estimates.
+3. Verified the full-suite count (243 passed) and ruff result recorded
+   in `notes/STATUS.md` match the final release run.
+Verdict: PASS.

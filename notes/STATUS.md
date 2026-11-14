@@ -662,3 +662,87 @@ with owners and triggers. Still missing for my sign-off: the Zotero collection
   relaunched with unbuffered -u and liveness confirmed from log lines.
 - Suite 223 passed + 1 smoke test pending full-suite rerun; ruff
   clean; AI sweep clean at last commit.
+
+## Session 2026-11-12 (post-freeze, deep battery execution)
+
+- **DEV-1 logged before any result was seen** (`protocol/DEVIATIONS.md`).
+  The registered 20-seed x 30-bootstrap x 10,000-row-SHAP battery is
+  arithmetically infeasible on the project machine. Measured on the real
+  training window: RF cfg6 fit 206.9 s; RF interventional TreeSHAP
+  1.964 s/row = 327 min per 10,000-row model; RF path-dependent
+  5.57 s/row; XGB 0.024 s/row; LGBM 0.066 s/row; LR <0.001 s/row.
+  The T4.6 pilot's 12.9 s per 10,000 rows was an XGB-on-2.5k-rows
+  extrapolation and does not hold at real-scale forest depth.
+  Ratified lean design: 5 seed + 5 bootstrap refits per config (all 5
+  configs kept), SHAP at 1,000 rows for LR/XGB/LGBM, RF explained by
+  per-feature Brier permutation importance (R=3, 1,000 rows, T8.5
+  machinery, groups summed, Wasserstein omitted for RF). The seed-0
+  estimator is reused for the cohort battery; predictions are cached
+  once per model (the aggregate block previously re-predicted).
+- Battery runner hardened: `--families` comma subset, `--suffix`,
+  `--merge-only`, crash-safe per-family tables rewritten after every
+  config (`deep_agg_real__<family>.csv` etc.), and a merge step that
+  refuses missing families or schema drift. LR pilot re-ran end to end
+  with the new layout: 5 configs x (2 seeds + 3 boots), 51.7-78.9 s per
+  config, all six merged pilot tables written; pilot artifacts deleted.
+- Observed cohort facts committed as `reports/tables/real_cohorts.csv`
+  (train 84,594 / val 59,298 / 8 test cohorts 445,596, 147 unresolved
+  labels dropped, events 64,447 across the test cohorts). Matches the
+  loader counts exactly.
+- Real battery live: two background processes (RF alone; LR+XGB+LGBM)
+  writing `rf_log.txt` and `boost_log.txt`, per-family tables written
+  incrementally. Downstream added while it runs: `--source main` export
+  adapters (statistics/descriptives/floors/RQ4/recovery/battery/
+  temporal/group summaries), `scripts/report_real_cohorts.py`, and
+  `scripts/run_real_figures.py` (7 deterministic real-table figures).
+- New tests: 4 battery-helper tests + 3 real-adapter tests. Full-suite
+  count to be re-established at the end of the run.
+
+## Session 2026-11-14 (post-freeze results complete; release)
+
+- **Four-family battery finished.** All 20 deep-subset configurations
+  (5 per family: LR, XGBoost, LightGBM, random forest) completed 5 seed
+  refits + 5 bootstrap refits with recalibration arms, flip tracks and
+  stability pairs. Per-family crash-safe tables written incrementally
+  (`*_real__<family>.csv`) and merged (`*_real.csv`: 16,000 agg rows,
+  57,600 arm rows, 31,100 stability rows, 6,720 group rows). Job-log
+  timings (rf_log.txt / boost_log.txt) deleted with the logs at release;
+  the committed per-family tables are the durable evidence.
+- **Confirmatory statistics** (`scripts/run_real_statistics.py`, merged
+  tables, B=2000, STAT_SEED=20261109, Holm once over the 8 p-values),
+  exact values from `reports/tables/real_statistics.csv`:
+  H1a 0.045384 [0.016064, 0.082050] p_holm 0.002 reject_H0;
+  H1c -13.660196 [-25.959563, -4.776104] p_holm 0.000 reject_H0
+  (sign NEGATIVE - not "partial recovery"; see DEV-3 companions);
+  H2c 0.083333 [0.000000, 0.208333] p_holm 0.261 not_rejected
+  (only confirmatory null not rejected);
+  H3a -0.102468 [-0.122929, -0.073043] p_holm 0.000 reject_H0
+  (sign NEGATIVE: recalibration flips FEWER loans than reseeding;
+  per family LR +0.01094 / XGB -0.21371 / LGBM -0.17584 / RF -0.03127);
+  RQ4.1 -1.203654, RQ4.2 -1.643823, RQ4.3 -0.802744, RQ4.4 -1.123891,
+  all p_holm 0.000 reject_H0; only the slope-deviation outcome
+  (rho = -0.689) is classified meaningful by the pre-registered region,
+  the other three inconclusive.
+- Downstream regenerated deterministically: paper tables (1, 2, 3,
+  S1, S2), `protocol/HYPOTHESES_VERDICTS.md`, seven real figures,
+  `paper/numbers.json` (3,780 keys, `--source main`), rendered
+  manuscript (all 176 placeholders resolved; renderer strict).
+- **Manuscript results prose rewritten**: all five `{{n:...verdict}}`
+  placeholders replaced with explicit prose; abstract, SS5.1, SS5.2,
+  SS6, SS7, SS8, SS9 item 3, SS10, SS12 and Appendix B updated to the
+  observed directions (H1c negative/not a fraction; H3a negative/
+  fewer flips; H2c not rejected). Figure 5 description now matches the
+  plotted quantity (mean Brier change by family/arm/label age).
+- **Claim register filled**: `paper/claims.csv` now has 34 rows (30
+  auto-extracted empirical sentences + 4 manual qualitative rows), each
+  with an exact manuscript substring, evidence table(s) from
+  `numbers.json` and main-prefixed number keys. Enforcing tests pass.
+- DEV-1/2/3 stand as recorded in `protocol/DEVIATIONS.md`; no further
+  deviations. Confirmatory definitions unchanged since the freeze.
+- Final checks at release: ruff clean ("All checks passed!"); full test
+  suite **243 passed** (96.6 s); both no-collaboration greps clean (only
+  the known "installment" false positive); banned-phrase grep clean;
+  no `verdict}}` and no `{{n:` in the rendered manuscript;
+  rf_log.txt (approx 4 GB) and boost_log.txt deleted.
+- Commit: see the "Post-freeze results" commit on main (hash recorded
+  in the follow-up notes commit).

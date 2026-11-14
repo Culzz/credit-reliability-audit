@@ -56,10 +56,10 @@ LAGS = {  # quarters from the end of the calibration window (2013Q2)
 ADJACENT_PAIRS = tuple(itertools.pairwise(CUTOFF_COHORTS))
 EQUIVALENCE = (-0.3, 0.3)  # rq4.equivalence_region_spearman
 PRACTICAL_ANCHOR = 0.02    # H1a anchor: refer-band half-width
-RQ_KEYS = ("ece", "slope_dev", "expl_instability", "flip_rate")
+RQ_KEYS = ("ece", "slope_dev", "expl_stability", "flip_rate")
 RQ_IDS = {
     "ece": "RQ4.1", "slope_dev": "RQ4.2",
-    "expl_instability": "RQ4.3", "flip_rate": "RQ4.4",
+    "expl_stability": "RQ4.3", "flip_rate": "RQ4.4",
 }
 CONFIRMATORY = ("H1a", "H1c", "H2c", "H3a", "RQ4.1", "RQ4.2",
                 "RQ4.3", "RQ4.4")
@@ -137,7 +137,7 @@ def noise_floors(stab: pd.DataFrame, groups: pd.DataFrame,
                     "family": fam, "dimension": "group",
                     "label": f"{grp}:{col}",
                     "q2.5": _q(vals, 2.5), "q50": _q(vals, 50.0),
-                    "q95": _q(vals, 97.5), "n_pairs": len(vals),
+                    "q95": _q(vals, 95.0), "n_pairs": len(vals),
                 })
     seed_flips = flips[(flips.kind == "seed") & (flips.window != "train")]
     for fam, sub in seed_flips.groupby("family"):
@@ -169,6 +169,34 @@ def h1c_cells(arms: pd.DataFrame) -> pd.DataFrame:
                                                 "window": "cohort"})
     cells["lag"] = cells["cohort"].map(LAGS)
     return cells
+
+
+def h1c_interpretable(arms: pd.DataFrame) -> pd.DataFrame:
+    """Descriptive companions to the H1c ratio, per family.
+
+    The frozen recovery ratio divides by the within-cohort oracle gain,
+    which is tiny for well-calibrated cohorts; its mean is therefore
+    dominated by near-zero denominators. These rows report the median
+    ratio, the share of cells with a negative ratio, and the mean change
+    in Brier score (after - before, negative = improvement), which is a
+    stable quantity on the same cells.
+    """
+    sub = arms[(arms.kind == "seed") & (arms.arm != "none")
+               & (arms.metric.isin(["recovery", "brier_before",
+                                    "brier_after"]))]
+    wide = sub.pivot_table(index=["family", "config_index", "arm", "window"],
+                           columns="metric", values="value").reset_index()
+    wide["dbrier"] = wide["brier_after"] - wide["brier_before"]
+    out = []
+    for fam, g in wide.groupby("family"):
+        out.append({
+            "family": fam,
+            "median_recovery": float(g["recovery"].median()),
+            "negative_share": float((g["recovery"] < 0).mean()),
+            "mean_dbrier": float(g["dbrier"].mean()),
+            "n_cells": len(g),
+        })
+    return pd.DataFrame(out)
 
 
 def flip_units(flips: pd.DataFrame) -> pd.DataFrame:
@@ -256,7 +284,7 @@ def h2c_statistic(group_pairs: pd.DataFrame, floors_g: pd.DataFrame,
     shares = np.array([flags[_cluster_idxs(len(flags), rng)].mean()
                        for _ in range(B_HEADLINE)])
     share = float(flags.mean())
-    return share, shares
+    return share, shares, int(flags.size)
 
 
 def h3a_statistic(arms: pd.DataFrame, floors_flip: pd.DataFrame,
@@ -342,7 +370,9 @@ def rq4_statistics(units: pd.DataFrame, fu: pd.DataFrame,
         metrics = {
             "ece": ECE[t1].to_numpy(),
             "slope_dev": np.abs(1.0 - SLO[t1].to_numpy()),
-            "expl_instability": STAB[t].to_numpy(),
+            # Jaccard agreement of the frozen model entering t+1 (larger =
+            # more stable), matching the register's "shap-stability_{t+1}".
+            "expl_stability": STAB[t].to_numpy(),
             "flip_rate": FLIP[t1].to_numpy(),
             "auc": a_t1,
         }
@@ -439,11 +469,18 @@ def main() -> None:
     add_row("H1c-lag", "arm x lag cell means", "Spearman(lag, recovery)",
             lag_order, np.nan, np.nan, np.nan,
             "exploratory within H1c")
+    for row in h1c_interpretable(tables["deep_arms_real"]).itertuples(index=False):
+        for label, value in (("H1c-median", row.median_recovery),
+                             ("H1c-negshare", row.negative_share),
+                             ("H1c-brier", row.mean_dbrier)):
+            descriptives.append({"hypothesis": label, "family": row.family,
+                                 "value": round(float(value), 6)})
 
     # ---- H2c
-    share, shares = h2c_statistic(tables["group_pairs_real"],
-                                  floors[floors.dimension == "group"], fams)
-    add_row("H2c", f"{int(shares.size and len(shares))} family-group cells",
+    share, shares, n_cells = h2c_statistic(
+        tables["group_pairs_real"],
+        floors[floors.dimension == "group"], fams)
+    add_row("H2c", f"{n_cells} family-group cells",
             "share below floor 2.5th pct (group_cosine)", share,
             _q(shares, 2.5), _q(shares, 97.5), _boot_p(share, shares),
             "temporal median < floor q2.5 per cell")

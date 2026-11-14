@@ -1,0 +1,9 @@
+hypothesis,scope,statistic,value,ci_low,ci_high,p_raw,p_holm,verdict,note
+H1a,20 configurations,mean(|CITL_cohort| - |CITL_val|),0.045384,0.016064,0.08205,0.001,0.002,reject_H0,practical anchor |dCITL| >= 0.02
+H1c,20 configurations x 3 arms x 8 cohorts,mean recovery,-13.660196,-25.959563,-4.776104,0.0,0.0,reject_H0,partial recovery iff CI excludes 1
+H2c,24 family-group cells,share below floor 2.5th pct (group_cosine),0.083333,0.0,0.208333,0.261,0.261,not_rejected,temporal median < floor q2.5 per cell
+H3a,20 configuration x family rows,mean recalibration flip rate - seed floor q95,-0.102468,-0.122929,-0.073043,0.0,0.0,reject_H0,floor per family (T9.2d)
+RQ4.1,"20 clusters, 7 pairs","delta rho(AUC_t, ece_t+1) vs rho(AUC_t, AUC_t+1)",-1.203654,-1.62557,-0.645155,0.0,0.0,reject_H0,"rho outcome -0.249047 (CI -0.653018..0.259027, region inconclusive); baseline 0.954607"
+RQ4.2,"20 clusters, 7 pairs","delta rho(AUC_t, slope_dev_t+1) vs rho(AUC_t, AUC_t+1)",-1.643823,-1.879541,-1.165347,0.0,0.0,reject_H0,"rho outcome -0.689216 (CI -0.902606..-0.304402, region meaningful); baseline 0.954607"
+RQ4.3,"20 clusters, 7 pairs","delta rho(AUC_t, expl_stability_t+1) vs rho(AUC_t, AUC_t+1)",-0.802744,-1.193126,-0.399443,0.0,0.0,reject_H0,"rho outcome 0.151863 (CI -0.241906..0.536053, region inconclusive); baseline 0.954607"
+RQ4.4,"20 clusters, 7 pairs","delta rho(AUC_t, flip_rate_t+1) vs rho(AUC_t, AUC_t+1)",-1.123891,-1.592716,-0.499232,0.0,0.0,reject_H0,"rho outcome -0.169284 (CI -0.625543..0.406285, region inconclusive); baseline 0.954607"
