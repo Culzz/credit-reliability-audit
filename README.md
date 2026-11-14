@@ -2,7 +2,6 @@
 
 **Does accuracy predict reliability? A temporal audit of calibration, explanations and decisions in credit-risk models.**
 
-[![CI](https://github.com/Culzz/credit-reliability-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/Culzz/credit-reliability-audit/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Tests](https://img.shields.io/badge/tests-243%20passed-brightgreen)
